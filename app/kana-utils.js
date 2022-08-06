@@ -6,7 +6,7 @@ const katakanaData = require('./katakana.json');
 function getKanaRow(rowLetter) {
   const rowString = katakanaData.katakanaTable[rowLetter];
   const rowKana = split(rowString, '');
-  return rowKana.map(kana => ({ kana, romaji: katakanaData.katakanaToRomaji[kana]}))
+  return rowKana.map(kana => (kana !== ' ' ? { kana, romaji: katakanaData.katakanaToRomaji[kana]} : null))
 }
 
 function getKanaTable() {

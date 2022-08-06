@@ -4,9 +4,7 @@ import { getKanaTable } from './kana-utils';
 
 function Kana({ kana, onPress }) {
   return (
-    <Pressable
-      onPress={onPress}
-      style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}>
+    <Pressable onPress={onPress} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}>
       <View
         style={{
           height: 50,
@@ -26,7 +24,7 @@ function KanaRow({ items, onPressKana }) {
   return (
     <View style={{ flexDirection: 'row', justifyContent: 'space-around', paddingVertical: 10 }}>
       {items.map((item) => (
-        <Kana key={item.kana} kana={item} onPress={() => onPressKana(item)} />
+        item ? <Kana key={item.kana} kana={item} onPress={() => onPressKana(item)} /> : <View style={{ width: 50 }} />
       ))}
     </View>
   );
@@ -69,7 +67,6 @@ function KanaTypingOverlay({ typingKana }) {
 function KanaList() {
   const [typingKana, setTypingKana] = useState([]);
   const tableRows = getKanaTable();
-  console.log(typingKana);
   return (
     <View style={{ flex: 1 }}>
       <ScrollView>
