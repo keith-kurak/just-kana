@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { ScrollView, View, Text, Pressable } from 'react-native';
 import { getKanaTable } from './kana-utils';
+import KanaTypingOverlay from './components/KanaTypingOverlay';
 
 function Kana({ kana, onPress }) {
   return (
@@ -23,49 +24,37 @@ function Kana({ kana, onPress }) {
 function KanaRow({ items, onPressKana }) {
   return (
     <View style={{ flexDirection: 'row', justifyContent: 'space-around', paddingVertical: 10 }}>
-      {items.map((item) => (
-        item ? <Kana key={item.kana} kana={item} onPress={() => onPressKana(item)} /> : <View style={{ width: 50 }} />
-      ))}
-    </View>
-  );
-}
-
-function TypingKana({ kana }) {
-  return (
-    <View style={{ alignItems: 'center' }}>
-      <Text style={{ fontSize: 30 }}>{kana.kana}</Text>
-      <Text>{kana.romaji}</Text>
-    </View>
-  );
-}
-
-function KanaTypingOverlay({ typingKana }) {
-  if (!typingKana.length) {
-    return null;
-  }
-  return (
-    <View
-      style={{
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        bottom: 0,
-        height: 80,
-        backgroundColor: 'gray',
-        opacity: 0.8,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-      {typingKana.map((kana, index) => (
-        <TypingKana key={index.toString()} kana={kana} />
-      ))}
+      {items.map((item, index) =>
+        item ? (
+          <Kana key={item.kana} kana={item} onPress={() => onPressKana(item)} />
+        ) : (
+          <View key={index.toString()} style={{ width: 50 }} />
+        )
+      )}
     </View>
   );
 }
 
 function KanaList() {
   const [typingKana, setTypingKana] = useState([]);
+
+  const onPressKey = useCallback((key) => {
+    if (key === '<') {
+      if (typingKana.length === 1) {
+        setTypingKana([]);
+      } else {
+        setTypingKana(typingKana.slice(0, typingKana.length - 1));
+      }
+    }
+    if (key === '_') {
+      const newTypingKana = typingKana.slice();
+      newTypingKana.push({
+        kana: ' ',
+        romaji: ' ',
+      });
+      setTypingKana(newTypingKana);
+    }
+  });
   const tableRows = getKanaTable();
   return (
     <View style={{ flex: 1 }}>
@@ -82,7 +71,7 @@ function KanaList() {
           />
         ))}
       </ScrollView>
-      <KanaTypingOverlay typingKana={typingKana} />
+      <KanaTypingOverlay typingKana={typingKana} onPressKey={onPressKey} />
     </View>
   );
 }
