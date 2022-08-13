@@ -2,15 +2,16 @@ import { useState, useCallback } from 'react';
 import { ScrollView, View, Text, Pressable } from 'react-native';
 import { getKanaTable } from './kana-utils';
 import KanaTypingOverlay from './components/KanaTypingOverlay';
+import { LightenDarkenColor } from 'lighten-darken-color';
 
-function Kana({ kana, onPress }) {
+function Kana({ kana, onPress, color }) {
   return (
     <Pressable onPress={onPress} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}>
       <View
         style={{
           height: 50,
           width: 50,
-          backgroundColor: 'pink',
+          backgroundColor: color,
           borderRadius: 25,
           justifyContent: 'center',
           alignItems: 'center',
@@ -21,12 +22,12 @@ function Kana({ kana, onPress }) {
   );
 }
 
-function KanaRow({ items, onPressKana }) {
+function KanaRow({ items, onPressKana, color }) {
   return (
     <View style={{ flexDirection: 'row', justifyContent: 'space-around', paddingVertical: 10 }}>
       {items.map((item, index) =>
         item ? (
-          <Kana key={item.kana} kana={item} onPress={() => onPressKana(item)} />
+          <Kana color={LightenDarkenColor(color, 0 + 60 * (index / items.length ))} key={item.kana} kana={item} onPress={() => onPressKana(item)} />
         ) : (
           <View key={index.toString()} style={{ width: 50 }} />
         )
@@ -63,6 +64,7 @@ function KanaList() {
           <KanaRow
             key={index.toString()}
             items={row}
+            color={LightenDarkenColor('#0000FF', 50 + 80 * (index / tableRows.length))}
             onPressKana={(kana) => {
               const newTypingKana = typingKana.slice();
               newTypingKana.push(kana);
