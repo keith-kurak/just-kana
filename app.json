@@ -4,8 +4,8 @@
     "slug": "just-kana",
     "version": "1.0.0",
     "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
