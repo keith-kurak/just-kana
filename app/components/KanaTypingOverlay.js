@@ -47,6 +47,7 @@ function KanaTypingOverlay({ typingKana, onPressKey }) {
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <KeyboardKey title="<" onPress={() => onPressKey('<')} />
           <KeyboardKey title="_" onPress={() => onPressKey('_')} width={100} />
+          <KeyboardKey title="+" onPress={() => onPressKey('+')} />
         </View>
       </View>
     </View>

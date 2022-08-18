@@ -1,8 +1,10 @@
 import { useState, useCallback } from 'react';
 import { ScrollView, View, Text, Pressable } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { getKanaTable } from './kana-utils';
 import KanaTypingOverlay from './components/KanaTypingOverlay';
 import { useStyles } from './config/styles';
+import TopStatusBar from './components/TopStatusBar';
 
 function Kana({ kana, onPress, color }) {
   const { textStyles } = useStyles();
@@ -40,6 +42,7 @@ function KanaRow({ items, onPressKana, color }) {
 function KanaList() {
   const { colors } = useStyles();
   const [typingKana, setTypingKana] = useState([]);
+  const [savedWords, setSavedWords] = useState([]);
 
   const onPressKey = useCallback((key) => {
     if (key === '<') {
@@ -57,11 +60,18 @@ function KanaList() {
       });
       setTypingKana(newTypingKana);
     }
+    if (key === '+') {
+      const newSavedWords = savedWords.slice();
+      newSavedWords.push(typingKana);
+      setSavedWords(newSavedWords);
+      setTypingKana([]);
+    }
   });
   const tableRows = getKanaTable();
   return (
-    <View style={{ flex: 1, backgroundColor: colors.backgroundColor }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.backgroundColor }}>
       <ScrollView>
+        <TopStatusBar savedWords={savedWords} />
         {tableRows.map((row, index) => (
           <KanaRow
             key={index.toString()}
@@ -74,9 +84,10 @@ function KanaList() {
             }}
           />
         ))}
+        <View style={{ height: 130 }} />
       </ScrollView>
       <KanaTypingOverlay typingKana={typingKana} onPressKey={onPressKey} />
-    </View>
+    </SafeAreaView>
   );
 }
 
