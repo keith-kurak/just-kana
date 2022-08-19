@@ -1,5 +1,7 @@
 import React from 'react';
 import { View, Text, Pressable } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import ReadingKana from './characters/ReadingKana';
 
 function KeyboardKey({ title, onPress, width = undefined }) {
   return (
@@ -15,19 +17,13 @@ function KeyboardKey({ title, onPress, width = undefined }) {
   );
 }
 
-function TypingKana({ kana }) {
-  return (
-    <View style={{ alignItems: 'center' }}>
-      <Text style={{ fontSize: 30, }}>{kana.kana}</Text>
-      <Text>{kana.romaji}</Text>
-    </View>
-  );
-}
-
 function KanaTypingOverlay({ typingKana, onPressKey }) {
+  const insets = useSafeAreaInsets();
+
   if (!typingKana.length) {
     return null;
   }
+
   return (
     <View
       style={{
@@ -38,10 +34,10 @@ function KanaTypingOverlay({ typingKana, onPressKey }) {
         backgroundColor: 'gray',
         opacity: 0.8,
       }}>
-      <View>
+      <View style={{ marginBottom: insets.bottom }}>
         <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
           {typingKana.map((kana, index) => (
-            <TypingKana key={index.toString()} kana={kana} />
+            <ReadingKana key={index.toString()} kana={kana} />
           ))}
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>

@@ -1,8 +1,7 @@
+import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import KanaList from './app/KanaList';
+import {  View } from 'react-native';
 import Screens from './app/screens';
-import KanaScreen from './app/screens/KanaScreen';
 
 export default function App() {
   return (
