@@ -2,15 +2,17 @@ import React from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import ReadingKana from './characters/ReadingKana';
+import { useStyles } from '../config/styles';
 
 function KeyboardKey({ title, onPress, width = undefined }) {
+  const { sizes } = useStyles();
   return (
     <Pressable
       onPress={onPress}
       style={({ pressed }) => [
-        { opacity: pressed ? 0.5 : 1, marginHorizontal: 10, marginVertical: 5 },
+        { opacity: pressed ? 0.5 : 1, marginHorizontal: sizes.large, marginVertical: sizes.small },
       ]}>
-      <View style={{ alignItems: 'center', borderWidth: 1, borderColor: 'white', padding: 5, width }}>
+      <View style={{ alignItems: 'center', borderWidth: 1, borderColor: 'white', padding: sizes.small / 2, width }}>
         <Text style={{ fontSize: 30, color: 'white' }}>{title}</Text>
       </View>
     </Pressable>
@@ -32,7 +34,7 @@ function KanaTypingOverlay({ typingKana, onPressKey }) {
         right: 0,
         bottom: 0,
         backgroundColor: 'gray',
-        opacity: 0.8,
+        opacity: 0.9,
       }}>
       <View style={{ marginBottom: insets.bottom }}>
         <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>

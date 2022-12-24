@@ -7,15 +7,15 @@ import { useStyles } from '../config/styles';
 import TopStatusBar from './TopStatusBar';
 
 function Kana({ kana, onPress, color }) {
-  const { textStyles } = useStyles();
+  const { textStyles, sizes } = useStyles();
   return (
     <Pressable onPress={onPress} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}>
       <View
         style={{
-          height: 50,
-          width: 50,
+          height: sizes.kanaButtonDiameter,
+          width: sizes.kanaButtonDiameter,
           backgroundColor: color,
-          borderRadius: 25,
+          borderRadius: sizes.kanaButtonDiameter / 2,
           justifyContent: 'center',
           alignItems: 'center',
         }}>
@@ -26,27 +26,40 @@ function Kana({ kana, onPress, color }) {
 }
 
 function KanaRow({ items, onPressKana, color }) {
+  const { sizes } = useStyles();
   return (
-    <View style={{ flexDirection: 'row', justifyContent: 'space-around', paddingVertical: 10 }}>
+    <View
+      style={{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: sizes.small,
+        paddingHorizontal: sizes.large,
+      }}>
       {items.map((item, index) =>
         item ? (
           <Kana color={color} key={item.kana} kana={item} onPress={() => onPressKana(item)} />
         ) : (
-          <View key={index.toString()} style={{ width: 50 }} />
+          <View key={index.toString()} style={{ width: sizes.kanaButtonDiameter }} />
         )
       )}
     </View>
   );
 }
 
-function KanaList({ onPressKana, typingKana, onPressKeyboardKey, savedWords, onPressShowWordList }) {
-  const { colors } = useStyles();
+function KanaList({
+  onPressKana,
+  typingKana,
+  onPressKeyboardKey,
+  savedWords,
+  onPressShowWordList,
+}) {
+  const { colors, sizes } = useStyles();
   const insets = useSafeAreaInsets();
-  
+
   const tableRows = getKanaTable();
   return (
     <View style={{ flex: 1, backgroundColor: colors.backgroundColor }}>
-      <ScrollView contentContainerStyle={{ marginTop: insets.top + 50 }}>
+      <ScrollView contentContainerStyle={{ marginTop: insets.top + sizes.topBar }}>
         {tableRows.map((row, index) => (
           <KanaRow
             key={index.toString()}
@@ -55,10 +68,10 @@ function KanaList({ onPressKana, typingKana, onPressKeyboardKey, savedWords, onP
             onPressKana={onPressKana}
           />
         ))}
-        <View style={{ height: 160 + insets.bottom }} />
+        <View style={{ height: 240 + insets.bottom }} />
       </ScrollView>
       <KanaTypingOverlay typingKana={typingKana} onPressKey={onPressKeyboardKey} />
-      <TopStatusBar savedWords={savedWords} onPressShowWordList={onPressShowWordList} />
+      <TopStatusBar showVowels={true} savedWords={savedWords} onPressShowWordList={onPressShowWordList} />
     </View>
   );
 }
