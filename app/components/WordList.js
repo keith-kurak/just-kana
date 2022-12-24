@@ -17,7 +17,7 @@ export default function WordList({ words }) {
   return (
     <FlatList
       contentContainerStyle={{ flex: 1 }}
-      style={{ flex: 1, marginTop: 50 }}
+      style={{ flex: 1 }}
       data={words}
       renderItem={renderItem}
     />

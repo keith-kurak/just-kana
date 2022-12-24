@@ -46,8 +46,7 @@ function KanaList({ onPressKana, typingKana, onPressKeyboardKey, savedWords, onP
   const tableRows = getKanaTable();
   return (
     <View style={{ flex: 1, backgroundColor: colors.backgroundColor }}>
-      <ScrollView contentContainerStyle={{ marginTop: insets.top }}>
-        <TopStatusBar savedWords={savedWords} onPressShowWordList={onPressShowWordList} />
+      <ScrollView contentContainerStyle={{ marginTop: insets.top + 50 }}>
         {tableRows.map((row, index) => (
           <KanaRow
             key={index.toString()}
@@ -59,6 +58,7 @@ function KanaList({ onPressKana, typingKana, onPressKeyboardKey, savedWords, onP
         <View style={{ height: 160 + insets.bottom }} />
       </ScrollView>
       <KanaTypingOverlay typingKana={typingKana} onPressKey={onPressKeyboardKey} />
+      <TopStatusBar savedWords={savedWords} onPressShowWordList={onPressShowWordList} />
     </View>
   );
 }
