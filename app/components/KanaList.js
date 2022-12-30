@@ -1,10 +1,27 @@
 import { useState, useCallback } from 'react';
 import { ScrollView, View, Text, Pressable } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { getKanaTable } from '../kana-utils';
+import { getKanaTable, rowIndexToConsonant } from '../kana-utils';
 import KanaTypingOverlay from './KanaTypingOverlay';
 import { useStyles } from '../config/styles';
 import TopStatusBar from './TopStatusBar';
+
+function Consonant({ text, show }) {
+  const { textStyles, colors, sizes } = useStyles();
+  const myText = !show || text.startsWith('~') ? ' ' : text;
+  return (
+    <Text
+      style={{
+        width: sizes.verticalKey,
+        fontSize: 16,
+        textAlign: 'center',
+        color: colors.buttonTextColor,
+        alignSelf: 'center',
+      }}>
+      {myText}
+    </Text>
+  );
+}
 
 function Kana({ kana, onPress, color }) {
   const { textStyles, sizes } = useStyles();
@@ -25,23 +42,27 @@ function Kana({ kana, onPress, color }) {
   );
 }
 
-function KanaRow({ items, onPressKana, color }) {
+function KanaRow({ items, onPressKana, color, consonant, showConsonant }) {
   const { sizes } = useStyles();
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingVertical: sizes.small,
-        paddingHorizontal: sizes.large,
-      }}>
-      {items.map((item, index) =>
-        item ? (
-          <Kana color={color} key={item.kana} kana={item} onPress={() => onPressKana(item)} />
-        ) : (
-          <View key={index.toString()} style={{ width: sizes.kanaButtonDiameter }} />
-        )
-      )}
+    <View style={{ flexDirection: 'row' }}>
+      <Consonant text={consonant} show={showConsonant} />
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          paddingVertical: sizes.small,
+          paddingRight: sizes.verticalKey,
+          flex: 1,
+        }}>
+        {items.map((item, index) =>
+          item ? (
+            <Kana color={color} key={item.kana} kana={item} onPress={() => onPressKana(item)} />
+          ) : (
+            <View key={index.toString()} style={{ width: sizes.kanaButtonDiameter }} />
+          )
+        )}
+      </View>
     </View>
   );
 }
@@ -52,6 +73,8 @@ function KanaList({
   onPressKeyboardKey,
   savedWords,
   onPressShowWordList,
+  showVowelsAndConsonants = true,
+  onChangeSetting,
 }) {
   const { colors, sizes } = useStyles();
   const insets = useSafeAreaInsets();
@@ -62,7 +85,9 @@ function KanaList({
       <ScrollView contentContainerStyle={{ marginTop: insets.top + sizes.topBar }}>
         {tableRows.map((row, index) => (
           <KanaRow
-            key={index.toString()}
+            key={rowIndexToConsonant(index)}
+            consonant={rowIndexToConsonant(index)}
+            showConsonant={showVowelsAndConsonants}
             items={row}
             color={colors.buttonColor}
             onPressKana={onPressKana}
@@ -71,7 +96,12 @@ function KanaList({
         <View style={{ height: 240 + insets.bottom }} />
       </ScrollView>
       <KanaTypingOverlay typingKana={typingKana} onPressKey={onPressKeyboardKey} />
-      <TopStatusBar showVowels={true} savedWords={savedWords} onPressShowWordList={onPressShowWordList} />
+      <TopStatusBar
+        showVowels={showVowelsAndConsonants}
+        savedWords={savedWords}
+        onPressShowWordList={onPressShowWordList}
+        onChangeSetting={onChangeSetting}
+      />
     </View>
   );
 }

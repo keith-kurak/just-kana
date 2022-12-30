@@ -18,4 +18,8 @@ function getKanaTable() {
   return tableRows;
 }
 
-export { getKanaTable };
+function rowIndexToConsonant(index) {
+  return katakanaData.tableRows[index];
+}
+
+export { getKanaTable, rowIndexToConsonant };

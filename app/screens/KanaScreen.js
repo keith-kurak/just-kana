@@ -3,7 +3,7 @@ import KanaList from '../components/KanaList';
 import { useAppState } from '../stores';
 
 export default function ({ navigation }) {
-  const { savedWords, addWord } = useAppState();
+  const { savedWords, addWord, settings, setSetting } = useAppState();
   const [typingKana, setTypingKana] = useState([]);
 
   const onPressKey = useCallback((key) => {
@@ -41,6 +41,8 @@ export default function ({ navigation }) {
       savedWords={savedWords}
       onPressKeyboardKey={onPressKey}
       onPressShowWordList={() => navigation.navigate('Words')}
+      showVowelsAndConsonants={settings['showVowelsAndConsonants']}
+      onChangeSetting={setSetting}
     />
   );
 }

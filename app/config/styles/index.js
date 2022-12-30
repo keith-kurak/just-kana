@@ -28,13 +28,14 @@ const useStyles = function() {
   }
 
   const sizes = {
-    topBar: 40,
+    verticalKey: 32,
+    topBar: 60,
     small: 8,
     medium: 12,
     large: 16,
-    kanaButtonDiameter: Math.min((width - (16 * 2) / 7), 50),
+    kanaButtonDiameter: Math.min((width - (32 * 2) / 6), 50),
   };
-  const colors = { buttonColor, backgroundColor };
+  const colors = { buttonColor, backgroundColor, buttonTextColor: buttonTextStyle.color };
   const textStyles = {
     buttonTextStyle,
     smallDark
