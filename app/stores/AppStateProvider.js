@@ -1,5 +1,8 @@
 import { createContext, useState, useContext, useCallback, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {DateTime} from 'luxon';
+
+//AsyncStorage.setItem('@saved_words', JSON.stringify([]));
 
 //create a context, with createContext api
 export const AppStateContext = createContext();
@@ -18,7 +21,7 @@ const AppStateProvider = (props) => {
 
   const addWord = useCallback(wordKana => {
     const newSavedWords = savedWords.slice();
-    newSavedWords.push(wordKana);
+    newSavedWords.push({ word: wordKana, date: DateTime.local().toISO() });
     setSavedWords(newSavedWords);
     const jsonValue = JSON.stringify(newSavedWords)
     AsyncStorage.setItem('@saved_words', jsonValue);

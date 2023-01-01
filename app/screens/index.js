@@ -15,7 +15,7 @@ export default function () {
         <NavigationContainer>
           <Stack.Navigator
             screenOptions={{
-              presentation: 'modal',
+              //presentation: 'modal',
               header: () => null,
             }}>
             <Stack.Screen name="Home" component={KanaScreen} />

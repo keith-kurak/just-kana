@@ -18,6 +18,11 @@ const useStyles = function() {
     fontSize: 18,
   }
 
+  let smallLight = {
+    color: 'gray',
+    fontSize: 18,
+  }
+
   let backgroundColor = white;
 
   if (colorScheme === 'dark') {
@@ -38,7 +43,8 @@ const useStyles = function() {
   const colors = { buttonColor, backgroundColor, buttonTextColor: buttonTextStyle.color };
   const textStyles = {
     buttonTextStyle,
-    smallDark
+    smallDark,
+    smallLight
   }
 
   return {

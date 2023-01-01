@@ -19,19 +19,28 @@ function Consonant({ text, show }) {
 }
 
 function DakutenIndicator({ hasHandakuten }) {
-  const { textStyles, colors, sizes } = useStyles();
-  const myText = hasHandakuten ? '⋅\n⋅' : '⋅';
-  return (
-    <Text
-      style={{
-        width: sizes.verticalKey,
-        fontSize: 16,
-        textAlign: 'center',
-        color: colors.buttonTextColor,
-        alignSelf: 'center',
-      }}>
-      {myText}
+  const { colors, sizes } = useStyles();
+  const dakuten = '゛';
+  const handakuten = '゜';
+  const wrapDakuten = (symbol) => (
+    <Text key={symbol} style={{ fontSize: 26, color: colors.buttonTextColor, textAlign: 'center' }}>
+      {symbol}
     </Text>
+  );
+  const inner = hasHandakuten
+    ? [wrapDakuten(dakuten), wrapDakuten(handakuten)]
+    : wrapDakuten(dakuten);
+  return (
+    <View
+      style={{
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: sizes.verticalKey,
+        paddingTop: 10,
+        paddingLeft: 10,
+      }}>
+      {inner}
+    </View>
   );
 }
 
