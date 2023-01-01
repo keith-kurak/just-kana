@@ -1,10 +1,15 @@
 import React, { useState, useCallback } from 'react';
-import KanaList from '../components/KanaList';
+import { View } from 'react-native';
+import KanaList from '../components/kana-list';
+import TopStatusBar from '../components/TopStatusBar';
+import KanaTypingOverlay from '../components/KanaTypingOverlay';
 import { useAppState } from '../stores';
+import { useStyles } from '../config/styles';
 
 export default function ({ navigation }) {
   const { savedWords, addWord, settings, setSetting } = useAppState();
   const [typingKana, setTypingKana] = useState([]);
+  const { colors } = useStyles();
 
   const onPressKey = useCallback((key) => {
     if (key === '<') {
@@ -35,14 +40,18 @@ export default function ({ navigation }) {
   });
 
   return (
-    <KanaList
-      typingKana={typingKana}
-      onPressKana={onPressKana}
-      savedWords={savedWords}
-      onPressKeyboardKey={onPressKey}
-      onPressShowWordList={() => navigation.navigate('Words')}
-      showVowelsAndConsonants={settings['showVowelsAndConsonants']}
-      onChangeSetting={setSetting}
-    />
+    <View style={{ flex: 1, backgroundColor: colors.backgroundColor }}>
+      <KanaList
+        onPressKana={onPressKana}
+        showConsonants={settings['showVowelsAndConsonants']}
+      />
+      <KanaTypingOverlay typingKana={typingKana} onPressKey={onPressKey} />
+      <TopStatusBar
+        showVowels={settings['showVowelsAndConsonants']}
+        savedWords={savedWords}
+        onPressShowWordList={() => navigation.navigate('Words')}
+        onChangeSetting={setSetting}
+      />
+    </View>
   );
 }
