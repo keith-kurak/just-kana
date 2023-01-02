@@ -34,10 +34,10 @@ export default function ({ savedWords, onPressShowWordList, showVowels = true, o
         right: 0,
         top: 0,
         justifyContent: 'space-between',
+        backgroundColor: colors.backgroundColor + '99',
       }}>
       <View
         style={{
-          backgroundColor: colors.backgroundColor + '99',
           marginTop: insets.top,
         }}>
         <Toolbar
