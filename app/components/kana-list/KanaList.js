@@ -15,7 +15,7 @@ function KanaList({ onPressKana, showConsonants = true }) {
 
   const tableRows = getKanaTable();
   return (
-    <ScrollView contentContainerStyle={{ marginTop: insets.top + sizes.topBar }}>
+    <ScrollView contentContainerStyle={{ marginTop: insets.top + sizes.expandedTopBar }}>
       {tableRows.map((row, index) => {
         const primaryConsonant = rowIndexToConsonant(index);
         return (

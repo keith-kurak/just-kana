@@ -13,7 +13,7 @@ function KeyboardKey({ title, onPress, width = undefined }) {
         { opacity: pressed ? 0.5 : 1, marginHorizontal: sizes.large, marginVertical: sizes.small },
       ]}>
       <View style={{ alignItems: 'center', borderWidth: 1, borderColor: 'white', padding: sizes.small / 2, width }}>
-        <Text style={{ fontSize: 30, color: 'white' }}>{title}</Text>
+        <Text allowFontScaling={false} style={{ fontSize: 30, color: 'white' }}>{title}</Text>
       </View>
     </Pressable>
   );

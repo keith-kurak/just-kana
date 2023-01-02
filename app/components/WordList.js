@@ -22,7 +22,7 @@ export default function WordList({ words }) {
   });
 
   const renderSectionHeader = useCallback(({ section: { title } }) => (
-    <Text style={[{ paddingLeft: sizes.small }, textStyles.smallLight]}>
+    <Text allowFontScaling={false} style={[{ paddingLeft: sizes.small }, textStyles.smallLight]}>
       {DateTime.fromSQL(title).toLocaleString(DateTime.DATE_MED)}
     </Text>
   ));

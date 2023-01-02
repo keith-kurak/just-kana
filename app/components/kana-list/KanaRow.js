@@ -6,6 +6,7 @@ function Consonant({ text, show }) {
   const myText = !show || text.startsWith('~') ? ' ' : text;
   return (
     <Text
+      allowFontScaling={false}
       style={{
         width: sizes.verticalKey,
         fontSize: 16,
@@ -23,7 +24,10 @@ function DakutenIndicator({ hasHandakuten }) {
   const dakuten = '゛';
   const handakuten = '゜';
   const wrapDakuten = (symbol) => (
-    <Text key={symbol} style={{ fontSize: 26, color: colors.buttonTextColor, textAlign: 'center' }}>
+    <Text
+      allowFontScaling={false}
+      key={symbol}
+      style={{ fontSize: 26, color: colors.buttonTextColor, textAlign: 'center' }}>
       {symbol}
     </Text>
   );
@@ -57,7 +61,9 @@ function Kana({ kana, onPress, color }) {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <Text style={textStyles.buttonTextStyle}>{kana.kana}</Text>
+        <Text allowFontScaling={false} style={textStyles.buttonTextStyle}>
+          {kana.kana}
+        </Text>
       </View>
     </Pressable>
   );

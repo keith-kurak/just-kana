@@ -11,12 +11,12 @@ export default function MinimalNavbarWrapper({ children }) {
   const { colors } = useStyles();
   return (
     <View style={{ flex: 1, paddingTop: insets.top, backgroundColor: colors.backgroundColor }}>
-      <View style={{ height: 45, justifyContent: 'center', paddingLeft: 8 }}>
+      <View style={{ height: 56, justifyContent: 'center', paddingLeft: 8 }}>
         <Pressable
           onPress={() => {
             navigation.goBack();
           }}>
-          <Ionicons name="arrow-back" size={32} color={colors.buttonTextColor} />
+          <Ionicons name="arrow-back" size={40} color={colors.buttonTextColor} />
         </Pressable>
       </View>
       {children}

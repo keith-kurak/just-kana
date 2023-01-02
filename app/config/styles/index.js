@@ -2,6 +2,7 @@ import { useColorScheme, useWindowDimensions } from "react-native"
 
 const white = '#FFFFFF';
 const black = '#000000';
+const notQuiteBlack = '#222222';
 
 const useStyles = function() {
   const colorScheme = useColorScheme();
@@ -26,7 +27,7 @@ const useStyles = function() {
   let backgroundColor = white;
 
   if (colorScheme === 'dark') {
-    backgroundColor = black;
+    backgroundColor = notQuiteBlack;
     buttonColor = 'blue';
     buttonTextStyle.color = white;
     smallDark.color = white;
@@ -34,7 +35,8 @@ const useStyles = function() {
 
   const sizes = {
     verticalKey: 32,
-    topBar: 60,
+    topBar: 56,
+    expandedTopBar: 80,
     small: 8,
     medium: 12,
     large: 16,

@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { View } from 'react-native';
 import KanaList from '../components/kana-list';
-import TopStatusBar from '../components/TopStatusBar';
+import TopBar from '../components/top-bar';
 import KanaTypingOverlay from '../components/KanaTypingOverlay';
 import { useAppState } from '../stores';
 import { useStyles } from '../config/styles';
@@ -46,7 +46,7 @@ export default function ({ navigation }) {
         showConsonants={settings['showVowelsAndConsonants']}
       />
       <KanaTypingOverlay typingKana={typingKana} onPressKey={onPressKey} />
-      <TopStatusBar
+      <TopBar
         showVowels={settings['showVowelsAndConsonants']}
         savedWords={savedWords}
         onPressShowWordList={() => navigation.navigate('Words')}
