@@ -51,6 +51,7 @@ export default function ({ navigation }) {
         savedWords={savedWords}
         onPressShowWordList={() => navigation.navigate('Words')}
         onChangeSetting={setSetting}
+        typingKana={typingKana}
       />
     </View>
   );

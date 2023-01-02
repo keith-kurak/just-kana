@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import ReadingKana from './characters/ReadingKana';
 import { useStyles } from '../config/styles';
 
 function KeyboardKey({ title, onPress, width = undefined }) {
@@ -21,6 +20,7 @@ function KeyboardKey({ title, onPress, width = undefined }) {
 
 function KanaTypingOverlay({ typingKana, onPressKey }) {
   const insets = useSafeAreaInsets();
+  const { colors } = useStyles();
 
   if (!typingKana.length) {
     return null;
@@ -33,15 +33,9 @@ function KanaTypingOverlay({ typingKana, onPressKey }) {
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'gray',
-        opacity: 0.9,
+        backgroundColor: colors.overlayColor,
       }}>
       <View style={{ marginBottom: insets.bottom }}>
-        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-          {typingKana.map((kana, index) => (
-            <ReadingKana key={index.toString()} kana={kana} />
-          ))}
-        </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <KeyboardKey title="<" onPress={() => onPressKey('<')} />
           <KeyboardKey title="_" onPress={() => onPressKey('_')} width={100} />

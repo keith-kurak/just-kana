@@ -3,6 +3,7 @@ import { View, Text, Pressable } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useStyles } from '../../config/styles';
 import Toolbar from './Toolbar';
+import TypedWordOverlay from './TypedWordOverlay';
 
 function Vowel({ text, show }) {
   const { textStyles, colors, sizes } = useStyles();
@@ -14,16 +15,24 @@ function Vowel({ text, show }) {
         fontSize: 16,
         textAlign: 'center',
         paddingBottom: sizes.small,
-        color: colors.buttonTextColor,
+        color: colors.secondaryTextColor,
       }}>
       {show ? text : ''}
     </Text>
   );
 }
 
-export default function ({ savedWords, onPressShowWordList, showVowels = true, onChangeSetting }) {
+export default function ({
+  savedWords,
+  onPressShowWordList,
+  showVowels = true,
+  onChangeSetting,
+  typingKana,
+}) {
   const { colors, sizes } = useStyles();
   const insets = useSafeAreaInsets();
+
+  const showWordOverlay = typingKana.length > 0;
 
   return (
     <View
@@ -34,18 +43,22 @@ export default function ({ savedWords, onPressShowWordList, showVowels = true, o
         right: 0,
         top: 0,
         justifyContent: 'space-between',
-        backgroundColor: colors.backgroundColor + '99',
+        backgroundColor: showWordOverlay ? colors.overlayColor : colors.backgroundColor + '99',
       }}>
       <View
         style={{
           marginTop: insets.top,
         }}>
-        <Toolbar
-          onChangeSetting={onChangeSetting}
-          showVowels={showVowels}
-          onPressShowWordList={onPressShowWordList}
-          savedWords={savedWords}
-        />
+        {showWordOverlay ? (
+          <TypedWordOverlay typingKana={typingKana} />
+        ) : (
+          <Toolbar
+            onChangeSetting={onChangeSetting}
+            showVowels={showVowels}
+            onPressShowWordList={onPressShowWordList}
+            savedWords={savedWords}
+          />
+        )}
       </View>
       <View
         style={{

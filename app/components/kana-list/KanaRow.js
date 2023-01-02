@@ -11,7 +11,7 @@ function Consonant({ text, show }) {
         width: sizes.verticalKey,
         fontSize: 16,
         textAlign: 'center',
-        color: colors.buttonTextColor,
+        color: colors.secondaryTextColor,
         alignSelf: 'center',
       }}>
       {myText}
@@ -27,7 +27,7 @@ function DakutenIndicator({ hasHandakuten }) {
     <Text
       allowFontScaling={false}
       key={symbol}
-      style={{ fontSize: 26, color: colors.buttonTextColor, textAlign: 'center' }}>
+      style={{ fontSize: 26, color: colors.secondaryTextColor, textAlign: 'center' }}>
       {symbol}
     </Text>
   );

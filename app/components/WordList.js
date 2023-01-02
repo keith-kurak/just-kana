@@ -4,11 +4,13 @@ import { groupBy, sortBy, keys } from 'lodash';
 import { DateTime } from 'luxon';
 import ReadingKana from './characters/ReadingKana';
 import { useStyles } from '../config/styles';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const keyExtractor = (item, index) => index.toString();
 
 export default function WordList({ words }) {
   const { textStyles, sizes } = useStyles();
+  const insets = useSafeAreaInsets();
 
   const renderItem = useCallback(({ item }) => {
     console.log(item);
@@ -27,20 +29,19 @@ export default function WordList({ words }) {
     </Text>
   ));
 
-  const groups = groupBy(words, (w) => DateTime.fromISO(w.date).toFormat('yyyy-MM-dd'));
+  const groups = groupBy(sortBy(words, (w) => w.date).reverse(), (w) =>
+    DateTime.fromISO(w.date).toFormat('yyyy-MM-dd')
+  );
 
-  let sections = sortBy(
-    keys(groups).map((key) => ({ title: key, data: groups[key] })),
-    'title'
-  ).reverse();
+  let sections = keys(groups).map((key) => ({ title: key, data: groups[key] }));
 
   return (
     <SectionList
-      contentContainerStyle={{ flex: 1 }}
-      style={{ flex: 1 }}
       sections={sections}
       renderItem={renderItem}
       renderSectionHeader={renderSectionHeader}
+      renderSectionFooter={() => <View style={{ height: 20 }} />}
+      ListFooterComponent={() => <View style={{ height: insets.bottom }} />}
     />
   );
 }
