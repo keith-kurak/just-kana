@@ -2,8 +2,8 @@ import React, { useCallback } from 'react';
 import { SectionList, View, Text } from 'react-native';
 import { groupBy, sortBy, keys } from 'lodash';
 import { DateTime } from 'luxon';
-import ReadingKana from './characters/ReadingKana';
-import { useStyles } from '../config/styles';
+import ReadingKana from '../characters/ReadingKana';
+import { useStyles } from '../../config/styles';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const keyExtractor = (item, index) => index.toString();

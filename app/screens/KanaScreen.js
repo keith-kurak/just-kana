@@ -7,7 +7,7 @@ import { useAppState } from '../stores';
 import { useStyles } from '../config/styles';
 
 export default function ({ navigation }) {
-  const { savedWords, addWord, settings, setSetting } = useAppState();
+  const { savedWords, addWord, settings, setSetting, requestTranslation } = useAppState();
   const [typingKana, setTypingKana] = useState([]);
   const { colors } = useStyles();
 
@@ -29,6 +29,7 @@ export default function ({ navigation }) {
     }
     if (key === '+') {
       addWord(typingKana);
+      //requestTranslation(typingKana.map((kana) => kana.kana).join(''));
       setTypingKana([]);
     }
   });
