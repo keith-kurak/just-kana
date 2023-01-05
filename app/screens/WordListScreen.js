@@ -5,7 +5,6 @@ import MinimalNavbarWrapper from '../components/MinimalNavbarWrapper';
 
 export default function () {
   const { savedWords } = useAppState();
-  console.log(savedWords);
   return (
     <MinimalNavbarWrapper>
       <WordList words={savedWords} />

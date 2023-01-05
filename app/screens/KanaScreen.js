@@ -32,6 +32,15 @@ export default function ({ navigation }) {
       //requestTranslation(typingKana.map((kana) => kana.kana).join(''));
       setTypingKana([]);
     }
+    // nabasu mark
+    if (key === 'ー') {
+      const newTypingKana = typingKana.slice();
+      newTypingKana.push({
+        kana: 'ー',
+        romaji: '',
+      });
+      setTypingKana(newTypingKana);
+    }
   });
 
   const onPressKana = useCallback((kana) => {

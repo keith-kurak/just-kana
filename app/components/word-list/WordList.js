@@ -13,7 +13,6 @@ export default function WordList({ words }) {
   const insets = useSafeAreaInsets();
 
   const renderItem = useCallback(({ item }) => {
-    console.log(item);
     return (
       <View style={{ flexDirection: 'row', padding: 10 }}>
         {item.word.map((kana, index) => (
