@@ -9,7 +9,7 @@ import {
 import { useStyles } from '../../config/styles';
 import KanaRowSwitcher from './KanaRowSwitcher';
 
-function KanaList({ onPressKana, showConsonants = true }) {
+function KanaList({ onPressKana, showConsonants = true, onLongPressKana, onFinishLongPressKana }) {
   const { colors, sizes } = useStyles();
   const insets = useSafeAreaInsets();
 
@@ -28,6 +28,8 @@ function KanaList({ onPressKana, showConsonants = true }) {
             alternateConsonants={getAlternateKanaRowConsonants(primaryConsonant)}
             color={colors.buttonColor}
             onPressKana={onPressKana}
+            onLongPressKana={onLongPressKana}
+            onFinishLongPressKana={onFinishLongPressKana}
           />
         );
       })}

@@ -8,7 +8,10 @@ import { useStyles } from '../config/styles';
 
 export default function ({ navigation }) {
   const { savedWords, addWord, settings, setSetting, requestTranslation } = useAppState();
+  // a word that is being typed
   const [typingKana, setTypingKana] = useState([]);
+  // just peeking at a single letter
+  const [peekingKana, setPeekingKana] = useState([]);
   const { colors } = useStyles();
 
   const onPressKey = useCallback((key) => {
@@ -29,7 +32,6 @@ export default function ({ navigation }) {
     }
     if (key === '+') {
       addWord(typingKana);
-      //requestTranslation(typingKana.map((kana) => kana.kana).join(''));
       setTypingKana([]);
     }
     // nabasu mark
@@ -43,16 +45,33 @@ export default function ({ navigation }) {
     }
   });
 
+  // typing
   const onPressKana = useCallback((kana) => {
     const newTypingKana = typingKana.slice();
     newTypingKana.push(kana);
     setTypingKana(newTypingKana);
-  });
+  }, [ typingKana, setTypingKana ]);
+
+  // peeking
+  const onLongPressKana = useCallback((kana) => {
+    // only peek if not typing
+    if (!typingKana.length) {
+      setPeekingKana([kana]);
+    }
+  }, [peekingKana, setPeekingKana] );
+
+  const onFinishLongPressKana = useCallback(() => {
+    if (peekingKana.length) {
+      setPeekingKana([]);
+    }
+  }, [ peekingKana, setPeekingKana ]);
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.backgroundColor }}>
       <KanaList
         onPressKana={onPressKana}
+        onLongPressKana={onLongPressKana}
+        onFinishLongPressKana={onFinishLongPressKana}
         showConsonants={settings['showVowelsAndConsonants']}
       />
       <KanaTypingOverlay typingKana={typingKana} onPressKey={onPressKey} />
@@ -62,6 +81,7 @@ export default function ({ navigation }) {
         onPressShowWordList={() => navigation.navigate('Words')}
         onChangeSetting={setSetting}
         typingKana={typingKana}
+        peekingKana={peekingKana}
       />
     </View>
   );

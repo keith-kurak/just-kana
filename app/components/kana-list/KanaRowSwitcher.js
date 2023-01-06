@@ -10,11 +10,15 @@ function KanaRowSwitcher({
   alternateRows,
   alternateConsonants,
   onPressKana,
+  onLongPressKana,
+  onFinishLongPressKana,
   color,
   showConsonant,
 }) {
   const { width } = useWindowDimensions();
   const { sizes } = useStyles();
+
+  const pressFns = { onPressKana, onLongPressKana, onFinishLongPressKana};
 
   // now carousel if no alternate rows
   if (!alternateRows.length) {
@@ -22,9 +26,9 @@ function KanaRowSwitcher({
       <KanaRow
         items={primaryRow}
         color={color}
-        onPressKana={onPressKana}
         consonant={primaryConsonant}
         showConsonant={showConsonant}
+        {...pressFns}
       />
     );
   }
@@ -39,14 +43,17 @@ function KanaRowSwitcher({
       height={sizes.kanaButtonDiameter + sizes.small * 2}
       data={kanaRows}
       scrollAnimationDuration={1000}
+      panGestureHandlerProps={{
+        activeOffsetX: [-10, 10],
+      }}
       renderItem={({ index }) => (
         <KanaRow
           items={kanaRows[index]}
           color={color}
-          onPressKana={onPressKana}
           consonant={kanaRowConsonants[index]}
           showConsonant={showConsonant}
           alternateRowCount={alternateRows.length}
+          {...pressFns}
         />
       )}
     />

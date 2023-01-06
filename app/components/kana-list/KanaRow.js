@@ -48,10 +48,14 @@ function DakutenIndicator({ hasHandakuten }) {
   );
 }
 
-function Kana({ kana, onPress, color }) {
+function Kana({ kana, onPress, onLongPress, onPressOut, color }) {
   const { textStyles, sizes } = useStyles();
   return (
-    <Pressable onPress={onPress} style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}>
+    <Pressable
+      onPress={onPress}
+      onLongPress={onLongPress}
+      onPressOut={onPressOut}
+      style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}>
       <View
         style={{
           height: sizes.kanaButtonDiameter,
@@ -69,7 +73,16 @@ function Kana({ kana, onPress, color }) {
   );
 }
 
-function KanaRow({ items, onPressKana, color, consonant, showConsonant, alternateRowCount = 0 }) {
+function KanaRow({
+  items,
+  onPressKana,
+  onLongPressKana,
+  onFinishLongPressKana,
+  color,
+  consonant,
+  showConsonant,
+  alternateRowCount = 0,
+}) {
   const { sizes } = useStyles();
   return (
     <View style={{ flexDirection: 'row' }}>
@@ -84,7 +97,14 @@ function KanaRow({ items, onPressKana, color, consonant, showConsonant, alternat
         }}>
         {items.map((item, index) =>
           item ? (
-            <Kana color={color} key={item.kana} kana={item} onPress={() => onPressKana(item)} />
+            <Kana
+              color={color}
+              key={item.kana}
+              kana={item}
+              onLongPress={() => onLongPressKana(item)}
+              onPressOut={onFinishLongPressKana}
+              onPress={() => onPressKana(item)}
+            />
           ) : (
             <View key={index.toString()} style={{ width: sizes.kanaButtonDiameter }} />
           )

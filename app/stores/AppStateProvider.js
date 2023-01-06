@@ -1,7 +1,7 @@
 import { createContext, useState, useContext, useCallback, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DateTime } from 'luxon';
-import { useTranslator } from 'react-native-translator';
+//import { useTranslator } from 'react-native-translator';
 
 //AsyncStorage.setItem('@saved_words', JSON.stringify([]));
 
@@ -30,7 +30,7 @@ const AppStateProvider = (props) => {
 
   // request translation of word, save its translation
   // TODO: save to local storage
-  const { translate } = useTranslator();
+  /*const { translate } = useTranslator();
   const requestTranslation = useCallback((word) => {
     (async function doAsync() {
       try {
@@ -43,7 +43,7 @@ const AppStateProvider = (props) => {
         console.log(error);
       }
     })();
-  }, []);
+  }, []);*/
 
   // settings (in memory for now)
   const [settings, setSettings] = useState({ showVowelsAndConsonants: true });
@@ -59,7 +59,7 @@ const AppStateProvider = (props) => {
   return (
     // this is the provider providing state
     <AppStateContext.Provider
-      value={{ savedWords, addWord, setSetting, settings, requestTranslation }}>
+      value={{ savedWords, addWord, setSetting, settings }}>
       {props.children}
     </AppStateContext.Provider>
   );

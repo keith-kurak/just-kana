@@ -28,11 +28,12 @@ export default function ({
   showVowels = true,
   onChangeSetting,
   typingKana,
+  peekingKana,
 }) {
   const { colors, sizes } = useStyles();
   const insets = useSafeAreaInsets();
 
-  const showWordOverlay = typingKana.length > 0;
+  const showWordOverlay = peekingKana.length || typingKana.length;
 
   return (
     <View
@@ -50,7 +51,7 @@ export default function ({
           marginTop: insets.top,
         }}>
         {showWordOverlay ? (
-          <TypedWordOverlay typingKana={typingKana} />
+          <TypedWordOverlay typingKana={typingKana.length ? typingKana : peekingKana} />
         ) : (
           <Toolbar
             onChangeSetting={onChangeSetting}
