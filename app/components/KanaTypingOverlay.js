@@ -1,13 +1,48 @@
-import React from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useStyles } from '../config/styles';
 
-function KeyboardKey({ title, onPress, width = undefined }) {
+function KeyboardKey({ title, onPress, width = undefined, enableHoldPress = false }) {
   const { sizes } = useStyles();
+
+  // long press stuff
+  const [isHeld, setIsHeld] = useState(false);
+  const onLongPress = useCallback(() => {
+    if (enableHoldPress) {
+      setIsHeld(true);
+      console.log('long press')
+    }
+  }, [enableHoldPress, setIsHeld ]);
+
+  const onPressOut = useCallback(() => {
+    if (enableHoldPress) {
+      setIsHeld(false);
+      console.log('press out')
+    }
+  }, [enableHoldPress, setIsHeld ]);
+
+  useEffect(() => {
+    function pressIfHeld() {
+      if (isHeld) {
+        // this onPress is stale.
+        // So it never deletes, because it contains the old value of typingKana
+        // might need global state for this
+        onPress();
+        console.log('pressing')
+        setTimeout(pressIfHeld, 500);
+      }
+    }
+    if (isHeld) {
+      pressIfHeld();
+    }
+  }, [isHeld, onPress])
+
   return (
     <Pressable
       onPress={onPress}
+      onLongPress={onLongPress}
+      onPressOut={onPressOut}
       style={({ pressed }) => [
         { opacity: pressed ? 0.5 : 1, marginHorizontal: sizes.large, marginVertical: sizes.small },
       ]}>

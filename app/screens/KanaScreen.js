@@ -43,7 +43,7 @@ export default function ({ navigation }) {
       });
       setTypingKana(newTypingKana);
     }
-  });
+  }, [ typingKana, setTypingKana, addWord ]);
 
   // typing
   const onPressKana = useCallback((kana) => {
