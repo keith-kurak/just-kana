@@ -1,7 +1,26 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Feather, MaterialIcons } from '@expo/vector-icons';
 import { useStyles } from '../config/styles';
+
+function KeyboardKeyDisplay({ title }) {
+  const { sizes } = useStyles();
+  if (title === '+') {
+    return <Feather name="plus" size={30} color="white" />;
+  }
+  if (title === '<') {
+    return <Feather name="arrow-left" size={30} color="white" />;
+  }
+  if (title === '_') {
+    return <MaterialIcons name="space-bar" size={30} color="white" />;
+  }
+  return (
+    <Text allowFontScaling={false} style={{ fontSize: 30, color: 'white' }}>
+      {title}
+    </Text>
+  );
+}
 
 function KeyboardKey({ title, onPress, width = undefined, enableHoldPress = false }) {
   const { sizes } = useStyles();
@@ -11,16 +30,16 @@ function KeyboardKey({ title, onPress, width = undefined, enableHoldPress = fals
   const onLongPress = useCallback(() => {
     if (enableHoldPress) {
       setIsHeld(true);
-      console.log('long press')
+      console.log('long press');
     }
-  }, [enableHoldPress, setIsHeld ]);
+  }, [enableHoldPress, setIsHeld]);
 
   const onPressOut = useCallback(() => {
     if (enableHoldPress) {
       setIsHeld(false);
-      console.log('press out')
+      console.log('press out');
     }
-  }, [enableHoldPress, setIsHeld ]);
+  }, [enableHoldPress, setIsHeld]);
 
   useEffect(() => {
     function pressIfHeld() {
@@ -29,14 +48,14 @@ function KeyboardKey({ title, onPress, width = undefined, enableHoldPress = fals
         // So it never deletes, because it contains the old value of typingKana
         // might need global state for this
         onPress();
-        console.log('pressing')
+        console.log('pressing');
         setTimeout(pressIfHeld, 500);
       }
     }
     if (isHeld) {
       pressIfHeld();
     }
-  }, [isHeld, onPress])
+  }, [isHeld, onPress]);
 
   return (
     <Pressable
@@ -46,8 +65,18 @@ function KeyboardKey({ title, onPress, width = undefined, enableHoldPress = fals
       style={({ pressed }) => [
         { opacity: pressed ? 0.5 : 1, marginHorizontal: sizes.large, marginVertical: sizes.small },
       ]}>
-      <View style={{ alignItems: 'center', borderWidth: 1, borderColor: 'white', padding: sizes.small / 2, width }}>
-        <Text allowFontScaling={false} style={{ fontSize: 30, color: 'white' }}>{title}</Text>
+      <View
+        style={{
+          alignItems: 'center',
+          borderWidth: 1,
+          borderColor: 'white',
+          paddingHorizontal: sizes.small,
+          borderRadius: 5,
+          justifyContent: 'center',
+          height: 40,
+          width,
+        }}>
+        <KeyboardKeyDisplay title={title} />
       </View>
     </Pressable>
   );

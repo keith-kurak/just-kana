@@ -55,7 +55,7 @@ export default function Toolbar({
                 alignItems: 'center',
               }}>
               <Text allowFontScaling={false} style={textStyles.smallDark}>
-                {savedWords.length}
+                {`カナ (${savedWords.length})`}
               </Text>
             </View>
           </Pressable>

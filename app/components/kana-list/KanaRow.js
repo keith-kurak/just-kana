@@ -49,8 +49,8 @@ function DakutenIndicator({ hasHandakuten }) {
 }
 
 function Kana({ kana, onPress, onLongPress, onPressOut, color }) {
-  const { textStyles, sizes } = useStyles();
-  return (
+  const { textStyles, sizes, colors } = useStyles();
+  const button = (
     <Pressable
       onPress={onPress}
       onLongPress={onLongPress}
@@ -71,6 +71,25 @@ function Kana({ kana, onPress, onLongPress, onPressOut, color }) {
       </View>
     </Pressable>
   );
+
+  if (kana.kana === 'ン') {
+    return (
+      <View>
+        {button}
+        <Text
+          style={{
+            fontSize: 16,
+            textAlign: 'center',
+            paddingTop: sizes.small,
+            color: colors.secondaryTextColor,
+          }}>
+          (n)
+        </Text>
+      </View>
+    );
+  }
+
+  return button;
 }
 
 function KanaRow({

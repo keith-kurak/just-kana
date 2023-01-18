@@ -1,4 +1,6 @@
-import { useColorScheme, useWindowDimensions } from 'react-native';
+import { useEffect } from 'react';
+import { useColorScheme, useWindowDimensions, Platform } from 'react-native';
+import * as NavigationBar from 'expo-navigation-bar';
 
 const white = '#FFFFFF';
 const black = '#000000';
@@ -10,7 +12,7 @@ const useStyles = function () {
   const colorScheme = useColorScheme();
   const { width } = useWindowDimensions();
 
-  let buttonColor = 'orange';
+  let buttonColor = '#F89007';
   let buttonTextStyle = {
     color: black,
     fontSize: 30,
@@ -30,15 +32,21 @@ const useStyles = function () {
 
   if (colorScheme === 'dark') {
     backgroundColor = notQuiteBlack;
-    buttonColor = 'blue';
+    buttonColor = '#076FF8';
     buttonTextStyle.color = white;
     smallDark.color = white;
   }
 
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      NavigationBar.setBackgroundColorAsync(backgroundColor);
+    }
+  }, [ colorScheme ]);
+
   const sizes = {
     verticalKey: 32,
     topBar: 56,
-    expandedTopBar: 80,
+    expandedTopBar: 100,
     small: 8,
     medium: 12,
     large: 16,
@@ -61,6 +69,7 @@ const useStyles = function () {
     sizes,
     colors,
     textStyles,
+    colorScheme,
   };
 };
 

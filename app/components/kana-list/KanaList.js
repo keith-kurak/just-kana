@@ -1,5 +1,6 @@
 import { ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { colord } from 'colord';
 import {
   getKanaTable,
   rowIndexToConsonant,
@@ -10,7 +11,7 @@ import { useStyles } from '../../config/styles';
 import KanaRowSwitcher from './KanaRowSwitcher';
 
 function KanaList({ onPressKana, showConsonants = true, onLongPressKana, onFinishLongPressKana }) {
-  const { colors, sizes } = useStyles();
+  const { colors, sizes, colorScheme } = useStyles();
   const insets = useSafeAreaInsets();
 
   const tableRows = getKanaTable();
@@ -26,7 +27,7 @@ function KanaList({ onPressKana, showConsonants = true, onLongPressKana, onFinis
             primaryConsonant={primaryConsonant}
             alternateRows={getAlternateKanaRows(primaryConsonant)}
             alternateConsonants={getAlternateKanaRowConsonants(primaryConsonant)}
-            color={colors.buttonColor}
+            color={colord(colors.buttonColor)[colorScheme + 'en'](0.02 * index).toHex()}
             onPressKana={onPressKana}
             onLongPressKana={onLongPressKana}
             onFinishLongPressKana={onFinishLongPressKana}

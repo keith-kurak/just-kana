@@ -66,6 +66,10 @@ export default function ({
           flexDirection: 'row',
           marginHorizontal: sizes.verticalKey,
           justifyContent: 'space-between',
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
         }}>
         {showVowels &&
           ['a', 'i', 'u', 'e', 'o'].map((vowel) => (
