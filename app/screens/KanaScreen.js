@@ -77,6 +77,7 @@ export default function ({ navigation }) {
       <KanaTypingOverlay typingKana={typingKana} onPressKey={onPressKey} />
       <TopBar
         showVowels={settings['showVowelsAndConsonants']}
+        primaryColorIndex={settings['primaryColorIndex']}
         savedWords={savedWords}
         onPressShowWordList={() => navigation.navigate('Words')}
         onChangeSetting={setSetting}

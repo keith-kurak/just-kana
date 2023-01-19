@@ -26,6 +26,7 @@ export default function ({
   savedWords,
   onPressShowWordList,
   showVowels = true,
+  primaryColorIndex,
   onChangeSetting,
   typingKana,
   peekingKana,
@@ -58,6 +59,7 @@ export default function ({
             showVowels={showVowels}
             onPressShowWordList={onPressShowWordList}
             savedWords={savedWords}
+            primaryColorIndex={primaryColorIndex}
           />
         )}
       </View>

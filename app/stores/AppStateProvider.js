@@ -1,6 +1,7 @@
 import { createContext, useState, useContext, useCallback, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DateTime } from 'luxon';
+import { useTheme } from '../config/styles';
 //import { useTranslator } from 'react-native-translator';
 
 //AsyncStorage.setItem('@saved_words', JSON.stringify([]));
@@ -9,13 +10,24 @@ import { DateTime } from 'luxon';
 export const AppStateContext = createContext();
 
 const AppStateProvider = (props) => {
+  const { primaryColorIndex, setPrimaryColorIndex } = useTheme();
+  const [settings, setSettings] = useState({ showVowelsAndConsonants: true, primaryColorIndex });
   const [savedWords, setSavedWords] = useState([]);
 
   // load initial data
   useEffect(() => {
     (async function doStuff() {
-      const jsonValue = await AsyncStorage.getItem('@saved_words');
-      setSavedWords(jsonValue != null ? JSON.parse(jsonValue) : []);
+      const wordsJson = await AsyncStorage.getItem('@saved_words');
+      setSavedWords(wordsJson != null ? JSON.parse(wordsJson) : []);
+
+      const settingsJson = await AsyncStorage.getItem('@settings');
+      const mySettings =
+        settingsJson != null
+          ? JSON.parse(settingsJson)
+          : { showVowelsAndConsonants: true, primaryColorIndex };
+      setSettings(mySettings);
+      // update primary color if not default
+      setPrimaryColorIndex(mySettings.primaryColorIndex);
     })();
   }, []);
 
@@ -45,21 +57,28 @@ const AppStateProvider = (props) => {
     })();
   }, []);*/
 
-  // settings (in memory for now)
-  const [settings, setSettings] = useState({ showVowelsAndConsonants: true });
+  // settings
   const setSetting = useCallback(
     (key, value) => {
+      let myValue = value;
+      if (key === 'primaryColorIndex') {
+        if (myValue > 4) {
+          myValue = 0;
+        }
+        setPrimaryColorIndex(myValue);
+      }
       const newSettings = { ...settings };
-      newSettings[key] = value;
+      newSettings[key] = myValue;
       setSettings(newSettings);
+      const jsonValue = JSON.stringify(newSettings);
+      AsyncStorage.setItem('@settings', jsonValue);
     },
-    [settings]
+    [settings, setPrimaryColorIndex]
   );
 
   return (
     // this is the provider providing state
-    <AppStateContext.Provider
-      value={{ savedWords, addWord, setSetting, settings }}>
+    <AppStateContext.Provider value={{ savedWords, addWord, setSetting, settings }}>
       {props.children}
     </AppStateContext.Provider>
   );

@@ -6,11 +6,11 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AppStateProvider } from '../stores';
 import KanaScreen from './KanaScreen';
 import WordListScreen from './WordListScreen';
-import { useStyles } from '../config/styles';
+import { useStyles, ThemeProvider } from '../config/styles';
 
 const Stack = createNativeStackNavigator();
 
-export default function () {
+function NavigationRoot() {
   const { colors } = useStyles();
   return (
     <View
@@ -33,5 +33,13 @@ export default function () {
         </AppStateProvider>
       </SafeAreaProvider>
     </View>
+  );
+}
+
+export default function NavigationRootWithTheme() {
+  return (
+    <ThemeProvider>
+      <NavigationRoot />
+    </ThemeProvider>
   );
 }

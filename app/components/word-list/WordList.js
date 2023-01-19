@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { SectionList, View, Text } from 'react-native';
+import { SectionList, View, Text, StyleSheet } from 'react-native';
 import { groupBy, sortBy, keys } from 'lodash';
 import { DateTime } from 'luxon';
 import ReadingKana from '../characters/ReadingKana';
@@ -9,12 +9,12 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 const keyExtractor = (item, index) => index.toString();
 
 export default function WordList({ words }) {
-  const { textStyles, sizes } = useStyles();
+  const { textStyles, sizes, colors } = useStyles();
   const insets = useSafeAreaInsets();
 
   const renderItem = useCallback(({ item }) => {
     return (
-      <View style={{ flexDirection: 'row', padding: 10 }}>
+      <View style={{ flexDirection: 'row', padding: sizes.medium }}>
         {item.word.map((kana, index) => (
           <ReadingKana key={index.toString()} kana={kana} />
         ))}
@@ -38,6 +38,15 @@ export default function WordList({ words }) {
     <SectionList
       sections={sections}
       renderItem={renderItem}
+      ItemSeparatorComponent={() => (
+        <View
+          style={{
+            marginHorizontal: sizes.medium,
+            height: StyleSheet.hairlineWidth,
+            backgroundColor: colors.secondaryTextColor,
+          }}
+        />
+      )}
       renderSectionHeader={renderSectionHeader}
       renderSectionFooter={() => <View style={{ height: 20 }} />}
       ListFooterComponent={() => <View style={{ height: insets.bottom }} />}

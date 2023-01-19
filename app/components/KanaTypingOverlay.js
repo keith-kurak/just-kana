@@ -71,7 +71,7 @@ function KeyboardKey({ title, onPress, width = undefined, enableHoldPress = fals
           borderWidth: 1,
           borderColor: 'white',
           paddingHorizontal: sizes.small,
-          borderRadius: 5,
+          borderRadius: sizes.borderRadius,
           justifyContent: 'center',
           height: 40,
           width,

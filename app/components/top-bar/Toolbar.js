@@ -1,14 +1,16 @@
 import React from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { useStyles } from '../../config/styles';
+import IconBadge from '../IconBadge';
 
 export default function Toolbar({
   onChangeSetting,
   showVowels = true,
+  primaryColorIndex,
   onPressShowWordList,
   savedWords,
 }) {
-  const { textStyles, colors, sizes } = useStyles();
+  const { textStyles, colors, sizes, colorOptions } = useStyles();
   return (
     <View
       style={{
@@ -22,20 +24,48 @@ export default function Toolbar({
         style={{
           flexDirection: 'row',
           justifyContent: 'flex-start',
+          alignItems: 'center',
         }}>
         <Pressable onPress={() => onChangeSetting('showVowelsAndConsonants', !showVowels)}>
           <View
             style={{
-              backgroundColor: showVowels ? colors.buttonColor : 'gray',
-              paddingVertical: 5,
+              borderColor: showVowels ? colors.buttonColor : colors.secondaryTextColor,
               paddingHorizontal: 10,
-              borderRadius: 5,
+              paddingVertical: 5,
+              //backgroundColor: showVowels ? colors.buttonColor : colors.secondaryTextColor,
+              /*,
+              borderRadius: sizes.borderRadius,
+              borderWidth: 2,*/
               alignItems: 'center',
             }}>
-            <Text allowFontScaling={false} style={textStyles.smallDark}>
+            <Text
+              allowFontScaling={false}
+              style={[
+                textStyles.smallDark,
+                {
+                  fontStyle: 'italic',
+                  fontSize: 26,
+                  color: showVowels ? colors.buttonColor : colors.secondaryTextColor,
+                },
+              ]}>
               aiueo
             </Text>
           </View>
+        </Pressable>
+        <Pressable
+          style={{ marginLeft: 8 }}
+          onPress={() => onChangeSetting('primaryColorIndex', primaryColorIndex + 1 )}>
+          <View
+            style={{
+              borderColor: colors.buttonTextColor,
+              borderWidth: 2,
+              width: 32,
+              height: 32,
+              borderRadius: 16,
+              backgroundColor: colors.buttonColor,
+              alignItems: 'center',
+            }}
+          />
         </Pressable>
       </View>
       <View
@@ -45,20 +75,23 @@ export default function Toolbar({
           flex: 1,
         }}>
         {savedWords.length ? (
-          <Pressable onPress={onPressShowWordList}>
-            <View
-              style={{
-                backgroundColor: 'red',
-                paddingVertical: 5,
-                paddingHorizontal: 10,
-                borderRadius: 5,
-                alignItems: 'center',
-              }}>
-              <Text allowFontScaling={false} style={textStyles.smallDark}>
-                {`カナ (${savedWords.length})`}
-              </Text>
-            </View>
-          </Pressable>
+          <IconBadge badgeCount={savedWords.length} color={colors.buttonColor} size={sizes.topBar}>
+            <Pressable onPress={onPressShowWordList}>
+              <View
+                style={{
+                  paddingVertical: 5,
+                  paddingHorizontal: 10,
+                  borderRadius: sizes.borderRadius,
+                  borderWidth: 2,
+                  borderColor: colors.buttonTextColor,
+                  alignItems: 'center',
+                }}>
+                <Text allowFontScaling={false} style={textStyles.smallDark}>
+                  {`カナ`}
+                </Text>
+              </View>
+            </Pressable>
+          </IconBadge>
         ) : null}
       </View>
     </View>
