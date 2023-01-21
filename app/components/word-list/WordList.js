@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { SectionList, View, Text, StyleSheet } from 'react-native';
+import { SectionList, View, Text, StyleSheet, Pressable } from 'react-native';
 import { groupBy, sortBy, keys } from 'lodash';
 import { DateTime } from 'luxon';
 import ReadingKana from '../characters/ReadingKana';
@@ -8,17 +8,19 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const keyExtractor = (item, index) => index.toString();
 
-export default function WordList({ words }) {
+export default function WordList({ words, onPressWord }) {
   const { textStyles, sizes, colors } = useStyles();
   const insets = useSafeAreaInsets();
 
   const renderItem = useCallback(({ item }) => {
     return (
-      <View style={{ flexDirection: 'row', padding: sizes.medium }}>
-        {item.word.map((kana, index) => (
-          <ReadingKana key={index.toString()} kana={kana} />
-        ))}
-      </View>
+      <Pressable onPress={() => onPressWord(item)}>
+        <View style={{ flexDirection: 'row', padding: sizes.medium }}>
+          {item.word.map((kana, index) => (
+            <ReadingKana key={index.toString()} kana={kana} />
+          ))}
+        </View>
+      </Pressable>
     );
   });
 
