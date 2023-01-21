@@ -36,8 +36,8 @@ export default function ({ isVisible, word, onDismiss }) {
   const iconProps = { size: 30, color: 'white' };
 
   const speak = () => {
-    const thingToSay = word.word.map(kana => kana.romaji).join(' ');
-    Speech.speak(thingToSay);
+    const thingToSay = word.word.map(kana => kana.romaji).join('');
+    Speech.speak(thingToSay, { language: 'ja'});
     console.log(thingToSay)
   };
 
