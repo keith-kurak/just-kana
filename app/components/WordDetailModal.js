@@ -1,12 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-native-modal';
 import { View, Text, Pressable } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as Speech from 'expo-speech';
 import * as Clipboard from 'expo-clipboard';
+import * as WebBrowser from 'expo-web-browser';
+import { WebView } from 'react-native-webview';
 import { MaterialIcons, Ionicons } from '@expo/vector-icons';
 import ReadingKana from './characters/ReadingKana';
 import { useStyles } from '../config/styles';
+
+function TranslatorMiniBrowser({ word }) {
+  const kanaString = word.word.map((kana) => (kana.kana === ' ' ? '%20' : kana.kana)).join('');
+  const { sizes } = useStyles();
+  console.log(kanaString);
+  return (
+    <View style={{ height: 400, width: '100%', marginBottom: sizes.medium }}>
+      <WebView
+        source={{
+          uri: encodeURI(
+            `https://translate.google.com/#view=home&op=translate&sl=ja&tl=en&text=${kanaString}`
+          ),
+        }}
+      />
+    </View>
+  );
+}
 
 function ToolbarButton({ onPress, IconComponent, iconName, color = 'white' }) {
   const { colors, sizes } = useStyles();
@@ -32,9 +51,10 @@ function ToolbarButton({ onPress, IconComponent, iconName, color = 'white' }) {
   );
 }
 
-export default function ({ isVisible, word, onDismiss }) {
+export default function ({ isVisible, word, onDismiss, onPressDelete }) {
   const { colors, colorOptions, sizes } = useStyles();
   const { bottom } = useSafeAreaInsets();
+  //const [isTranslateBrowserVisible, setIsTranslateBrowserVisible] = useState(false);
 
   const speak = () => {
     const thingToSay = word.word.map((kana) => kana.romaji).join('');
@@ -42,9 +62,23 @@ export default function ({ isVisible, word, onDismiss }) {
   };
 
   const copy = () => {
-    const thingToCopy =word.word.map((kana) => kana.kana).join('') + ' -> ' + word.word.map((kana) => kana.romaji).join('');
+    const thingToCopy =
+      word.word.map((kana) => kana.kana).join('') +
+      ' (' +
+      word.word.map((kana) => kana.romaji).join('') +
+      ')';
     Clipboard.setStringAsync(thingToCopy);
-  }
+  };
+
+  const onPressShowTranslation = () => {
+    const kanaString = word.word.map((kana) => (kana.kana === ' ' ? '%20' : kana.kana)).join('');
+    WebBrowser.openBrowserAsync(
+      encodeURI(
+        `https://translate.google.com/#view=home&op=translate&sl=ja&tl=en&text=${kanaString}`
+      )
+    );
+    //setIsTranslateBrowserVisible(!isTranslateBrowserVisible);
+  };
 
   return (
     <Modal
@@ -72,18 +106,14 @@ export default function ({ isVisible, word, onDismiss }) {
             iconName="chatbubble-ellipses-outline"
           />
           <ToolbarButton
-            onPress={() => {}}
+            onPress={onPressShowTranslation}
             IconComponent={MaterialIcons}
             iconName="translate"
           />
-          <ToolbarButton
-            onPress={copy}
-            IconComponent={Ionicons}
-            iconName="ios-copy-outline"
-          />
+          <ToolbarButton onPress={copy} IconComponent={Ionicons} iconName="ios-copy-outline" />
           <ToolbarButton
             color={colors.destructive}
-            onPress={() => {}}
+            onPress={onPressDelete}
             IconComponent={MaterialIcons}
             iconName="delete-outline"
           />

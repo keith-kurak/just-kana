@@ -19,36 +19,7 @@ function Consonant({ text, show }) {
   );
 }
 
-function DakutenIndicator({ hasHandakuten }) {
-  const { colors, sizes } = useStyles();
-  const dakuten = '゛';
-  const handakuten = '゜';
-  const wrapDakuten = (symbol) => (
-    <Text
-      allowFontScaling={false}
-      key={symbol}
-      style={{ fontSize: 26, color: colors.secondaryTextColor, textAlign: 'center' }}>
-      {symbol}
-    </Text>
-  );
-  const inner = hasHandakuten
-    ? [wrapDakuten(dakuten), wrapDakuten(handakuten)]
-    : wrapDakuten(dakuten);
-  return (
-    <View
-      style={{
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: sizes.verticalKey,
-        paddingTop: 10,
-        paddingLeft: 10,
-      }}>
-      {inner}
-    </View>
-  );
-}
-
-function Kana({ kana, onPress, onLongPress, onPressOut, color }) {
+function Kana({ kana, onPress, onLongPress, onPressOut, color, showConsonant }) {
   const { textStyles, sizes, colors } = useStyles();
   const button = (
     <Pressable
@@ -72,7 +43,7 @@ function Kana({ kana, onPress, onLongPress, onPressOut, color }) {
     </Pressable>
   );
 
-  if (kana.kana === 'ン') {
+  if (kana.kana === 'ン' && showConsonant) {
     return (
       <View>
         {button}
@@ -100,7 +71,8 @@ function KanaRow({
   color,
   consonant,
   showConsonant,
-  alternateRowCount = 0,
+  alternateRows = [],
+  alternateConsonants = [],
 }) {
   const { sizes } = useStyles();
   return (
@@ -123,17 +95,15 @@ function KanaRow({
               onLongPress={() => onLongPressKana(item)}
               onPressOut={onFinishLongPressKana}
               onPress={() => onPressKana(item)}
+              showConsonant={showConsonant}
             />
           ) : (
             <View key={index.toString()} style={{ width: sizes.kanaButtonDiameter }} />
           )
         )}
       </View>
-      {alternateRowCount > 0 ? (
-        <DakutenIndicator hasHandakuten={alternateRowCount > 1} />
-      ) : (
-        <View style={{ width: sizes.verticalKey }} />
-      )}
+      {alternateRows.length <= 0 && (
+        <View style={{ width: sizes.verticalKey }} />)}
     </View>
   );
 }

@@ -5,7 +5,7 @@ import MinimalNavbarWrapper from '../components/MinimalNavbarWrapper';
 import WordDetailModal from '../components/WordDetailModal';
 
 export default function () {
-  const { savedWords } = useAppState();
+  const { savedWords, deleteWord } = useAppState();
   const [selectedWord, setSelectedWord] = useState(null);
   return (
     <MinimalNavbarWrapper>
@@ -14,6 +14,10 @@ export default function () {
         word={selectedWord}
         isVisible={!!selectedWord}
         onDismiss={() => setSelectedWord(null)}
+        onPressDelete={() => {
+          deleteWord(selectedWord);
+          setSelectedWord(null);
+        }}
       />
     </MinimalNavbarWrapper>
   );

@@ -41,7 +41,14 @@ const AppStateProvider = (props) => {
     setSavedWords(newSavedWords);
     const jsonValue = JSON.stringify(newSavedWords);
     AsyncStorage.setItem('@saved_words', jsonValue);
-  });
+  },[savedWords]);
+
+  const deleteWord = useCallback((word) => {
+    const newSavedWords = savedWords.filter((savedWord) => savedWord !== word);
+    setSavedWords(newSavedWords);
+    const jsonValue = JSON.stringify(newSavedWords);
+    AsyncStorage.setItem('@saved_words', jsonValue);
+  }, [savedWords]);
 
   // request translation of word, save its translation
   // TODO: save to local storage
@@ -81,7 +88,8 @@ const AppStateProvider = (props) => {
 
   return (
     // this is the provider providing state
-    <AppStateContext.Provider value={{ savedWords, addWord, setSetting, settings, isLoaded }}>
+    <AppStateContext.Provider
+      value={{ savedWords, addWord, setSetting, settings, deleteWord, isLoaded }}>
       {props.children}
     </AppStateContext.Provider>
   );

@@ -8,10 +8,10 @@ function BlinkingCursor() {
   const { colors, textStyles, sizes } = useStyles();
   return (
     <BlinkView
-    delayVisible={300}
-    delayInvisible={0}
-    duration={500}
-    blinking
+      delayVisible={300}
+      delayInvisible={0}
+      duration={500}
+      blinking
       containerStyle={{
         width: 26,
         marginHorizontal: 2,
@@ -27,18 +27,13 @@ export default function TypedWordOverlay({ typingKana, showBlinkingCursor = true
   const { colors, textStyles, sizes } = useStyles();
   const scrollViewRef = useRef();
   const scrollEnabled = typingKana.length > 8;
-  useEffect(
-    () => {
-      if (scrollViewRef.current) {
-        setTimeout(() => {
-          scrollViewRef.current.scrollToEnd({ animated: false });
-          console.log('scroll');
-        }, 100);
-      }
-    },
-    [typingKana],
-    scrollViewRef
-  );
+  useEffect(() => {
+    if (scrollViewRef.current && scrollEnabled) {
+      setTimeout(() => {
+        scrollViewRef.current.scrollToEnd({ animated: false });
+      }, 100);
+    }
+  }, [typingKana, scrollViewRef, scrollEnabled]);
 
   return (
     <ScrollView
