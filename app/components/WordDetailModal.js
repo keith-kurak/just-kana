@@ -3,16 +3,18 @@ import Modal from 'react-native-modal';
 import { View, Text, Pressable } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as Speech from 'expo-speech';
+import * as Clipboard from 'expo-clipboard';
 import { MaterialIcons, Ionicons } from '@expo/vector-icons';
 import ReadingKana from './characters/ReadingKana';
 import { useStyles } from '../config/styles';
 
-function ToolbarButton({ onPress, icon, color = 'white' }) {
+function ToolbarButton({ onPress, IconComponent, iconName, color = 'white' }) {
   const { colors, sizes } = useStyles();
+  const iconProps = { size: 30, color };
   return (
-    <Pressable style={({ pressed }) => [
-      { opacity: pressed ? 0.5 : 1, marginHorizontal: sizes.medium },
-    ]} onPress={onPress}>
+    <Pressable
+      style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1, marginHorizontal: sizes.medium }]}
+      onPress={onPress}>
       <View
         style={{
           alignItems: 'center',
@@ -24,21 +26,25 @@ function ToolbarButton({ onPress, icon, color = 'white' }) {
           height: 50,
           width: 60,
         }}>
-        {icon}
+        <IconComponent name={iconName} {...iconProps} />
       </View>
     </Pressable>
   );
 }
 
 export default function ({ isVisible, word, onDismiss }) {
-  const { colors, sizes } = useStyles();
+  const { colors, colorOptions, sizes } = useStyles();
   const { bottom } = useSafeAreaInsets();
-  const iconProps = { size: 30, color: 'white' };
 
   const speak = () => {
-    const thingToSay = word.word.map(kana => kana.romaji).join('');
-    Speech.speak(thingToSay, { language: 'ja'});
+    const thingToSay = word.word.map((kana) => kana.romaji).join('');
+    Speech.speak(thingToSay, { language: 'ja' });
   };
+
+  const copy = () => {
+    const thingToCopy =word.word.map((kana) => kana.kana).join('') + ' -> ' + word.word.map((kana) => kana.romaji).join('');
+    Clipboard.setStringAsync(thingToCopy);
+  }
 
   return (
     <Modal
@@ -58,45 +64,31 @@ export default function ({ isVisible, word, onDismiss }) {
           paddingTop: sizes.medium,
           paddingHorizontal: sizes.medium,
         }}>
-        <View style={{ flexDirection: 'row', justifyContent: 'center',  marginBottom: sizes.medium }}>
+        <View
+          style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: sizes.medium }}>
           <ToolbarButton
             onPress={speak}
-            icon={
-              <Ionicons
-                name="chatbubble-ellipses-outline"
-                {...iconProps}
-              />
-            }
+            IconComponent={Ionicons}
+            iconName="chatbubble-ellipses-outline"
           />
           <ToolbarButton
             onPress={() => {}}
-            icon={
-              <MaterialIcons
-                name="translate"
-                {...iconProps}
-              />
-            }
+            IconComponent={MaterialIcons}
+            iconName="translate"
           />
           <ToolbarButton
-            onPress={() => {}}
-            icon={
-              <Ionicons
-                name="ios-copy-outline"
-                {...iconProps}
-              />
-            }
+            onPress={copy}
+            IconComponent={Ionicons}
+            iconName="ios-copy-outline"
           />
           <ToolbarButton
+            color={colors.destructive}
             onPress={() => {}}
-            icon={
-              <MaterialIcons
-                name="delete-outline"
-                {...iconProps}
-              />
-            }
+            IconComponent={MaterialIcons}
+            iconName="delete-outline"
           />
         </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap', }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap' }}>
           {word &&
             word.word.map((kana, index) => <ReadingKana key={index.toString()} kana={kana} />)}
         </View>

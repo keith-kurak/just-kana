@@ -80,6 +80,7 @@ const useStyles = function () {
     buttonTextColor: buttonTextStyle.color,
     secondaryTextColor: smallLight.color,
     overlayColor,
+    destructive: '#FF3B30',
   };
   const textStyles = {
     buttonTextStyle,
