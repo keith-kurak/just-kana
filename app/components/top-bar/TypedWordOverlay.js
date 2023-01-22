@@ -16,7 +16,7 @@ function BlinkingCursor() {
         width: 26,
         marginHorizontal: 2,
         borderBottomWidth: 2,
-        borderBottomColor: 'white',
+        borderBottomColor: colors.buttonTextColor,
         alignSelf: 'flex-end',
       }}
     />

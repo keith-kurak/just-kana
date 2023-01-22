@@ -3,16 +3,16 @@ import { useColorScheme, useWindowDimensions, Platform } from 'react-native';
 import * as NavigationBar from 'expo-navigation-bar';
 
 const white = '#FFFFFF';
-const notQuiteWhite = '#F5F5F5';
+const notQuiteWhite = '#e8e8e8';
 const black = '#000000';
 const lightGray = '#A9A9A9';
-const darkerGray = '#7F7F7F';
+const darkerGray = '#666666';
 const notQuiteBlack = '#222222';
 const overlayColor = '#7F7F7FBB';
 
 const darkColors = ['#076FF8', '#F89007', '#9007f8', '#f8076f', '#05ae65'];
 
-const lightColors = ['#F89007', '#07f890', '#f8076f', '#07e8f8', '#e8f807'];
+const lightColors = ['#02c6d4', '#F89007','#b969f5', '#f8076f', '#05ae65'];
 
 const ThemeContext = createContext();
 
