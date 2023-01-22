@@ -13,6 +13,8 @@ const AppStateProvider = (props) => {
   const { primaryColorIndex, setPrimaryColorIndex } = useTheme();
   const [settings, setSettings] = useState({ showVowelsAndConsonants: true, primaryColorIndex });
   const [savedWords, setSavedWords] = useState([]);
+  // hack to wait for theme to be set
+  const [isLoaded, setIsLoaded] = useState(false);
 
   // load initial data
   useEffect(() => {
@@ -28,6 +30,7 @@ const AppStateProvider = (props) => {
       setSettings(mySettings);
       // update primary color if not default
       setPrimaryColorIndex(mySettings.primaryColorIndex);
+      setIsLoaded(true);
     })();
   }, []);
 
@@ -78,7 +81,7 @@ const AppStateProvider = (props) => {
 
   return (
     // this is the provider providing state
-    <AppStateContext.Provider value={{ savedWords, addWord, setSetting, settings }}>
+    <AppStateContext.Provider value={{ savedWords, addWord, setSetting, settings, isLoaded }}>
       {props.children}
     </AppStateContext.Provider>
   );

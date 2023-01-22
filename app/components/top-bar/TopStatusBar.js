@@ -52,7 +52,10 @@ export default function ({
           marginTop: insets.top,
         }}>
         {showWordOverlay ? (
-          <TypedWordOverlay typingKana={typingKana.length ? typingKana : peekingKana} />
+          <TypedWordOverlay
+            showBlinkingCursor={!!typingKana.length}
+            typingKana={typingKana.length ? typingKana : peekingKana}
+          />
         ) : (
           <Toolbar
             onChangeSetting={onChangeSetting}

@@ -15,7 +15,7 @@ export default function WordList({ words, onPressWord }) {
   const renderItem = useCallback(({ item }) => {
     return (
       <Pressable onPress={() => onPressWord(item)}>
-        <View style={{ flexDirection: 'row', padding: sizes.medium }}>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', padding: sizes.medium }}>
           {item.word.map((kana, index) => (
             <ReadingKana key={index.toString()} kana={kana} />
           ))}

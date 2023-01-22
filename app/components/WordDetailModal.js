@@ -38,7 +38,6 @@ export default function ({ isVisible, word, onDismiss }) {
   const speak = () => {
     const thingToSay = word.word.map(kana => kana.romaji).join('');
     Speech.speak(thingToSay, { language: 'ja'});
-    console.log(thingToSay)
   };
 
   return (
@@ -97,7 +96,7 @@ export default function ({ isVisible, word, onDismiss }) {
             }
           />
         </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap', }}>
           {word &&
             word.word.map((kana, index) => <ReadingKana key={index.toString()} kana={kana} />)}
         </View>
