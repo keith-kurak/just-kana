@@ -32,10 +32,6 @@ export default function Toolbar({
               borderColor: showVowels ? colors.buttonColor : colors.secondaryTextColor,
               paddingHorizontal: 10,
               paddingVertical: 5,
-              //backgroundColor: showVowels ? colors.buttonColor : colors.secondaryTextColor,
-              /*,
-              borderRadius: sizes.borderRadius,
-              borderWidth: 2,*/
               alignItems: 'center',
             }}>
             <Text

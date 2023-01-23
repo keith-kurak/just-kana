@@ -10,6 +10,11 @@ import { MaterialIcons, Ionicons } from '@expo/vector-icons';
 import ReadingKana from './characters/ReadingKana';
 import { useStyles } from '../config/styles';
 
+const demoProps = {
+  animationInTiming: 1,
+      animationOutTiming: 1
+}
+
 function TranslatorMiniBrowser({ word }) {
   const kanaString = word.word.map((kana) => (kana.kana === ' ' ? '%20' : kana.kana)).join('');
   const { sizes } = useStyles();
@@ -86,6 +91,7 @@ export default function ({ isVisible, word, onDismiss, onPressDelete }) {
       backdropColor={colors.backgroundColor}
       onSwipeComplete={onDismiss}
       onBackdropPress={onDismiss}
+      {...demoProps}
       isVisible={isVisible}>
       <View
         style={{

@@ -11,8 +11,8 @@ export default function IconBadge({ children, badgeCount, color, size }) {
         <View
           style={{
             position: 'absolute',
-            right: -9,
-            top: -13,
+            right: -10,
+            top: -10,
             backgroundColor: color,
             borderRadius: 13,
             paddingHorizontal: 3,
