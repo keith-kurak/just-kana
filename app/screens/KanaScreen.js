@@ -7,7 +7,7 @@ import { useAppState } from '../stores';
 import { useStyles } from '../config/styles';
 
 export default function ({ navigation }) {
-  const { savedWords, addWord, settings, setSetting, requestTranslation, isLoaded } = useAppState();
+  const { savedWords, addWord, settings, setSetting } = useAppState();
   // a word that is being typed
   const [typingKana, setTypingKana] = useState([]);
   // just peeking at a single letter
@@ -65,10 +65,6 @@ export default function ({ navigation }) {
       setPeekingKana([]);
     }
   }, [ peekingKana, setPeekingKana ]);
-
-  if (!isLoaded) {
-    return null;
-  }
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.backgroundColor }}>

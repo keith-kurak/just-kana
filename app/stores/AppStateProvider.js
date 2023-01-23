@@ -2,16 +2,22 @@ import { createContext, useState, useContext, useCallback, useEffect } from 'rea
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DateTime } from 'luxon';
 import { useTheme } from '../config/styles';
-//import { useTranslator } from 'react-native-translator';
 
+// clear storage for testing
 //AsyncStorage.setItem('@saved_words', JSON.stringify([]));
+
+const initialSettings = {
+  showVowelsAndConsonants: true,
+  primaryColorIndex: 0,
+  onboardingsCompleted: [],
+};
 
 //create a context, with createContext api
 export const AppStateContext = createContext();
 
 const AppStateProvider = (props) => {
-  const { primaryColorIndex, setPrimaryColorIndex } = useTheme();
-  const [settings, setSettings] = useState({ showVowelsAndConsonants: true, primaryColorIndex });
+  const { setPrimaryColorIndex } = useTheme();
+  const [settings, setSettings] = useState(initialSettings);
   const [savedWords, setSavedWords] = useState([]);
   // hack to wait for theme to be set
   const [isLoaded, setIsLoaded] = useState(false);
@@ -25,8 +31,8 @@ const AppStateProvider = (props) => {
       const settingsJson = await AsyncStorage.getItem('@settings');
       const mySettings =
         settingsJson != null
-          ? JSON.parse(settingsJson)
-          : { showVowelsAndConsonants: true, primaryColorIndex };
+          ? { ...initialSettings, ...JSON.parse(settingsJson) }
+          : initialSettings;
       setSettings(mySettings);
       // update primary color if not default
       setPrimaryColorIndex(mySettings.primaryColorIndex);
@@ -35,37 +41,41 @@ const AppStateProvider = (props) => {
   }, []);
 
   // save words to local storage
-  const addWord = useCallback((wordKana) => {
-    const newSavedWords = savedWords.slice();
-    newSavedWords.push({ word: wordKana, date: DateTime.local().toISO() });
-    setSavedWords(newSavedWords);
-    const jsonValue = JSON.stringify(newSavedWords);
-    AsyncStorage.setItem('@saved_words', jsonValue);
-  },[savedWords]);
+  const addWord = useCallback(
+    (wordKana) => {
+      const newSavedWords = savedWords.slice();
+      newSavedWords.push({ word: wordKana, date: DateTime.local().toISO() });
+      setSavedWords(newSavedWords);
+      const jsonValue = JSON.stringify(newSavedWords);
+      AsyncStorage.setItem('@saved_words', jsonValue);
+    },
+    [savedWords]
+  );
 
-  const deleteWord = useCallback((word) => {
-    const newSavedWords = savedWords.filter((savedWord) => savedWord !== word);
-    setSavedWords(newSavedWords);
-    const jsonValue = JSON.stringify(newSavedWords);
-    AsyncStorage.setItem('@saved_words', jsonValue);
-  }, [savedWords]);
+  const deleteWord = useCallback(
+    (word) => {
+      const newSavedWords = savedWords.filter((savedWord) => savedWord !== word);
+      setSavedWords(newSavedWords);
+      const jsonValue = JSON.stringify(newSavedWords);
+      AsyncStorage.setItem('@saved_words', jsonValue);
+    },
+    [savedWords]
+  );
 
-  // request translation of word, save its translation
-  // TODO: save to local storage
-  /*const { translate } = useTranslator();
-  const requestTranslation = useCallback((word) => {
-    (async function doAsync() {
-      try {
-        console.log(word)
-        // super: 'スーパー マリオ'
-        // https://translate.google.com/?sl=$ja&tl=$en&text=%E3%82%B9%E3%83%BC%E3%83%91%E3%83%BC%20%E3%83%9E%E3%83%AA%E3%82%AA
-        const translation = await translate('ja', 'en', word, { type: 'papago', timeout: 10000 });
-        console.log(translation);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);*/
+  function updateSettings(newSettings) {
+    setSettings(newSettings);
+    const jsonValue = JSON.stringify(newSettings);
+    AsyncStorage.setItem('@settings', jsonValue);
+  }
+
+  const completeOnboarding = useCallback(
+    (onboardingName) => {
+      const newSettings = { ...settings };
+      newSettings.onboardingsCompleted.push(onboardingName);
+      updateSettings(newSettings);
+    },
+    [settings]
+  );
 
   // settings
   const setSetting = useCallback(
@@ -79,9 +89,7 @@ const AppStateProvider = (props) => {
       }
       const newSettings = { ...settings };
       newSettings[key] = myValue;
-      setSettings(newSettings);
-      const jsonValue = JSON.stringify(newSettings);
-      AsyncStorage.setItem('@settings', jsonValue);
+      updateSettings(newSettings);
     },
     [settings, setPrimaryColorIndex]
   );
@@ -89,7 +97,16 @@ const AppStateProvider = (props) => {
   return (
     // this is the provider providing state
     <AppStateContext.Provider
-      value={{ savedWords, addWord, setSetting, settings, deleteWord, isLoaded }}>
+      value={{
+        savedWords,
+        addWord,
+        setSetting,
+        settings,
+        deleteWord,
+        isLoaded,
+        initialOnboardingRequired: !settings.onboardingsCompleted.find((i) => 'firstTime'),
+        completeOnboarding,
+      }}>
       {props.children}
     </AppStateContext.Provider>
   );
