@@ -79,7 +79,7 @@ export default function ({ isVisible, word, onDismiss, onPressDelete }) {
     const kanaString = word.word.map((kana) => (kana.kana === ' ' ? '%20' : kana.kana)).join('');
     WebBrowser.openBrowserAsync(
       encodeURI(
-        `https://translate.google.com/#view=home&op=translate&sl=ja&tl=en&text=${kanaString}`
+        `https://translate.google.com/#view=home&op=translate&sl=ja&tl=en&text=${kanaString}`, { createTask: false }
       )
     );
     //setIsTranslateBrowserVisible(!isTranslateBrowserVisible);

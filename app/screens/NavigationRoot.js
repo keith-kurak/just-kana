@@ -5,6 +5,7 @@ import KanaScreen from './KanaScreen';
 import WordListScreen from './WordListScreen';
 import { useAppState } from '../stores';
 import OnboardingScreen from './OnboardingScreen';
+import SettingsScreen from './SettingsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +29,7 @@ export default function NavigationRoot() {
         }}>
         <Stack.Screen name="Home" component={KanaScreen} />
         <Stack.Screen name="Words" component={WordListScreen} />
+        <Stack.Screen name="Settings" component={SettingsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
