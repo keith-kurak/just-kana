@@ -49,6 +49,17 @@ const useStyles = function () {
     fontSize: 18,
   };
 
+  // text styles
+  let mediumDark = {
+    color: black,
+    fontSize: 26,
+  };
+
+  let mediumLight = {
+    color: darkerGray,
+    fontSize: 26,
+  };
+
   let backgroundColor = notQuiteWhite;
 
   if (colorScheme === 'dark') {
@@ -56,6 +67,8 @@ const useStyles = function () {
     buttonTextStyle.color = white;
     smallDark.color = white;
     smallLight.color = lightGray;
+    mediumDark.color = white;
+    mediumLight.color = lightGray;
   }
 
   useEffect(() => {
@@ -86,6 +99,8 @@ const useStyles = function () {
     buttonTextStyle,
     smallDark,
     smallLight,
+    mediumDark,
+    mediumLight,
   };
 
   return {
