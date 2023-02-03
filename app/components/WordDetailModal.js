@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Modal from 'react-native-modal';
-import { View, Text, Pressable } from 'react-native';
+import { View, Platform, Pressable } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as Speech from 'expo-speech';
 import * as Clipboard from 'expo-clipboard';
@@ -76,10 +76,13 @@ export default function ({ isVisible, word, onDismiss, onPressDelete }) {
   };
 
   const onPressShowTranslation = () => {
-    const kanaString = word.word.map((kana) => (kana.kana === ' ' ? '%20' : kana.kana)).join('');
+    // android is mad about %20 as a space
+    const kanaString = word.word.map((kana) => (kana.kana === ' ' ? ' ' : kana.kana)).join('');
+    // seems to be needed to make it work right in Google Translate app
+    const translationLanguage = Platform.OS === 'android' ? 'en' : 'auto';
     WebBrowser.openBrowserAsync(
       encodeURI(
-        `https://translate.google.com/#view=home&op=translate&sl=ja&tl=en&text=${kanaString}`, { createTask: false }
+        `https://translate.google.com/?sl=ja&tl=${translationLanguage}&op=translate&text=${kanaString}`, { createTask: false }
       ),
       {
         createTask: false,
