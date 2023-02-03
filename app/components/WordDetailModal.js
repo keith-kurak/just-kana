@@ -80,7 +80,10 @@ export default function ({ isVisible, word, onDismiss, onPressDelete }) {
     WebBrowser.openBrowserAsync(
       encodeURI(
         `https://translate.google.com/#view=home&op=translate&sl=ja&tl=en&text=${kanaString}`, { createTask: false }
-      )
+      ),
+      {
+        createTask: false,
+      }
     );
     //setIsTranslateBrowserVisible(!isTranslateBrowserVisible);
   };

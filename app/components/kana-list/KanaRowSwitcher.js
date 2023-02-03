@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { View, Text, useWindowDimensions } from 'react-native';
+import { View, Text, useWindowDimensions, Platform } from 'react-native';
 import KanaRow from './KanaRow';
 import Carousel from 'react-native-reanimated-carousel';
 import { useStyles } from '../../config/styles';
@@ -28,6 +28,7 @@ function DakutenIndicator({ consonants, showConsonant, activeIndex }) {
         color: colors.secondaryTextColor,
         textAlign: 'center',
         fontWeight: index === activeIndex ? 'bold' : 'regular',
+        marginTop: Platform.OS ==='android' && !showConsonant ? -8 : undefined
       }}>
       {showConsonant ? symbol : indexToDakuten(index)}
     </Text>
@@ -39,6 +40,7 @@ function DakutenIndicator({ consonants, showConsonant, activeIndex }) {
         alignItems: 'center',
         justifyContent: 'center',
         width: sizes.verticalKey,
+        height: sizes.kanaButtonDiameter
       }}>
       {consonants.map(wrapDakuten)}
     </View>
@@ -79,7 +81,7 @@ function KanaRowSwitcher({
   const kanaRows = [primaryRow, ...alternateRows];
   const kanaRowConsonants = [primaryConsonant, ...alternateConsonants];
   return (
-    <View style={{ flexDirection: 'row' }}>
+    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
       <Carousel
         loop={false}
         width={width - sizes.verticalKey}

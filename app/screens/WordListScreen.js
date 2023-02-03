@@ -15,7 +15,7 @@ export default function ({ navigation }) {
     <MinimalNavbarWrapper
       rightButton={
         <Pressable onPress={() => navigation.navigate('Settings')}>
-          <Ionicons color={colors.buttonTextColor} size="30" name="settings-outline" />
+          <Ionicons color={colors.buttonTextColor} size={30} name="settings-outline" />
         </Pressable>
       }>
       <WordList words={savedWords} onPressWord={(word) => setSelectedWord(word)} />
