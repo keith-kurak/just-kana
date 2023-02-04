@@ -1,11 +1,12 @@
 {
   "expo": {
-    "name": "just-kana",
+    "name": "Just Kana",
     "slug": "just-kana",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "icon": "./assets/icon.png",
+    "backgroundColor": "#222222",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "cover",
