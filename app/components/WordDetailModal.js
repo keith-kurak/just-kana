@@ -73,6 +73,7 @@ export default function ({ isVisible, word, onDismiss, onPressDelete }) {
       word.word.map((kana) => kana.romaji).join('') +
       ')';
     Clipboard.setStringAsync(thingToCopy);
+    onDismiss();
   };
 
   const onPressShowTranslation = () => {
@@ -88,7 +89,7 @@ export default function ({ isVisible, word, onDismiss, onPressDelete }) {
         createTask: false,
       }
     );
-    //setIsTranslateBrowserVisible(!isTranslateBrowserVisible);
+    onDismiss();
   };
 
   return (

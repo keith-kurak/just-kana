@@ -63,7 +63,7 @@ function KeyboardKey({ title, onPress, width = undefined, enableHoldPress = fals
       onLongPress={onLongPress}
       onPressOut={onPressOut}
       style={({ pressed }) => [
-        { opacity: pressed ? 0.5 : 1, marginHorizontal: sizes.large, marginVertical: sizes.small },
+        { opacity: pressed ? 0.5 : 1, marginHorizontal: sizes.large, marginVertical: sizes.medium },
       ]}>
       <View
         style={{
@@ -73,7 +73,7 @@ function KeyboardKey({ title, onPress, width = undefined, enableHoldPress = fals
           paddingHorizontal: sizes.small,
           borderRadius: sizes.borderRadius,
           justifyContent: 'center',
-          height: 40,
+          height: 44,
           width,
         }}>
         <KeyboardKeyDisplay title={title} />

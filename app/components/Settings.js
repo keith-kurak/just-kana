@@ -29,6 +29,8 @@ export default function ({}) {
 
   const versionString = `v. ${Application.nativeApplicationVersion} b. ${Application.nativeBuildVersion} u. ${Updates.updateId}`;
 
+  const versionStyle = [textStyles.smallLight, { fontSize: 14 }];
+
   const versionSection = (
     <View style={{ alignItems: 'center' }}>
       <Pressable
@@ -38,9 +40,9 @@ export default function ({}) {
         }}>
         <View style={{ alignItems: 'center' }}>
           <Text style={textStyles.smallDark}>Version info</Text>
-          <Text style={textStyles.smallLight}>{Application.nativeApplicationVersion}</Text>
-          <Text style={textStyles.smallLight}>{Application.nativeBuildVersion}</Text>
-          <Text style={textStyles.smallLight}>{Updates.updateId}</Text>
+          <Text style={versionStyle}>{Application.nativeApplicationVersion}</Text>
+          <Text style={versionStyle}>{Application.nativeBuildVersion}</Text>
+          <Text style={versionStyle}>{Updates.updateId}</Text>
         </View>
       </Pressable>
       {isUpdateReady && (
