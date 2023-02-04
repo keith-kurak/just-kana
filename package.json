@@ -16,7 +16,7 @@
     "@react-navigation/native": "^6.0.11",
     "@react-navigation/native-stack": "^6.7.0",
     "colord": "^2.9.3",
-    "expo": "^47.0.0",
+    "expo": "^47.0.12",
     "expo-application": "~5.0.1",
     "expo-blur": "~12.0.1",
     "expo-clipboard": "~4.0.1",
@@ -42,7 +42,7 @@
     "react-native-screens": "~3.18.0",
     "react-native-smooth-blink-view": "^1.0.3",
     "react-native-translator": "^1.1.3",
-    "react-native-web": "~0.18.7",
+    "react-native-web": "~0.18.9",
     "react-native-webview": "11.23.1"
   },
   "devDependencies": {
