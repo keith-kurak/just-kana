@@ -82,7 +82,7 @@ export default function ({ onDeleteAll }) {
               borderRadius: sizes.borderRadius,
               backgroundColor: colors.destructive,
             }}>
-            <Text style={[textStyles.mediumLight, { color: colors.buttonTextColor }]}>
+            <Text style={[textStyles.smallDark, { color: colors.buttonTextColor }]}>
               Delete everything
             </Text>
           </View>

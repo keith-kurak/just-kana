@@ -17,13 +17,19 @@ export default function OnboardingScreen() {
       pages={[
         {
           backgroundColor,
-          //image: <Image {...gifProps} source={require('../assets/demo-1.gif')} />,
-          title: 'Learn as you type',
-          subtitle: 'Tap any kana to start typing. Tap the + button to save new words.',
+          image: <Image {...gifProps} source={require('../assets/demo-0.png')} />,
+          title: 'Welcome to Just Kana!',
+          subtitle: `Your companion to find foreign/ loan words in Japanese. You can use it as a simple Gojūon reference...`,
         },
         {
           backgroundColor,
-          //image: <Image {...gifProps} source={require('../assets/demo-2.gif')} />,
+          image: <Image {...gifProps} source={require('../assets/demo-1.gif')} />,
+          title: 'Learn as you type',
+          subtitle: '...Or tap any kana to start typing. Tap the + button to save new words.',
+        },
+        {
+          backgroundColor,
+          image: <Image {...gifProps} source={require('../assets/demo-2.gif')} />,
           title: 'Collect new words',
           subtitle: 'Review your saved words. Tap to hear the pronunciation, look up the meaning, or copy.',
         },
