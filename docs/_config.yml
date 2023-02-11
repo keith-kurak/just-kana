@@ -7,7 +7,5 @@ collections:
     output: true
     permalink: /:path/
 title: Just Kana - Interactive Gojūon
-author:
-  name: Keith Kurak
-  url: mailto://keith.kurak@gmail.com
+author: Keith Kurak
 theme: minima
