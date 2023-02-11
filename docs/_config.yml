@@ -1,2 +1,13 @@
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+collections:
+  pages:
+    output: true
+    permalink: /:path/
 title: Just Kana - Interactive Gojūon
+author:
+  name: Keith Kurak
+  url: mailto://keith.kurak@gmail.com
 theme: minima
