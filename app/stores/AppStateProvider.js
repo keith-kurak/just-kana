@@ -94,6 +94,11 @@ const AppStateProvider = (props) => {
     [settings, setPrimaryColorIndex]
   );
 
+  const onDeleteAll = useCallback(() => {
+    setSavedWords([]);
+    AsyncStorage.setItem('@saved_words', JSON.stringify([]));
+  }, []);
+
   return (
     // this is the provider providing state
     <AppStateContext.Provider
@@ -106,6 +111,7 @@ const AppStateProvider = (props) => {
         isLoaded,
         initialOnboardingRequired: !settings.onboardingsCompleted.find((i) => 'firstTime'),
         completeOnboarding,
+        onDeleteAll,
       }}>
       {props.children}
     </AppStateContext.Provider>

@@ -5,9 +5,10 @@ import Settings from '../components/Settings';
 import MinimalNavbarWrapper from '../components/MinimalNavbarWrapper';
 
 export default function () {
+  const { onDeleteAll } = useAppState();
   return (
     <MinimalNavbarWrapper>
-      <Settings />
+      <Settings onDeleteAll={onDeleteAll} />
     </MinimalNavbarWrapper>
   );
 }
