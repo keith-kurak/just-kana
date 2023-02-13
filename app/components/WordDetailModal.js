@@ -89,7 +89,8 @@ export default function ({ isVisible, word, onDismiss, onPressDelete }) {
         createTask: false,
       }
     );
-    onDismiss();
+    // crashes the web browser for some reason
+    //onDismiss();
   };
 
   return (
