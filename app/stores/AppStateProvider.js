@@ -7,8 +7,8 @@ import { useTheme } from '../config/styles';
 //AsyncStorage.setItem('@saved_words', JSON.stringify([]));
 
 // set demo data
-//const demoData = `[{"word":[{"kana":"ア","romaji":"a"},{"kana":"メ","romaji":"me"},{"kana":"リ","romaji":"ri"},{"kana":"カ","romaji":"ka"}],"date":"2023-02-12T01:14:22.721-05:00"},{"word":[{"kana":"カ","romaji":"ka"},{"kana":"ナ","romaji":"na"},{"kana":"ダ","romaji":"da"}],"date":"2023-02-12T01:14:50.284-05:00"},{"word":[{"kana":"フ","romaji":"fu"},{"kana":"ラ","romaji":"ra"},{"kana":"ン","romaji":"n"},{"kana":"ス","romaji":"su"}],"date":"2023-02-12T01:21:39.087-05:00"},{"word":[{"kana":"イ","romaji":"i"},{"kana":"ギ","romaji":"gi"},{"kana":"リ","romaji":"ri"},{"kana":"ス","romaji":"su"}],"date":"2023-02-12T01:22:45.659-05:00"}]`;
-////AsyncStorage.setItem('@saved_words', demoData);
+const demoData = `[{"word":[{"kana":"ア","romaji":"a"},{"kana":"メ","romaji":"me"},{"kana":"リ","romaji":"ri"},{"kana":"カ","romaji":"ka"}],"date":"2023-02-12T01:14:22.721-05:00"},{"word":[{"kana":"カ","romaji":"ka"},{"kana":"ナ","romaji":"na"},{"kana":"ダ","romaji":"da"}],"date":"2023-02-12T01:14:50.284-05:00"},{"word":[{"kana":"フ","romaji":"fu"},{"kana":"ラ","romaji":"ra"},{"kana":"ン","romaji":"n"},{"kana":"ス","romaji":"su"}],"date":"2023-02-12T01:21:39.087-05:00"},{"word":[{"kana":"イ","romaji":"i"},{"kana":"ギ","romaji":"gi"},{"kana":"リ","romaji":"ri"},{"kana":"ス","romaji":"su"}],"date":"2023-02-12T01:22:45.659-05:00"}]`;
+AsyncStorage.setItem('@saved_words', demoData);
 
 const initialSettings = {
   showVowelsAndConsonants: true,
