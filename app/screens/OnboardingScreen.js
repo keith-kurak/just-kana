@@ -18,7 +18,7 @@ export default function OnboardingScreen() {
         {
           backgroundColor,
           image: <Image {...gifProps} source={require('../assets/demo-0.png')} />,
-          title: 'Welcome to Just Kana!',
+          title: 'Welcome to Just Some Kana!',
           subtitle: `Your companion to find foreign/ loan words in Japanese. You can use it as a simple Gojūon reference...`,
         },
         {

@@ -6,5 +6,5 @@ collections:
   pages:
     output: true
     permalink: /:path/
-title: Just Kana - Interactive Gojūon
+title: Just Some Kana - Interactive Gojūon
 theme: minima
