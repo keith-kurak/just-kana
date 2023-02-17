@@ -30,6 +30,8 @@ export default function ({
   onChangeSetting,
   typingKana,
   peekingKana,
+  onPressKanaType,
+  kanaType,
 }) {
   const { colors, sizes } = useStyles();
   const insets = useSafeAreaInsets();
@@ -63,6 +65,8 @@ export default function ({
             onPressShowWordList={onPressShowWordList}
             savedWords={savedWords}
             primaryColorIndex={primaryColorIndex}
+            onPressKanaType={onPressKanaType}
+            kanaType={kanaType}
           />
         )}
       </View>

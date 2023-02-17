@@ -7,7 +7,7 @@ import { useAppState } from '../stores';
 import { useStyles } from '../config/styles';
 
 export default function ({ navigation }) {
-  const { savedWords, addWord, settings, setSetting } = useAppState();
+  const { savedWords, addWord, settings, setSetting, toggleKanaType, kanaType } = useAppState();
   // a word that is being typed
   const [typingKana, setTypingKana] = useState([]);
   // just peeking at a single letter
@@ -69,6 +69,7 @@ export default function ({ navigation }) {
   return (
     <View style={{ flex: 1, backgroundColor: colors.backgroundColor }}>
       <KanaList
+        kanaType={kanaType}
         onPressKana={onPressKana}
         onLongPressKana={onLongPressKana}
         onFinishLongPressKana={onFinishLongPressKana}
@@ -83,6 +84,8 @@ export default function ({ navigation }) {
         onChangeSetting={setSetting}
         typingKana={typingKana}
         peekingKana={peekingKana}
+        onPressKanaType={toggleKanaType}
+        kanaType={kanaType}
       />
     </View>
   );

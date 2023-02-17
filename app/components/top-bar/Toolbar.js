@@ -2,9 +2,12 @@ import React from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { useStyles } from '../../config/styles';
 import IconBadge from '../IconBadge';
+import KanaTypeSwitcher from './KanaTypeSwitcher';
 
 export default function Toolbar({
   onChangeSetting,
+  onPressKanaType,
+  kanaType,
   showVowels = true,
   primaryColorIndex,
   onPressShowWordList,
@@ -30,7 +33,6 @@ export default function Toolbar({
           <View
             style={{
               borderColor: showVowels ? colors.buttonColor : colors.secondaryTextColor,
-              paddingHorizontal: 10,
               paddingVertical: 5,
               alignItems: 'center',
             }}>
@@ -49,7 +51,7 @@ export default function Toolbar({
           </View>
         </Pressable>
         <Pressable
-          style={{ marginLeft: 8 }}
+          style={{ marginLeft: sizes.medium }}
           onPress={() => onChangeSetting('primaryColorIndex', primaryColorIndex + 1 )}>
           <View
             style={{
@@ -63,6 +65,8 @@ export default function Toolbar({
             }}
           />
         </Pressable>
+        <View style={{ marginLeft: sizes.medium }} />
+        <KanaTypeSwitcher onPressKanaType={onPressKanaType} kanaType={kanaType} />
       </View>
       <View
         style={{

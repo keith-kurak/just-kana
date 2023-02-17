@@ -2,7 +2,7 @@
   "expo": {
     "name": "Some Kana",
     "slug": "just-kana",
-    "version": "1.0.1",
+    "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "icon": "./assets/icon.png",

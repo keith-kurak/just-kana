@@ -25,6 +25,7 @@ const AppStateProvider = (props) => {
   const [savedWords, setSavedWords] = useState([]);
   // hack to wait for theme to be set
   const [isLoaded, setIsLoaded] = useState(false);
+  const [kanaType, setKanaType] = useState('katakana');
 
   // load initial data
   useEffect(() => {
@@ -48,12 +49,12 @@ const AppStateProvider = (props) => {
   const addWord = useCallback(
     (wordKana) => {
       const newSavedWords = savedWords.slice();
-      newSavedWords.push({ word: wordKana, date: DateTime.local().toISO() });
+      newSavedWords.push({ word: wordKana, date: DateTime.local().toISO(), isHiragana : kanaType === 'hiragana' });
       setSavedWords(newSavedWords);
       const jsonValue = JSON.stringify(newSavedWords);
       AsyncStorage.setItem('@saved_words', jsonValue);
     },
-    [savedWords]
+    [savedWords, kanaType]
   );
 
   const deleteWord = useCallback(
@@ -103,6 +104,10 @@ const AppStateProvider = (props) => {
     AsyncStorage.setItem('@saved_words', JSON.stringify([]));
   }, []);
 
+  const toggleKanaType = useCallback(() => {
+    setKanaType(kanaType === 'hiragana' ? 'katakana' : 'hiragana');
+  }, [ kanaType ]);
+
   return (
     // this is the provider providing state
     <AppStateContext.Provider
@@ -116,6 +121,8 @@ const AppStateProvider = (props) => {
         initialOnboardingRequired: !settings.onboardingsCompleted.find((i) => 'firstTime'),
         completeOnboarding,
         onDeleteAll,
+        kanaType,
+        toggleKanaType,
       }}>
       {props.children}
     </AppStateContext.Provider>

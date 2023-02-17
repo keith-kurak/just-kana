@@ -1,59 +1,56 @@
 import { keys, split } from 'lodash';
 const katakanaData = require('./katakana.json');
+const hiraganaData = require('./hiragana.json');
 
-//const kanaArray = keys(katakanaData.katakanaToRomaji).map(key => ({ kana: key, romaji: katakanaData.katakanaToRomaji[key]}))
+function generateKanaProvider(data) {
+  const kanaData = data;
 
-function getKanaRow(rowLetter) {
-  const rowString = katakanaData.katakanaTable[rowLetter];
-  const rowKana = split(rowString, '');
-  return rowKana.map((kana) =>
-    kana !== ' ' ? { kana, romaji: katakanaData.katakanaToRomaji[kana] } : null
-  );
-}
-
-function getKanaTable() {
-  const rowConsanants = katakanaData.tableRows;
-  const tableRows = [];
-  rowConsanants.forEach((consanant) => {
-    tableRows.push(getKanaRow(consanant));
-  });
-  return tableRows;
-}
-
-function rowIndexToConsonant(index) {
-  return katakanaData.tableRows[index];
-}
-
-function getAlternateKanaRows(rowLetter) {
-  const alternateRows = katakanaData.alternateRows[rowLetter];
-  if (alternateRows) {
-    return alternateRows.map((row) => getKanaRow(row));
+  function getKanaRow(rowLetter) {
+    const rowString = kanaData.kanaTable[rowLetter];
+    const rowKana = split(rowString, '');
+    return rowKana.map((kana) =>
+      kana !== ' ' ? { kana, romaji: kanaData.kanaToRomaji[kana] } : null
+    );
   }
-  return [];
+
+  function getKanaTable() {
+    const rowConsanants = kanaData.tableRows;
+    const tableRows = [];
+    rowConsanants.forEach((consanant) => {
+      tableRows.push(getKanaRow(consanant));
+    });
+    return tableRows;
+  }
+
+  function rowIndexToConsonant(index) {
+    return kanaData.tableRows[index];
+  }
+
+  function getAlternateKanaRows(rowLetter) {
+    const alternateRows = kanaData.alternateRows[rowLetter];
+    if (alternateRows) {
+      return alternateRows.map((row) => getKanaRow(row));
+    }
+    return [];
+  }
+
+  function getAlternateKanaRowConsonants(rowLetter) {
+    const alternateRows = kanaData.alternateRows[rowLetter];
+    if (alternateRows) {
+      return alternateRows;
+    }
+    return [];
+  }
+
+  return {
+    getKanaTable,
+    rowIndexToConsonant,
+    getAlternateKanaRows,
+    getAlternateKanaRowConsonants,
+  }
 }
 
-function getAlternateKanaRowConsonants(rowLetter) {
-  const alternateRows = katakanaData.alternateRows[rowLetter];
-  if (alternateRows) {
-    return alternateRows;
-  }
-  return [];
-}
+const katakanaProvider = generateKanaProvider(katakanaData);
+const hiraganaProvider = generateKanaProvider(hiraganaData);
 
-// new structure:
-/*
-  [
-    { sets: [
-
-    ]}
-  ]
-
-  set:
-  {
-    kana: 'あ',
-    romaji: 'a',
-
-  }
-*/
-
-export { getKanaTable, rowIndexToConsonant, getAlternateKanaRows, getAlternateKanaRowConsonants };
+export { katakanaProvider, hiraganaProvider };
