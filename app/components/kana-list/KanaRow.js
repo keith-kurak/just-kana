@@ -43,7 +43,7 @@ function Kana({ kana, onPress, onLongPress, onPressOut, color, showConsonant }) 
     </Pressable>
   );
 
-  if (kana.kana === 'ン' && showConsonant) {
+  if ((kana.kana === 'ン' || kana.kana === 'ん') && showConsonant) {
     return (
       <View>
         {button}

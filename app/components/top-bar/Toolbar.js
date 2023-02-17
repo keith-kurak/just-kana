@@ -33,7 +33,6 @@ export default function Toolbar({
           <View
             style={{
               borderColor: showVowels ? colors.buttonColor : colors.secondaryTextColor,
-              paddingVertical: 5,
               alignItems: 'center',
             }}>
             <Text
