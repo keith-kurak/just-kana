@@ -1,3 +1,5 @@
+That's all it is, just some kana, y'know?
+
 Quickly find foreign/ loan words on your next visit to Japan!
 
 ![Demo](demo-1.gif)
@@ -10,3 +12,5 @@ Quickly find foreign/ loan words on your next visit to Japan!
 [Support](mailto:keith.kurak.appsupport@gmail.com)
 
 [Privacy Policy](privacy.html)
+
+[Source Code](https://github.com/keith-kurak/just-kana)
