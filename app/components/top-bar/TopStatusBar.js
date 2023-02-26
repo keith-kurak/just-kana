@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useStyles } from '../../config/styles';
 import Toolbar from './Toolbar';
 import TypedWordOverlay from './TypedWordOverlay';
+import { usePrevious } from '../../util';
 
 function Vowel({ text, show }) {
   const { textStyles, colors, sizes } = useStyles();
@@ -36,6 +37,19 @@ export default function ({
   const { colors, sizes } = useStyles();
   const insets = useSafeAreaInsets();
 
+  const [showSavedWordTransition, setShowSavedWordTransition] = useState(false);
+
+  const previousSavedWordCount = usePrevious(savedWords.length);
+
+  useEffect(() => {
+    if (savedWords.length > previousSavedWordCount) {
+      setShowSavedWordTransition(true);
+      setTimeout(() => {
+        setShowSavedWordTransition(false);
+      }, 2000);
+    }
+  }, [savedWords.length, previousSavedWordCount]);
+
   const showWordOverlay = peekingKana.length || typingKana.length;
 
   return (
@@ -47,7 +61,11 @@ export default function ({
         right: 0,
         top: 0,
         justifyContent: 'space-between',
-        backgroundColor: showWordOverlay ? colors.overlayColor : colors.backgroundColor + '99',
+        backgroundColor: showWordOverlay
+          ? colors.overlayColor
+          : showSavedWordTransition
+          ? colors.buttonColor
+          : colors.backgroundColor + '99',
       }}>
       <View
         style={{
@@ -57,6 +75,11 @@ export default function ({
           <TypedWordOverlay
             showBlinkingCursor={!!typingKana.length}
             typingKana={typingKana.length ? typingKana : peekingKana}
+          />
+        ) : showSavedWordTransition ? (
+          <TypedWordOverlay
+            showBlinkingCursor={false}
+            typingKana={savedWords[savedWords.length - 1].word}
           />
         ) : (
           <Toolbar

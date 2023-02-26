@@ -36,21 +36,21 @@ export default function TypedWordOverlay({ typingKana, showBlinkingCursor = true
   }, [typingKana, scrollViewRef, scrollEnabled]);
 
   return (
-    <ScrollView
-      ref={scrollViewRef}
-      horizontal
-      scrollEnabled={scrollEnabled}
-      showsHorizontalScrollIndicator={false}
-      contentContainerStyle={{
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexGrow: 1,
-        paddingHorizontal: sizes.medium,
-      }}>
-      {typingKana.map((kana, index) => (
-        <ReadingKana key={index.toString()} kana={kana} />
-      ))}
-      {showBlinkingCursor && <BlinkingCursor />}
-    </ScrollView>
+      <ScrollView
+        ref={scrollViewRef}
+        horizontal
+        scrollEnabled={scrollEnabled}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexGrow: 1,
+          paddingHorizontal: sizes.medium,
+        }}>
+        {typingKana.map((kana, index) => (
+          <ReadingKana key={index.toString()} kana={kana} />
+        ))}
+        {showBlinkingCursor && <BlinkingCursor />}
+      </ScrollView>
   );
 }
