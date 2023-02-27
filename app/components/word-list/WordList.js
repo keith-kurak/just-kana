@@ -9,7 +9,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const keyExtractor = (item, index) => index.toString();
 
-export default function WordList({ words, onPressWord }) {
+export default function WordList({ words, onPressWord, grouping = 'date' }) {
   const { textStyles, sizes, colors } = useStyles();
   const insets = useSafeAreaInsets();
 
@@ -17,33 +17,69 @@ export default function WordList({ words, onPressWord }) {
     return (
       <Pressable onPress={() => onPressWord(item)}>
         <View style={{ flexDirection: 'row', flex: 1, padding: sizes.medium }}>
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap', flex: 1, paddingRight: sizes.medium }}>
-            {item.word.map((kana, index) => (
-              <ReadingKana key={index.toString()} kana={kana} />
-            ))}
+          <View style={{ flex: 1, paddingRight: sizes.medium }}>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+              {item.word.map((kana, index) => (
+                <ReadingKana key={index.toString()} kana={kana} />
+              ))}
+            </View>
+            {item.translation && (
+              <View style={{ marginTop: sizes.small, alignSelf: 'center' }}>
+                <Text
+                  style={[
+                    textStyles.smallLight,
+                    { fontStyle: 'italic' },
+                  ]}>{`"${item.translation}"`}</Text>
+              </View>
+            )}
           </View>
-          <Ionicons style={{ alignSelf: 'center'}} name="md-ellipsis-vertical-outline" size={24} color={colors.secondaryTextColor} />
+          <Ionicons
+            style={{ alignSelf: 'center' }}
+            name="md-ellipsis-vertical-outline"
+            size={24}
+            color={colors.secondaryTextColor}
+          />
         </View>
       </Pressable>
     );
   });
 
-  const renderSectionHeader = useCallback(({ section: { title } }) => (
+  const renderDateSectionHeader = useCallback(({ section: { title } }) => (
     <Text allowFontScaling={false} style={[{ paddingLeft: sizes.medium }, textStyles.smallLight]}>
       {DateTime.fromSQL(title).toLocaleString(DateTime.DATE_MED)}
     </Text>
   ));
 
-  const groups = groupBy(sortBy(words, (w) => w.date).reverse(), (w) =>
-    DateTime.fromISO(w.date).toFormat('yyyy-MM-dd')
-  );
+  const renderTextSectionHeader = useCallback(({ section: { title } }) => (
+    <Text allowFontScaling={false} style={[{ paddingLeft: sizes.medium }, textStyles.smallLight]}>
+      {title}
+    </Text>
+  ));
 
-  let sections = keys(groups).map((key) => ({ title: key, data: groups[key] }));
+  let sections;
+  let renderSectionHeader;
+
+  // we have a list of words that need to be grouped into dates
+  if (grouping === 'date') {
+    renderSectionHeader = renderDateSectionHeader;
+    const groups = groupBy(sortBy(words, (w) => w.date).reverse(), (w) =>
+      DateTime.fromISO(w.date).toFormat('yyyy-MM-dd')
+    );
+
+    sections = keys(groups).map((key) => ({ title: key, data: groups[key] }));
+  } else {
+    // groups have already been specified
+    // (yes this is gross)
+    renderSectionHeader = renderTextSectionHeader;
+    sections = words;
+  }
 
   return (
     <SectionList
       sections={sections}
       renderItem={renderItem}
+      keyExtractor={keyExtractor}
+      stickySectionHeadersEnabled={false}
       ItemSeparatorComponent={() => (
         <View
           style={{

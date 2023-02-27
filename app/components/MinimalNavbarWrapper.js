@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useStyles } from '../config/styles';
 
-export default function MinimalNavbarWrapper({ children, showBackButton = true, rightButton }) {
+export default function MinimalNavbarWrapper({ children, showBackButton = true, rightButton, center }) {
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
   const { colors } = useStyles();
@@ -27,6 +27,7 @@ export default function MinimalNavbarWrapper({ children, showBackButton = true, 
             <Ionicons name="arrow-back" size={40} color={colors.buttonTextColor} />
           </Pressable>
         ) : null}
+        {center ? center : <View />}
         {rightButton ? rightButton : <View />}
       </View>
       {children}

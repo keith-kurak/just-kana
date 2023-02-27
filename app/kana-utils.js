@@ -1,6 +1,7 @@
 import { keys, split } from 'lodash';
 const katakanaData = require('./katakana.json');
 const hiraganaData = require('./hiragana.json');
+const commonWords = require('./common.json');
 
 function generateKanaProvider(data) {
   const kanaData = data;
@@ -53,4 +54,23 @@ function generateKanaProvider(data) {
 const katakanaProvider = generateKanaProvider(katakanaData);
 const hiraganaProvider = generateKanaProvider(hiraganaData);
 
-export { katakanaProvider, hiraganaProvider };
+const anyKanaToRomaji = (kana) => {
+  if (kana === ' ') return ' ';
+  if (kana === 'ー') return 'ー';
+
+  let romaji = katakanaData.kanaToRomaji[kana];
+  if (!romaji) {
+    romaji = hiraganaData.kanaToRomaji[kana];
+  }
+  return romaji;
+}
+
+commonWords.forEach((group) => {
+  group.data.forEach((entry) => {
+    entry.word = entry.word.split('');
+    entry.word = entry.word.map((l) => ({  kana: l, romaji: anyKanaToRomaji(l) }));
+    console.log(entry);
+  });
+});
+
+export { katakanaProvider, hiraganaProvider, commonWords };

@@ -8,7 +8,7 @@ function ReadingKana({ kana, useDarkText = false }) {
     return <View style={{ width: 30 }} />;
   }
   return (
-    <View style={{ alignItems: 'center', width: 30 }}>
+    <View style={{ alignItems: 'center' }}>
       <Text
         allowFontScaling={false}
         style={[

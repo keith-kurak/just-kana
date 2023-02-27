@@ -1,0 +1,27 @@
+[
+  {
+    "title": "Phrases",
+    "data" : [
+      {
+        "word" : "はい",
+        "translation" : "yes"
+      },
+      {
+        "word" : "いいえ",
+        "translation" : "no"
+      },
+      {
+        "word" : "ありがとう ございます",
+        "translation" : "Thank you"
+      },
+      {
+        "word": "すみません",
+        "translation": "Excuse me"
+      },
+      {
+        "word": "はじめまして",
+        "translation": "Nice to meet you"
+      }
+    ]
+  }
+]

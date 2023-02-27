@@ -12,8 +12,8 @@ import { useStyles } from '../config/styles';
 
 const demoProps = {
   animationInTiming: 1,
-      animationOutTiming: 1
-}
+  animationOutTiming: 1,
+};
 
 function TranslatorMiniBrowser({ word }) {
   const kanaString = word.word.map((kana) => (kana.kana === ' ' ? '%20' : kana.kana)).join('');
@@ -56,7 +56,7 @@ function ToolbarButton({ onPress, IconComponent, iconName, color = 'white' }) {
   );
 }
 
-export default function ({ isVisible, word, onDismiss, onPressDelete }) {
+export default function ({ isVisible, word, onDismiss, onPressDelete, canDelete = true }) {
   const { colors, colorOptions, sizes } = useStyles();
   const { bottom } = useSafeAreaInsets();
   //const [isTranslateBrowserVisible, setIsTranslateBrowserVisible] = useState(false);
@@ -83,7 +83,8 @@ export default function ({ isVisible, word, onDismiss, onPressDelete }) {
     const translationLanguage = Platform.OS === 'android' ? 'en' : 'auto';
     WebBrowser.openBrowserAsync(
       encodeURI(
-        `https://translate.google.com/?sl=ja&tl=${translationLanguage}&op=translate&text=${kanaString}`, { createTask: false }
+        `https://translate.google.com/?sl=ja&tl=${translationLanguage}&op=translate&text=${kanaString}`,
+        { createTask: false }
       ),
       {
         createTask: false,
@@ -125,12 +126,14 @@ export default function ({ isVisible, word, onDismiss, onPressDelete }) {
             iconName="translate"
           />
           <ToolbarButton onPress={copy} IconComponent={Ionicons} iconName="ios-copy-outline" />
-          <ToolbarButton
-            color={colors.destructive}
-            onPress={onPressDelete}
-            IconComponent={MaterialIcons}
-            iconName="delete-outline"
-          />
+          {canDelete && (
+            <ToolbarButton
+              color={colors.destructive}
+              onPress={onPressDelete}
+              IconComponent={MaterialIcons}
+              iconName="delete-outline"
+            />
+          )}
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'center', flexWrap: 'wrap' }}>
           {word &&
