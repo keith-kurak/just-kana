@@ -51,7 +51,7 @@ export default function Toolbar({
         </Pressable>
         <Pressable
           style={{ marginLeft: sizes.medium }}
-          onPress={() => onChangeSetting('primaryColorIndex', primaryColorIndex + 1 )}>
+          onPress={() => onChangeSetting('primaryColorIndex', primaryColorIndex + 1)}>
           <View
             style={{
               borderColor: colors.buttonTextColor,
@@ -73,25 +73,23 @@ export default function Toolbar({
           justifyContent: 'flex-end',
           flex: 1,
         }}>
-        {savedWords.length ? (
-          <IconBadge badgeCount={savedWords.length} color={colors.buttonColor} size={sizes.topBar}>
-            <Pressable onPress={onPressShowWordList}>
-              <View
-                style={{
-                  paddingVertical: 5,
-                  paddingHorizontal: 10,
-                  borderRadius: sizes.borderRadius,
-                  borderWidth: 2,
-                  borderColor: colors.buttonTextColor,
-                  alignItems: 'center',
-                }}>
-                <Text allowFontScaling={false} style={textStyles.smallDark}>
-                  {`カナ`}
-                </Text>
-              </View>
-            </Pressable>
-          </IconBadge>
-        ) : null}
+        <IconBadge badgeCount={savedWords.length} color={colors.buttonColor} size={sizes.topBar}>
+          <Pressable onPress={onPressShowWordList}>
+            <View
+              style={{
+                paddingVertical: 5,
+                paddingHorizontal: 10,
+                borderRadius: sizes.borderRadius,
+                borderWidth: 2,
+                borderColor: colors.buttonTextColor,
+                alignItems: 'center',
+              }}>
+              <Text allowFontScaling={false} style={textStyles.smallDark}>
+                {`カナ`}
+              </Text>
+            </View>
+          </Pressable>
+        </IconBadge>
       </View>
     </View>
   );

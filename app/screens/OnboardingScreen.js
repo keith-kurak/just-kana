@@ -33,6 +33,12 @@ export default function OnboardingScreen() {
           title: 'Collect new words',
           subtitle: 'Review your saved words. Tap to hear the pronunciation, look up the meaning, or copy.',
         },
+        {
+          backgroundColor,
+          image: <Image {...gifProps} source={require('../assets/demo-3.png')} />,
+          title: 'Sound out common phrases',
+          subtitle: 'Some common phrases are included in the word list. Tap to hear the pronunciation.',
+        },
       ]}
     />
   );

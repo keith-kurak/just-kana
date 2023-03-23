@@ -76,6 +76,7 @@ export default function WordList({ words, onPressWord, grouping = 'date' }) {
 
   return (
     <SectionList
+      contentContainerStyle={{ flexGrow: 1 }}
       sections={sections}
       renderItem={renderItem}
       keyExtractor={keyExtractor}
@@ -92,6 +93,11 @@ export default function WordList({ words, onPressWord, grouping = 'date' }) {
       renderSectionHeader={renderSectionHeader}
       renderSectionFooter={() => <View style={{ height: 20 }} />}
       ListFooterComponent={() => <View style={{ height: insets.bottom }} />}
+      ListEmptyComponent={() => (
+        <View style={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <Text style={textStyles.smallDark}>Go back and add your first word!</Text>
+        </View>
+      )}
     />
   );
 }
