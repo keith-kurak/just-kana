@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable, Platform } from 'react-native';
 import { useStyles } from '../../config/styles';
 
 function Consonant({ text, show }) {
@@ -36,7 +36,14 @@ function Kana({ kana, onPress, onLongPress, onPressOut, color, showConsonant }) 
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <Text allowFontScaling={false} style={textStyles.buttonTextStyle}>
+        <Text
+          allowFontScaling={false}
+          style={[
+            textStyles.buttonTextStyle,
+            Platform.OS === 'android' && {
+              marginBottom: 4 /* Kana are aligned towards bottom on Expo 48; no idea why */,
+            },
+          ]}>
           {kana.kana}
         </Text>
       </View>
@@ -102,8 +109,7 @@ function KanaRow({
           )
         )}
       </View>
-      {alternateRows.length <= 0 && (
-        <View style={{ width: sizes.verticalKey }} />)}
+      {alternateRows.length <= 0 && <View style={{ width: sizes.verticalKey }} />}
     </View>
   );
 }
