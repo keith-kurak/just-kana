@@ -1,26 +1,188 @@
 [
   {
     "title": "Phrases",
-    "data" : [
+    "data": [
       {
-        "word" : "はい",
-        "translation" : "yes"
+        "word": "はい",
+        "translation": "yes"
       },
       {
-        "word" : "いいえ",
-        "translation" : "no"
+        "word": "いいえ",
+        "translation": "no"
       },
       {
-        "word" : "ありがとう ございます",
-        "translation" : "Thank you"
+        "word": "ありがとう ございます",
+        "translation": "Thank you"
       },
       {
         "word": "すみません",
         "translation": "Excuse me"
+      }
+    ]
+  },
+  {
+    "title": "Greetings",
+    "data": [
+      {
+        "word": "おはよう ございます",
+        "translation": "Good morning"
       },
       {
         "word": "はじめまして",
         "translation": "Nice to meet you"
+      },
+      {
+        "word": "こんにちは",
+        "translation": "Hello"
+      },
+      {
+        "word": "こんばんは",
+        "translation": "Good evening"
+      },
+      {
+        "word": "おやすみ なさい",
+        "translation": "Good night"
+      }
+    ]
+  },
+  {
+    "title": "Slang/ expressions",
+    "data": [
+      {
+        "word": "すごい",
+        "translation": "Great/ awesome/ wow!"
+      },
+      {
+        "word": "かわいい",
+        "translation": "Cute"
+      },
+      {
+        "word": "ダメダメ",
+        "translation": "No, no (playful)"
+      },
+      {
+        "word": "うまい",
+        "translation": "Tasty"
+      },
+      {
+        "word": "またねー",
+        "translation": "Later!"
+      }
+    ]
+  },
+  {
+    "title": "Getting around",
+    "data": [
+      {
+        "word": "えいご が はなせ ます か",
+        "translation": "Do you speak English?"
+      },
+      {
+        "word": "トイレ は どこ です か",
+        "translation": "Where is the toilet?"
+      },
+      {
+        "word": "いくら です か",
+        "translation": "How much is it?"
+      },
+      {
+        "word": "どこ です か",
+        "translation": "Where is it?"
+      }
+    ]
+  },
+  {
+    "title": "These sound familiar",
+    "data": [
+      {
+        "word": "テレビ",
+        "translation": "television"
+      },
+      {
+        "word": "スーパー",
+        "translation": "supermarket"
+      },
+      {
+        "word": "バー",
+        "translation": "bar"
+      },
+      {
+        "word": "コーヒー",
+        "translation": "coffee"
+      }
+    ]
+  },
+  {
+    "title": "Numbers",
+    "data": [
+      {
+        "word": "いち",
+        "translation": "one"
+      },
+      {
+        "word": "に",
+        "translation": "two"
+      },
+      {
+        "word": "さん",
+        "translation": "three"
+      },
+      {
+        "word": "よん",
+        "translation": "four"
+      },
+      {
+        "word": "ご",
+        "translation": "five"
+      },
+      {
+        "word": "ろく",
+        "translation": "six"
+      },
+      {
+        "word": "なな",
+        "translation": "seven"
+      },
+      {
+        "word": "はち",
+        "translation": "eight"
+      },
+      {
+        "word": "きゅう",
+        "translation": "nine"
+      },
+      {
+        "word": "じゅう",
+        "translation": "ten"
+      }
+    ]
+  },
+  {
+    "title": "Colors",
+    "data": [
+      {
+        "word": "あか",
+        "translation": "red"
+      },
+      {
+        "word": "あお",
+        "translation": "blue"
+      },
+      {
+        "word": "きいろ",
+        "translation": "yellow"
+      },
+      {
+        "word": "みどり",
+        "translation": "green"
+      },
+      {
+        "word": "くろ",
+        "translation": "black"
+      },
+      {
+        "word": "しろ",
+        "translation": "white"
       }
     ]
   }
