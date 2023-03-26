@@ -1,5 +1,18 @@
 [
   {
+    "title": "Words of the Day: Animals",
+    "data": [
+      {
+        "word": "いぬ",
+        "translation": "dog"
+      },
+      {
+        "word": "ねこ",
+        "translation": "cat"
+      }
+    ]
+  },
+  {
     "title": "Phrases",
     "data": [
       {
