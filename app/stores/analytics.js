@@ -23,7 +23,7 @@ if (amplitudeAvailable) {
 
   /*
     // For update acceptance, add this event
-    track('ReceivedTargetedUpdate', {
+    track('ReceivedTargetedUpdate1', {
       updateId: Updates.updateId,
       channel: Updates.channel,
       firstWord: common[0].data[0].translation,
