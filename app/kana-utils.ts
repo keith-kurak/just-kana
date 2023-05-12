@@ -3,10 +3,19 @@ const katakanaData = require('./katakana.json');
 const hiraganaData = require('./hiragana.json');
 const commonWords = require('./common.json');
 
+type Character = {
+  kana: string,
+  romaji: string
+};
+
+type KanaRow = [Character?];
+
+type KanaTable = [KanaRow?];
+
 function generateKanaProvider(data) {
   const kanaData = data;
 
-  function getKanaRow(rowLetter) {
+  function getGojuonRow(rowLetter : string) : KanaRow {
     const rowString = kanaData.kanaTable[rowLetter];
     const rowKana = split(rowString, '');
     return rowKana.map((kana) =>
@@ -14,28 +23,28 @@ function generateKanaProvider(data) {
     );
   }
 
-  function getKanaTable() {
+  function getMonographs() : KanaTable {
     const rowConsanants = kanaData.tableRows;
-    const tableRows = [];
+    const tableRows : KanaTable = [];
     rowConsanants.forEach((consanant) => {
-      tableRows.push(getKanaRow(consanant));
+      tableRows.push(getGojuonRow(consanant));
     });
     return tableRows;
   }
 
-  function rowIndexToConsonant(index) {
+  function gojuonRowIndexToConsonant(index) {
     return kanaData.tableRows[index];
   }
 
-  function getAlternateKanaRows(rowLetter) {
+  function getDiacriticRowsForMonographRow(rowLetter) : KanaTable {
     const alternateRows = kanaData.alternateRows[rowLetter];
     if (alternateRows) {
-      return alternateRows.map((row) => getKanaRow(row));
+      return alternateRows.map((row) => getGojuonRow(row));
     }
     return [];
   }
 
-  function getAlternateKanaRowConsonants(rowLetter) {
+  function getDiacriticConsonantsForMonographRow(rowLetter) : [string?] {
     const alternateRows = kanaData.alternateRows[rowLetter];
     if (alternateRows) {
       return alternateRows;
@@ -44,10 +53,15 @@ function generateKanaProvider(data) {
   }
 
   return {
-    getKanaTable,
-    rowIndexToConsonant,
-    getAlternateKanaRows,
-    getAlternateKanaRowConsonants,
+    getMonographs,
+    gojuonRowIndexToConsonant,
+    getDiacriticRowsForMonographRow,
+    getDiacriticConsonantsForMonographRow,
+    // legacy compatibility from when I didn't know the names of things
+    getKanaTable: getMonographs,
+    getAlternateKanaRows: getDiacriticRowsForMonographRow,
+    getAlternateKanaRowConsonants: getDiacriticConsonantsForMonographRow,
+    rowIndexToConsonant: gojuonRowIndexToConsonant,
   }
 }
 
@@ -57,6 +71,7 @@ const hiraganaProvider = generateKanaProvider(hiraganaData);
 const anyKanaToRomaji = (kana) => {
   if (kana === ' ') return ' ';
   if (kana === 'ー') return 'ー';
+  if (kana === 'ッ') return 'ッ';
 
   let romaji = katakanaData.kanaToRomaji[kana];
   if (!romaji) {

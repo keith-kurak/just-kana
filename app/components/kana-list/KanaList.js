@@ -3,7 +3,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colord } from 'colord';
 import { hiraganaProvider, katakanaProvider } from '../../kana-utils';
 import { useStyles } from '../../config/styles';
-import KanaRowSwitcher from './KanaRowSwitcher';
+import KanaRowWithDiacritics from './KanaRowWithDiacritics';
 
 function KanaList({ kanaType, onPressKana, showConsonants = true, onLongPressKana, onFinishLongPressKana }) {
   const { colors, sizes, colorScheme } = useStyles();
@@ -19,7 +19,7 @@ function KanaList({ kanaType, onPressKana, showConsonants = true, onLongPressKan
       {tableRows.map((row, index) => {
         const primaryConsonant = rowIndexToConsonant(index);
         return (
-          <KanaRowSwitcher
+          <KanaRowWithDiacritics
             key={primaryConsonant}
             showConsonant={showConsonants}
             primaryRow={row}
