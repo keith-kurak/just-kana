@@ -15,6 +15,8 @@ function indexToDakuten(index) {
 }
 
 function ExpanderButton({ alternateConsonants, showConsonant, isExpanded, onPress }) {
+  const { colors } = useStyles();
+
   return <Pressable onPress={onPress}>
     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
       {isExpanded ?
