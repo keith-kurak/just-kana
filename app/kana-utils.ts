@@ -84,7 +84,6 @@ commonWords.forEach((group) => {
   group.data.forEach((entry) => {
     entry.word = entry.word.split('');
     entry.word = entry.word.map((l) => ({  kana: l, romaji: anyKanaToRomaji(l) }));
-    console.log(entry);
   });
 });
 
