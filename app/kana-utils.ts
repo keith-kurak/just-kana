@@ -5,7 +5,9 @@ const commonWords = require('./common.json');
 
 type Character = {
   kana: string,
-  romaji: string
+  romaji: string,
+  gojuonRowIndex: integer?,
+  consonant: string,
 };
 
 type KanaRow = [Character?];
@@ -15,11 +17,11 @@ type KanaTable = [KanaRow?];
 function generateKanaProvider(data) {
   const kanaData = data;
 
-  function getGojuonRow(rowLetter : string) : KanaRow {
+  function getGojuonRow(rowLetter : string, isMainGojuon = true) : KanaRow {
     const rowString = kanaData.kanaTable[rowLetter];
     const rowKana = split(rowString, '');
-    return rowKana.map((kana) =>
-      kana !== ' ' ? { kana, romaji: kanaData.kanaToRomaji[kana] } : null
+    return rowKana.map((kana, index) =>
+      kana !== ' ' ? { kana, romaji: kanaData.kanaToRomaji[kana], gojuonRowIndex: isMainGojuon ? index : undefined, consonant: rowLetter } : null
     );
   }
 
@@ -27,7 +29,7 @@ function generateKanaProvider(data) {
     const rowConsanants = kanaData.tableRows;
     const tableRows : KanaTable = [];
     rowConsanants.forEach((consanant) => {
-      tableRows.push(getGojuonRow(consanant));
+      tableRows.push(getGojuonRow(consanant, true));
     });
     return tableRows;
   }
@@ -39,7 +41,7 @@ function generateKanaProvider(data) {
   function getDiacriticRowsForMonographRow(rowLetter) : KanaTable {
     const alternateRows = kanaData.alternateRows[rowLetter];
     if (alternateRows) {
-      return alternateRows.map((row) => getGojuonRow(row));
+      return alternateRows.map((row) => getGojuonRow(row, false));
     }
     return [];
   }
@@ -52,11 +54,16 @@ function generateKanaProvider(data) {
     return [];
   }
 
+  function getAllFormsForKana(character: Character) : [Character] {
+    const
+  }
+
   return {
     getMonographs,
     gojuonRowIndexToConsonant,
     getDiacriticRowsForMonographRow,
     getDiacriticConsonantsForMonographRow,
+    getDiacriticsAndYoonForKana,
     // legacy compatibility from when I didn't know the names of things
     getKanaTable: getMonographs,
     getAlternateKanaRows: getDiacriticRowsForMonographRow,
