@@ -12,7 +12,7 @@ if (amplitudeAvailable) {
   const identifyObj = new Identify();
   identifyObj.set('updateId', Updates.updateId);
   identifyObj.set('channel', Updates.channel);
-  identifyObj.set('firstWord', common[0].data[0].translation);
+  identifyObj.set('secretWord', reverse(common)[0].data[0].translation);
   identify(identifyObj);
 
   track('AppLaunched', {
@@ -26,7 +26,7 @@ if (amplitudeAvailable) {
     track('ReceivedTargetedUpdate1', {
       updateId: Updates.updateId,
       channel: Updates.channel,
-      firstWord: common[0].data[0].translation,
+      secretWord: reverse(common)[0].data[0].translation,
     });
   */
 }
