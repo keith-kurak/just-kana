@@ -27,7 +27,7 @@ function DakutenIndicator({ consonants, showConsonant, activeIndex }) {
         marginLeft: showConsonant ? 0 : 5,
         color: colors.secondaryTextColor,
         textAlign: 'center',
-        fontWeight: index === activeIndex ? 'bold' : 'regular',
+        fontWeight: index === activeIndex ? 'bold' : 'normal',
         marginTop: Platform.OS ==='android' && !showConsonant ? -8 : undefined
       }}>
       {showConsonant ? symbol : indexToDakuten(index)}
