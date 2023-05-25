@@ -46,6 +46,23 @@
     ]
   },
   {
+    "title": "Ordering food",
+    "data": [
+      {
+        "word": "ひとつ",
+        "translation": "one ____"
+      },
+      {
+        "word": "ふたつ",
+        "translation": "two ____"
+      },
+      {
+        "word": "みっつ",
+        "translation": "three ____"
+      }
+    ]
+  },
+  {
     "title": "Slang/ expressions",
     "data": [
       {
@@ -67,6 +84,10 @@
       {
         "word": "またねー",
         "translation": "Later!"
+      },
+      {
+        "word": "だいじょうぶ",
+        "translation": "It's okay / I'm good"
       }
     ]
   },
@@ -185,5 +206,18 @@
         "translation": "white"
       }
     ]
-  }
+  },
+  {
+    "title": "Words of the Day: Animals",
+    "data": [
+      {
+        "word": "いぬ",
+        "translation": "dog"
+      },
+      {
+        "word": "ねこ",
+        "translation": "cat"
+      }
+    ]
+  },
 ]

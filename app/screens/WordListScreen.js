@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Pressable } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import WordList from '../components/word-list';
 import { useAppState } from '../stores';
+import { trackAnalyticsEvent } from '../stores/analytics';
 import MinimalNavbarWrapper from '../components/MinimalNavbarWrapper';
 import WordDetailModal from '../components/WordDetailModal';
 import SegmentedControl from '../components/SegmentedControl';
@@ -17,6 +18,16 @@ export default function ({ navigation }) {
 
   const myWordList = filterIndex === 0 ? savedWords : commonWords;
 
+  const onSwitchWordList = useCallback(
+    (index) => {
+      setFilterIndex(index);
+      if (index === 1) {
+        trackAnalyticsEvent('ViewCommonWords');
+      }
+    },
+    [filterIndex]
+  );
+
   return (
     <MinimalNavbarWrapper
       rightButton={
@@ -27,7 +38,7 @@ export default function ({ navigation }) {
       center={
         <SegmentedControl
           selectedIndex={filterIndex}
-          onChange={(index) => setFilterIndex(index)}
+          onChange={onSwitchWordList}
           options={['Mine', 'Common']}
         />
       }>
