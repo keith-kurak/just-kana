@@ -1,8 +1,9 @@
 import { init, identify, Identify, track } from '@amplitude/analytics-react-native';
+import { slice, reverse } from 'lodash';
 import * as Updates from 'expo-updates';
 import Constants from 'expo-constants';
 
-const common = require('../common');
+const secretWord = reverse(slice(require('../common')))[0].data[0].translation;
 
 const amplitudeAvailable = Constants.expoConfig.extra && Constants.expoConfig.extra.amplitudeApiKey;
 
@@ -10,15 +11,15 @@ if (amplitudeAvailable) {
   init(Constants.expoConfig.extra.amplitudeApiKey);
 
   const identifyObj = new Identify();
-  identifyObj.set('updateId', Updates.updateId);
-  identifyObj.set('channel', Updates.channel);
-  identifyObj.set('secretWord', reverse(common)[0].data[0].translation);
+  identifyObj.set('updateId', Updates.updateId || 'local');
+  identifyObj.set('channel', Updates.channel || 'local');
+  identifyObj.set('secretWord', secretWord);
   identify(identifyObj);
 
   track('AppLaunched', {
-    updateId: Updates.updateId,
-    channel: Updates.channel,
-    firstWord: common[0].data[0].translation,
+    updateId: Updates.updateId || 'local',
+    channel: Updates.channel || 'local',
+    secretWordForEvent: secretWord,
   });
 
   /*
@@ -26,7 +27,7 @@ if (amplitudeAvailable) {
     track('ReceivedTargetedUpdate1', {
       updateId: Updates.updateId,
       channel: Updates.channel,
-      secretWord: reverse(common)[0].data[0].translation,
+      secretWordForEvent: reverse(common)[0].data[0].translation,
     });
   */
 }
