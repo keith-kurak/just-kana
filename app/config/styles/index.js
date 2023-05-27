@@ -9,6 +9,7 @@ const lightGray = '#A9A9A9';
 const darkerGray = '#666666';
 const notQuiteBlack = '#222222';
 const overlayColor = '#7F7F7FBB';
+const overlayColorSolid = '#7F7F7FFF';
 
 const darkColors = ['#076FF8', '#F89007', '#9007f8', '#f8076f', '#05ae65'];
 
@@ -77,6 +78,8 @@ const useStyles = function () {
     }
   }, [colorScheme]);
 
+  const kanaButtonDiameter = Math.min(width - (32 * 2) / 6, 50);
+
   const sizes = {
     verticalKey: 32,
     topBar: 56,
@@ -84,7 +87,8 @@ const useStyles = function () {
     small: 8,
     medium: 12,
     large: 16,
-    kanaButtonDiameter: Math.min(width - (32 * 2) / 6, 50),
+    kanaButtonDiameter,
+    kanaButtonSpaceBetween: width / 6 - kanaButtonDiameter,
     borderRadius: 5,
   };
   const colors = {
@@ -93,6 +97,7 @@ const useStyles = function () {
     buttonTextColor: buttonTextStyle.color,
     secondaryTextColor: smallLight.color,
     overlayColor,
+    overlayColorSolid,
     destructive: '#FF3B30',
   };
   const textStyles = {

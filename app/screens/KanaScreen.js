@@ -4,6 +4,7 @@ import KanaList from '../components/kana-list';
 import TopBar from '../components/top-bar';
 import KanaFormsOverlay from '../components/kana-list/KanaFormsOverlay';
 import KanaTypingOverlay from '../components/KanaTypingOverlay';
+import { hiraganaProvider, katakanaProvider } from '../kana-utils';
 import { useAppState } from '../stores';
 import { useStyles } from '../config/styles';
 
@@ -73,6 +74,8 @@ export default function ({ navigation }) {
     }
   }, [longPressKana, setLongPressKana]);
 
+  const kanaProvider = kanaType === 'katakana' ? katakanaProvider : hiraganaProvider;
+
   return (
     <View style={{ flex: 1, backgroundColor: colors.backgroundColor }}>
       <KanaList
@@ -80,12 +83,15 @@ export default function ({ navigation }) {
         onLongPressKana={onLongPressKana}
         onPressKana={onPressKana}
         showConsonants={settings['showVowelsAndConsonants']}
+        kanaProvider={kanaProvider}
       />
       <KanaFormsOverlay
         kana={longPressKana && longPressKana[0]}
         onPressKana={onPressKana}
         isVisible={longPressKana.length}
         onRequestHide={onFinishLongPressKana}
+        showConsonants={settings['showVowelsAndConsonants']}
+        kanaProvider={kanaProvider}
       />
       <KanaTypingOverlay typingKana={typingKana} onPressKey={onPressKey} />
       <TopBar

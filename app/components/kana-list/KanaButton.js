@@ -16,6 +16,7 @@ export default function KanaButton({
     <Pressable
       onPress={onPress}
       onLongPress={onLongPress}
+      delayLongPress={100}
       onPressOut={onPressOut}
       style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}>
       <View

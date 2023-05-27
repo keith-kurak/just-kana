@@ -1,11 +1,10 @@
 import React, { useCallback } from 'react';
 import { View, Pressable, Text } from 'react-native';
 import { BlurView } from 'expo-blur';
-import { hiraganaProvider, katakanaProvider } from '../../kana-utils';
 import { useStyles } from '../../config/styles';
 import KanaButton from './KanaButton';
 
-function KanaButtonWithRomajiHint({ kana, onPressKana, onRequestHide, color }) {
+function KanaButtonWithRomajiHint({ kana, onPressKana, onRequestHide, color, showConsonants }) {
   const { sizes, colors } = useStyles();
 
   const onPress = useCallback(() => {
@@ -14,7 +13,7 @@ function KanaButtonWithRomajiHint({ kana, onPressKana, onRequestHide, color }) {
   }, [kana, onPressKana, onRequestHide]);
 
   return (
-    <View>
+    <View style={{ marginHorizontal: sizes.kanaButtonSpaceBetween / 2 }}>
       <Text
         style={{
           fontSize: 16,
@@ -22,7 +21,7 @@ function KanaButtonWithRomajiHint({ kana, onPressKana, onRequestHide, color }) {
           paddingBottom: sizes.small,
           color: colors.buttonTextColor,
         }}>
-        {kana.romaji}
+        {showConsonants && kana.romaji}
       </Text>
       <KanaButton kana={kana} onPress={onPress} color={color} />
     </View>
@@ -35,6 +34,8 @@ export default function KanaFormOverlay({
   onPressKana,
   onRequestHide,
   isVisible = false,
+  kanaProvider,
+  showConsonants,
 }) {
   const { sizes, colors } = useStyles();
 
@@ -52,33 +53,49 @@ export default function KanaFormOverlay({
         top: 0,
         alignItems: 'center',
       }}>
-      <BlurView style={{ flex: 1, width: '100%' }} intensity={40}>
+      <View style={{ flex: 1, width: '100%' }}>
+        <View
+          style={{
+            backgroundColor: colors.backgroundColor,
+            opacity: 0.9,
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            left: 0,
+            bottom: 0,
+          }}
+        />
         <View
           style={{
             marginTop: sizes.expandedTopBar + verticalOffset,
             alignItems: 'center',
+            justifyContent: 'center',
           }}>
           <View
             style={{
-              backgroundColor: colors.overlayColor,
+              flexDirection: 'row',
               borderRadius: sizes.borderRadius,
+              backgroundColor: colors.overlayColorSolid,
               paddingTop: sizes.small,
               paddingBottom: sizes.small,
-              minWidth: 100,
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <KanaButtonWithRomajiHint
-              onRequestHide={onRequestHide}
-              onPressKana={onPressKana}
-              kana={kana}
-              color={colors.buttonColor}
-            />
+            {kanaProvider.getAllFormsForKana(kana).map((k) => (
+              <KanaButtonWithRomajiHint
+                key={k.kana}
+                onRequestHide={onRequestHide}
+                onPressKana={onPressKana}
+                kana={k}
+                color={colors.buttonColor}
+                showConsonants={showConsonants}
+              />
+            ))}
           </View>
           <View style={{ height: sizes.small }} />
           <KanaButton text="X" onPress={onRequestHide} color={colors.destructive} />
         </View>
-      </BlurView>
+      </View>
     </View>
   );
 }

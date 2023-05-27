@@ -4,10 +4,10 @@ const hiraganaData = require('./hiragana.json');
 const commonWords = require('./common.json');
 
 type Character = {
-  kana: string,
-  romaji: string,
-  gojuonRowIndex: integer?,
-  consonant: string,
+  kana: string;
+  romaji: string;
+  gojuonRowIndex?: number;
+  consonant: string;
 };
 
 type KanaRow = [Character?];
@@ -54,8 +54,13 @@ function generateKanaProvider(data) {
     return [];
   }
 
-  function getAllFormsForKana(character: Character) : [Character] {
-    const
+  function getAllFormsForKana(character: Character) : Character[] {
+    const mainRow = getGojuonRow(character.consonant, true);
+    const alternateRows = getDiacriticRowsForMonographRow(character.consonant);
+
+    const column = mainRow.findIndex((c) => c.kana === character.kana);
+
+    return [character].concat(alternateRows.map((row) => row[column]));
   }
 
   return {
@@ -63,12 +68,12 @@ function generateKanaProvider(data) {
     gojuonRowIndexToConsonant,
     getDiacriticRowsForMonographRow,
     getDiacriticConsonantsForMonographRow,
-    getDiacriticsAndYoonForKana,
     // legacy compatibility from when I didn't know the names of things
     getKanaTable: getMonographs,
     getAlternateKanaRows: getDiacriticRowsForMonographRow,
     getAlternateKanaRowConsonants: getDiacriticConsonantsForMonographRow,
     rowIndexToConsonant: gojuonRowIndexToConsonant,
+    getAllFormsForKana,
   }
 }
 

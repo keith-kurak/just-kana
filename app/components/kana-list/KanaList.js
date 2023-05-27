@@ -1,17 +1,15 @@
 import { ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colord } from 'colord';
-import { hiraganaProvider, katakanaProvider } from '../../kana-utils';
 import { useStyles } from '../../config/styles';
 import KanaRowWithDiacritics from './KanaRowWithDiacritics';
 
-function KanaList({ kanaType, onPressKana, showConsonants = true, onLongPressKana, onFinishLongPressKana }) {
+function KanaList({ onPressKana, showConsonants = true, onLongPressKana, onFinishLongPressKana, kanaProvider }) {
   const { colors, sizes, colorScheme } = useStyles();
   const insets = useSafeAreaInsets();
 
-  const provider = kanaType === 'katakana' ? katakanaProvider : hiraganaProvider;
   const { getKanaTable, rowIndexToConsonant, getAlternateKanaRows, getAlternateKanaRowConsonants } =
-    provider;
+    kanaProvider;
 
   const tableRows = getKanaTable();
   return (
