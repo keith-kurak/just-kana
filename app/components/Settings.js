@@ -6,6 +6,7 @@ import * as Updates from 'expo-updates';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AlertAsync from 'react-native-alert-async';
 import { useStyles } from '../config/styles';
+import { trackAnalyticsEvent } from '../stores/analytics';
 
 export default function ({ onDeleteAll }) {
   const { colors, colorOptions, sizes, textStyles } = useStyles();
@@ -20,6 +21,11 @@ export default function ({ onDeleteAll }) {
         setIsUpdateReady(true);
       }
     })();
+  }, []);
+
+  const update = useCallback(async () => {
+    trackAnalyticsEvent('UpdateApp');
+    Updates.reloadAsync();
   }, []);
 
   const confirmDelete = useCallback(() => {
@@ -110,7 +116,7 @@ export default function ({ onDeleteAll }) {
         </View>
       </Pressable>
       {isUpdateReady && (
-        <Pressable style={{ marginTop: sizes.small }} onPress={Updates.reloadAsync}>
+        <Pressable style={{ marginTop: sizes.small }} onPress={update}>
           <Text style={textStyles.smallDark}>Load latest update</Text>
         </Pressable>
       )}
