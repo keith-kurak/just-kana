@@ -37,11 +37,31 @@ export default function ({ navigation }) {
         addWord(typingKana);
         setTypingKana([]);
       }
-      // nabasu mark
+      // chōonpu mark
       if (key === 'ー') {
         const newTypingKana = typingKana.slice();
         newTypingKana.push({
           kana: 'ー',
+          romaji: '',
+        });
+        setTypingKana(newTypingKana);
+      }
+
+      // sokuonfu mark (katakana)
+      if (key === 'ッ') {
+        const newTypingKana = typingKana.slice();
+        newTypingKana.push({
+          kana: 'ッ',
+          romaji: '',
+        });
+        setTypingKana(newTypingKana);
+      }
+
+      // sokuonfu mark (hiragana)
+      if (key === 'っ') {
+        const newTypingKana = typingKana.slice();
+        newTypingKana.push({
+          kana: 'っ',
           romaji: '',
         });
         setTypingKana(newTypingKana);
@@ -93,7 +113,7 @@ export default function ({ navigation }) {
         showConsonants={settings['showVowelsAndConsonants']}
         kanaProvider={kanaProvider}
       />
-      <KanaTypingOverlay typingKana={typingKana} onPressKey={onPressKey} />
+      <KanaTypingOverlay kanaType={kanaType} typingKana={typingKana} onPressKey={onPressKey} />
       <TopBar
         showVowels={settings['showVowelsAndConsonants']}
         primaryColorIndex={settings['primaryColorIndex']}
