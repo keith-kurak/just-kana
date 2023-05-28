@@ -112,8 +112,14 @@ const anyKanaToRomaji = (kana) => {
 
 commonWords.forEach((group) => {
   group.data.forEach((entry) => {
-    entry.word = entry.word.split('');
-    entry.word = entry.word.map((l) => ({ kana: l, romaji: anyKanaToRomaji(l) }));
+    // hack to get around it not detecting the yoon characters
+    if (entry.commaDelimited) {
+      entry.word = entry.word.split(',');
+      entry.word = entry.word.map((l) => ({ kana: l, romaji: anyKanaToRomaji(l) }));
+    } else {
+      entry.word = entry.word.split('');
+      entry.word = entry.word.map((l) => ({ kana: l, romaji: anyKanaToRomaji(l) }));
+    }
   });
 });
 

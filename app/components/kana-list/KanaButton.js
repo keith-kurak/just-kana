@@ -3,7 +3,6 @@ import { useStyles } from '../../config/styles';
 
 export default function KanaButton({
   kana,
-  text,
   icon,
   onPress,
   onLongPress,
@@ -37,7 +36,7 @@ export default function KanaButton({
               },
               kana && kana.kana.length > 1 && { fontSize: 22 },
             ]}>
-            {text || kana.kana}
+            {icon || kana.kana}
           </Text>
       </View>
     </Pressable>
