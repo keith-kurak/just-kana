@@ -17,17 +17,24 @@ type KanaTable = [KanaRow?];
 function generateKanaProvider(data) {
   const kanaData = data;
 
-  function getGojuonRow(rowLetter : string, isMainGojuon = true) : KanaRow {
+  function getGojuonRow(rowLetter: string, isMainGojuon = true): KanaRow {
     const rowString = kanaData.kanaTable[rowLetter];
     const rowKana = split(rowString, '');
     return rowKana.map((kana, index) =>
-      kana !== ' ' ? { kana, romaji: kanaData.kanaToRomaji[kana], gojuonRowIndex: isMainGojuon ? index : undefined, consonant: rowLetter } : null
+      kana !== ' '
+        ? {
+            kana,
+            romaji: kanaData.kanaToRomaji[kana],
+            gojuonRowIndex: isMainGojuon ? index : undefined,
+            consonant: rowLetter,
+          }
+        : null
     );
   }
 
-  function getMonographs() : KanaTable {
+  function getMonographs(): KanaTable {
     const rowConsanants = kanaData.tableRows;
-    const tableRows : KanaTable = [];
+    const tableRows: KanaTable = [];
     rowConsanants.forEach((consanant) => {
       tableRows.push(getGojuonRow(consanant, true));
     });
@@ -38,7 +45,7 @@ function generateKanaProvider(data) {
     return kanaData.tableRows[index];
   }
 
-  function getDiacriticRowsForMonographRow(rowLetter) : KanaTable {
+  function getDiacriticRowsForMonographRow(rowLetter): KanaTable {
     const alternateRows = kanaData.alternateRows[rowLetter];
     if (alternateRows) {
       return alternateRows.map((row) => getGojuonRow(row, false));
@@ -46,7 +53,7 @@ function generateKanaProvider(data) {
     return [];
   }
 
-  function getDiacriticConsonantsForMonographRow(rowLetter) : [string?] {
+  function getDiacriticConsonantsForMonographRow(rowLetter): [string?] {
     const alternateRows = kanaData.alternateRows[rowLetter];
     if (alternateRows) {
       return alternateRows;
@@ -54,13 +61,24 @@ function generateKanaProvider(data) {
     return [];
   }
 
-  function getAllFormsForKana(character: Character) : Character[] {
+  function getAllFormsForKana(character: Character): Character[] {
     const mainRow = getGojuonRow(character.consonant, true);
+
     const alternateRows = getDiacriticRowsForMonographRow(character.consonant);
 
-    const column = mainRow.findIndex((c) => c.kana === character.kana);
+    const column = mainRow.findIndex((c) => c && (c.kana === character.kana));
 
-    return [character].concat(alternateRows.map((row) => row[column]));
+    const monographsPlusDiacritics = [character].concat(alternateRows.map((row) => row[column]));
+
+    const yoonToAdd: Character[] = [];
+    monographsPlusDiacritics.forEach((c) => {
+      const yoon = kanaData.yoonTable[c.kana] || [];
+      yoon.forEach((y) => {
+        yoonToAdd.push({ kana: y, romaji: kanaData.kanaToRomaji[y], consonant: c.consonant });
+      });
+    });
+
+    return monographsPlusDiacritics.concat(yoonToAdd);
   }
 
   return {
@@ -74,7 +92,7 @@ function generateKanaProvider(data) {
     getAlternateKanaRowConsonants: getDiacriticConsonantsForMonographRow,
     rowIndexToConsonant: gojuonRowIndexToConsonant,
     getAllFormsForKana,
-  }
+  };
 }
 
 const katakanaProvider = generateKanaProvider(katakanaData);
@@ -90,12 +108,12 @@ const anyKanaToRomaji = (kana) => {
     romaji = hiraganaData.kanaToRomaji[kana];
   }
   return romaji;
-}
+};
 
 commonWords.forEach((group) => {
   group.data.forEach((entry) => {
     entry.word = entry.word.split('');
-    entry.word = entry.word.map((l) => ({  kana: l, romaji: anyKanaToRomaji(l) }));
+    entry.word = entry.word.map((l) => ({ kana: l, romaji: anyKanaToRomaji(l) }));
   });
 });
 

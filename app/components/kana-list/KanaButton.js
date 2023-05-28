@@ -16,7 +16,7 @@ export default function KanaButton({
     <Pressable
       onPress={onPress}
       onLongPress={onLongPress}
-      delayLongPress={100}
+      delayLongPress={200}
       onPressOut={onPressOut}
       style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}>
       <View
@@ -35,6 +35,7 @@ export default function KanaButton({
               Platform.OS === 'android' && {
                 marginBottom: 4 /* Kana are aligned towards bottom on Expo 48; no idea why */,
               },
+              kana && kana.kana.length > 1 && { fontSize: 22 },
             ]}>
             {text || kana.kana}
           </Text>
