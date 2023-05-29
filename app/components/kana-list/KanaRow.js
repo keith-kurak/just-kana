@@ -1,5 +1,49 @@
 import { View, Text, Pressable, Platform } from 'react-native';
 import { useStyles } from '../../config/styles';
+import KanaButton from './KanaButton';
+
+function indexToDakuten(index) {
+  switch (index) {
+    case 0:
+      return '゛';
+    case 1:
+      return '゜';
+    default:
+      return '';
+  }
+}
+
+function DakutenIndicator({ consonants, showConsonant }) {
+  const { colors, sizes } = useStyles();
+
+  const wrapDakuten = (symbol, index) => (
+    <Text
+      key={symbol}
+      allowFontScaling={false}
+      style={{
+        fontSize: showConsonant ? 10 : 20,
+        marginLeft: showConsonant ? 0 : 5,
+        color: colors.secondaryTextColor,
+        textAlign: 'center',
+        marginTop: Platform.OS === 'android' && !showConsonant ? -8 : undefined,
+      }}>
+      {showConsonant ? symbol : indexToDakuten(index)}
+    </Text>
+  );
+
+  return (
+    <View
+      style={{
+        alignSelf: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: sizes.verticalKey,
+        height: sizes.kanaButtonDiameter,
+      }}>
+      {consonants.map(wrapDakuten)}
+    </View>
+  );
+}
 
 function Consonant({ text, show }) {
   const { textStyles, colors, sizes } = useStyles();
@@ -19,57 +63,6 @@ function Consonant({ text, show }) {
   );
 }
 
-function Kana({ kana, onPress, onLongPress, onPressOut, color, showConsonant }) {
-  const { textStyles, sizes, colors } = useStyles();
-  const button = (
-    <Pressable
-      onPress={onPress}
-      onLongPress={onLongPress}
-      onPressOut={onPressOut}
-      style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}>
-      <View
-        style={{
-          height: sizes.kanaButtonDiameter,
-          width: sizes.kanaButtonDiameter,
-          backgroundColor: color,
-          borderRadius: sizes.kanaButtonDiameter / 2,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <Text
-          allowFontScaling={false}
-          style={[
-            textStyles.buttonTextStyle,
-            Platform.OS === 'android' && {
-              marginBottom: 4 /* Kana are aligned towards bottom on Expo 48; no idea why */,
-            },
-          ]}>
-          {kana.kana}
-        </Text>
-      </View>
-    </Pressable>
-  );
-
-  if ((kana.kana === 'ン' || kana.kana === 'ん') && showConsonant) {
-    return (
-      <View>
-        {button}
-        <Text
-          style={{
-            fontSize: 16,
-            textAlign: 'center',
-            paddingTop: sizes.small,
-            color: colors.secondaryTextColor,
-          }}>
-          (n)
-        </Text>
-      </View>
-    );
-  }
-
-  return button;
-}
-
 function KanaRow({
   items,
   onPressKana,
@@ -78,7 +71,6 @@ function KanaRow({
   color,
   consonant,
   showConsonant,
-  alternateRows = [],
   alternateConsonants = [],
 }) {
   const { sizes } = useStyles();
@@ -95,7 +87,7 @@ function KanaRow({
         }}>
         {items.map((item, index) =>
           item ? (
-            <Kana
+            <KanaButton
               color={color}
               key={item.kana}
               kana={item}
@@ -109,7 +101,8 @@ function KanaRow({
           )
         )}
       </View>
-      {alternateRows.length <= 0 && <View style={{ width: sizes.verticalKey }} />}
+      {alternateConsonants.length <= 0 && <View style={{ width: sizes.verticalKey }} />}
+      {alternateConsonants.length ? <DakutenIndicator consonants={alternateConsonants} showConsonant={showConsonant} /> : null}
     </View>
   );
 }

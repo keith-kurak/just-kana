@@ -62,9 +62,7 @@ function KeyboardKey({ title, onPress, width = undefined, enableHoldPress = fals
       onPress={onPress}
       onLongPress={onLongPress}
       onPressOut={onPressOut}
-      style={({ pressed }) => [
-        { opacity: pressed ? 0.5 : 1, marginHorizontal: sizes.large, marginVertical: sizes.medium },
-      ]}>
+      style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1, marginVertical: sizes.medium }]}>
       <View
         style={{
           alignItems: 'center',
@@ -82,9 +80,9 @@ function KeyboardKey({ title, onPress, width = undefined, enableHoldPress = fals
   );
 }
 
-function KanaTypingOverlay({ typingKana, onPressKey }) {
+function KanaTypingOverlay({ typingKana, onPressKey, kanaType }) {
   const insets = useSafeAreaInsets();
-  const { colors } = useStyles();
+  const { colors, sizes } = useStyles();
 
   if (!typingKana.length) {
     return null;
@@ -99,12 +97,19 @@ function KanaTypingOverlay({ typingKana, onPressKey }) {
         bottom: 0,
         backgroundColor: colors.overlayColor,
       }}>
-      <View style={{ marginBottom: insets.bottom }}>
+      <View style={{ marginBottom: insets.bottom, marginHorizontal: sizes.large }}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <KeyboardKey title="<" onPress={() => onPressKey('<')} />
           <View style={{ flexDirection: 'row' }}>
+            {kanaType === 'katakana' ? (
+              <KeyboardKey title="ッ" onPress={() => onPressKey('ッ')} />
+            ) : (
+              <KeyboardKey title="っ" onPress={() => onPressKey('っ')} />
+            )}
+            <View style={{ width: sizes.medium }} />
             <KeyboardKey title="ー" onPress={() => onPressKey('ー')} />
-            <KeyboardKey title="_" onPress={() => onPressKey('_')} width={100} />
+            <View style={{ width: sizes.medium }} />
+            <KeyboardKey title=" " onPress={() => onPressKey('_')} width={75} />
           </View>
           <KeyboardKey title="+" onPress={() => onPressKey('+')} />
         </View>

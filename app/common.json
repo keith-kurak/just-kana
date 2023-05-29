@@ -11,7 +11,7 @@
         "translation": "no"
       },
       {
-        "word": "ありがとう ございます",
+        "word": "ありがとうございます",
         "translation": "Thank you"
       },
       {
@@ -24,7 +24,7 @@
     "title": "Greetings",
     "data": [
       {
-        "word": "おはよう ございます",
+        "word": "おはようございます",
         "translation": "Good morning"
       },
       {
@@ -40,7 +40,7 @@
         "translation": "Good evening"
       },
       {
-        "word": "おやすみ なさい",
+        "word": "おやすみなさい",
         "translation": "Good night"
       }
     ]
@@ -74,10 +74,6 @@
         "translation": "Cute"
       },
       {
-        "word": "ダメダメ",
-        "translation": "No, no (playful)"
-      },
-      {
         "word": "うまい",
         "translation": "Tasty"
       },
@@ -86,7 +82,8 @@
         "translation": "Later!"
       },
       {
-        "word": "だいじょうぶ",
+        "word": "だ,い,じょ,う,ぶ",
+        "commaDelimited": true,
         "translation": "It's okay / I'm good"
       }
     ]
