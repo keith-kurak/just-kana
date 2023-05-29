@@ -9,7 +9,7 @@ const lightGray = '#A9A9A9';
 const darkerGray = '#666666';
 const notQuiteBlack = '#222222';
 const overlayColor = '#7F7F7FBB';
-const overlayColorSolid = '#7F7F7FFF';
+let overlayColorSolid = '#9B9B9B';
 
 const darkColors = ['#076FF8', '#F89007', '#9007f8', '#f8076f', '#05ae65'];
 
@@ -70,6 +70,7 @@ const useStyles = function () {
     smallLight.color = lightGray;
     mediumDark.color = white;
     mediumLight.color = lightGray;
+    overlayColorSolid = '#7F7F7FFF';
   }
 
   useEffect(() => {

@@ -2,6 +2,49 @@ import { View, Text, Pressable, Platform } from 'react-native';
 import { useStyles } from '../../config/styles';
 import KanaButton from './KanaButton';
 
+function indexToDakuten(index) {
+  switch (index) {
+    case 0:
+      return '゛';
+    case 1:
+      return '゜';
+    default:
+      return '';
+  }
+}
+
+function DakutenIndicator({ consonants, showConsonant }) {
+  const { colors, sizes } = useStyles();
+
+  const wrapDakuten = (symbol, index) => (
+    <Text
+      key={symbol}
+      allowFontScaling={false}
+      style={{
+        fontSize: showConsonant ? 10 : 20,
+        marginLeft: showConsonant ? 0 : 5,
+        color: colors.secondaryTextColor,
+        textAlign: 'center',
+        marginTop: Platform.OS === 'android' && !showConsonant ? -8 : undefined,
+      }}>
+      {showConsonant ? symbol : indexToDakuten(index)}
+    </Text>
+  );
+
+  return (
+    <View
+      style={{
+        alignSelf: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: sizes.verticalKey,
+        height: sizes.kanaButtonDiameter,
+      }}>
+      {consonants.map(wrapDakuten)}
+    </View>
+  );
+}
+
 function Consonant({ text, show }) {
   const { textStyles, colors, sizes } = useStyles();
   const myText = !show || text.startsWith('~') ? ' ' : text;
@@ -28,7 +71,6 @@ function KanaRow({
   color,
   consonant,
   showConsonant,
-  alternateRows = [],
   alternateConsonants = [],
 }) {
   const { sizes } = useStyles();
@@ -59,7 +101,8 @@ function KanaRow({
           )
         )}
       </View>
-      {alternateRows.length <= 0 && <View style={{ width: sizes.verticalKey }} />}
+      {alternateConsonants.length <= 0 && <View style={{ width: sizes.verticalKey }} />}
+      {alternateConsonants.length ? <DakutenIndicator consonants={alternateConsonants} showConsonant={showConsonant} /> : null}
     </View>
   );
 }

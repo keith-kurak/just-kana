@@ -31,7 +31,7 @@ export default function KanaButton({
             allowFontScaling={false}
             style={[
               textStyles.buttonTextStyle,
-              Platform.OS === 'android' && {
+              Platform.OS === 'android' && kana && {
                 marginBottom: 4 /* Kana are aligned towards bottom on Expo 48; no idea why */,
               },
               kana && kana.kana.length > 1 && { fontSize: 22 },
