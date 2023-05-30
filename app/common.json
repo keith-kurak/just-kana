@@ -152,55 +152,6 @@
       {
         "word": "ご",
         "translation": "five"
-      },
-      {
-        "word": "ろく",
-        "translation": "six"
-      },
-      {
-        "word": "なな",
-        "translation": "seven"
-      },
-      {
-        "word": "はち",
-        "translation": "eight"
-      },
-      {
-        "word": "きゅう",
-        "translation": "nine"
-      },
-      {
-        "word": "じゅう",
-        "translation": "ten"
-      }
-    ]
-  },
-  {
-    "title": "Colors",
-    "data": [
-      {
-        "word": "あか",
-        "translation": "red"
-      },
-      {
-        "word": "あお",
-        "translation": "blue"
-      },
-      {
-        "word": "きいろ",
-        "translation": "yellow"
-      },
-      {
-        "word": "みどり",
-        "translation": "green"
-      },
-      {
-        "word": "くろ",
-        "translation": "black"
-      },
-      {
-        "word": "しろ",
-        "translation": "white"
       }
     ]
   },
@@ -210,10 +161,6 @@
       {
         "word": "いぬ",
         "translation": "dog"
-      },
-      {
-        "word": "ねこ",
-        "translation": "cat"
       }
     ]
   }
