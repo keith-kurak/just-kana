@@ -2,6 +2,7 @@
   "expo": {
     "name": "Some Kana",
     "slug": "just-kana",
+    "owner": "testssoorgforokta",
     "version": "1.0.5",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
@@ -34,11 +35,11 @@
     },
     "extra": {
       "eas": {
-        "projectId": "59c326b5-451a-4cbe-b421-64957e0882d8"
+        "projectId": "15cb29cb-5f1d-4326-a39d-6cb7dccb4be7"
       }
     },
     "updates": {
-      "url": "https://u.expo.dev/59c326b5-451a-4cbe-b421-64957e0882d8"
+      "url": "https://u.expo.dev/15cb29cb-5f1d-4326-a39d-6cb7dccb4be7"
     },
     "runtimeVersion": {
       "policy": "appVersion"
