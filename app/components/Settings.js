@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { View, Text, Pressable, Alert } from 'react-native';
+import { View, Text, Pressable, Alert, RefreshControl } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 import * as Application from 'expo-application';
 import * as Updates from 'expo-updates';
@@ -7,11 +7,13 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AlertAsync from 'react-native-alert-async';
 import { useStyles } from '../config/styles';
 import { trackAnalyticsEvent } from '../stores/analytics';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function ({ onDeleteAll }) {
   const { colors, colorOptions, sizes, textStyles } = useStyles();
   const { bottom } = useSafeAreaInsets();
   const [isUpdateReady, setIsUpdateReady] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     (async function runAsync() {
@@ -19,6 +21,22 @@ export default function ({ onDeleteAll }) {
       if (status.isAvailable) {
         await Updates.fetchUpdateAsync();
         setIsUpdateReady(true);
+      }
+    })();
+  }, []);
+
+  const onPullToRefresh = useCallback(() => {
+    (async function runAsync() {
+      setIsLoading(true);
+      try {
+        const status = await Updates.checkForUpdateAsync();
+        if (status.isAvailable) {
+          await Updates.fetchUpdateAsync();
+          setIsUpdateReady(true);
+        }
+      } catch (e) {
+      } finally {
+        setIsLoading(false);
       }
     })();
   }, []);
@@ -124,7 +142,9 @@ export default function ({ onDeleteAll }) {
   );
 
   return (
-    <View style={{ flex: 1, backgroundColor: colors.backgroundColor }}>
+    <ScrollView
+      contentContainerStyle={{ flex: 1, backgroundColor: colors.backgroundColor }}
+      refreshControl={<RefreshControl refreshing={isLoading} onRefresh={onPullToRefresh} />}>
       <View
         style={{
           flex: 1,
@@ -135,6 +155,6 @@ export default function ({ onDeleteAll }) {
         {optionsSection}
         {versionSection}
       </View>
-    </View>
+    </ScrollView>
   );
 }
