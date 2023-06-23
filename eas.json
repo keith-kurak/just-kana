@@ -43,6 +43,14 @@
         "resourceClass": "m1-medium"
       }
     },
+    "production-simulator": {
+      "channel": "production",
+      "autoIncrement": true,
+      "ios": {
+        "resourceClass": "m1-medium",
+        "simulator": true
+      }
+    },
     "production-apk": {
       "extends": "production",
       "android": {
