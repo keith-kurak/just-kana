@@ -16,6 +16,8 @@ const initialSettings = {
   onboardingsCompleted: [],
 };
 
+const requiredOnboardingKey = "june2023update";
+
 //create a context, with createContext api
 export const AppStateContext = createContext();
 
@@ -82,6 +84,8 @@ const AppStateProvider = (props) => {
     [settings]
   );
 
+  const completeRequiredOnboarding = () => completeOnboarding(requiredOnboardingKey)
+
   // settings
   const setSetting = useCallback(
     (key, value) => {
@@ -118,8 +122,9 @@ const AppStateProvider = (props) => {
         settings,
         deleteWord,
         isLoaded,
-        initialOnboardingRequired: !settings.onboardingsCompleted.find((i) => 'firstTime'),
+        initialOnboardingRequired: !settings.onboardingsCompleted.find((i) => requiredOnboardingKey),
         completeOnboarding,
+        completeRequiredOnboarding,
         onDeleteAll,
         kanaType,
         toggleKanaType,

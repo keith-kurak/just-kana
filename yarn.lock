@@ -6197,11 +6197,6 @@ leven@^3.1.0:
   resolved "https://registry.yarnpkg.com/leven/-/leven-3.1.0.tgz#77891de834064cccba82ae7842bb6b14a13ed7f2"
   integrity sha512-qsda+H8jTaUaN/x5vzW2rzc+8Rw4TAQ/4KjB46IwK5VH+IlVeeeje/EoZRpiXvIqjFgK84QffqPztGI3VBLG1A==
 
-lighten-darken-color@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/lighten-darken-color/-/lighten-darken-color-1.0.0.tgz#c2f15d445a2e3c3078119e0f6e7e965677ce3531"
-  integrity sha512-rKToRUNvcIJGuT+Zd/ljNb83wwJPc4V4HNxYuqIdizQHt3avilV6H1rq2feaxruJBpAIbE1ZJ8wX7BKjTylIsA==
-
 lilconfig@^2.0.3:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/lilconfig/-/lilconfig-2.0.6.tgz#32a384558bd58af3d4c6e077dd1ad1d397bc69d4"
