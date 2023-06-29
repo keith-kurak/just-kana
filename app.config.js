@@ -3,7 +3,8 @@ module.exports = ({ config }) => {
     ...config,
     extra: {
       ...config.extra,
-      amplitudeApiKey: process.env.AMPLITUDE_API_KEY,
+      amplitudeApiKey: process.env.EXPO_PUBLIC_AMPLITUDE_API_KEY,
+      codeName: process.env.EXPO_PUBLIC_CODE_NAME,
     }
   };
 };
