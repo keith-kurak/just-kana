@@ -1,4 +1,5 @@
 module.exports = ({ config }) => {
+  console.warn('config', process.env.EXPO_PUBLIC_CODE_NAME);
   return {
     ...config,
     extra: {

@@ -16,3 +16,4 @@ ios/**
 android/**
 
 .env
+.env.local

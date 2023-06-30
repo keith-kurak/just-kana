@@ -132,7 +132,7 @@ export default function ({ onDeleteAll }) {
           <Text style={versionStyle}>{Application.nativeApplicationVersion}</Text>
           <Text style={versionStyle}>{Application.nativeBuildVersion}</Text>
           <Text style={versionStyle}>{Updates.updateId}</Text>
-          <Text style={versionStyle}>{Constants.expoConfig.extra?.codeName}</Text>
+          <Text style={versionStyle}>{process.env.EXPO_PUBLIC_CODE_NAME}</Text>
         </View>
       </Pressable>
       {isUpdateReady && (

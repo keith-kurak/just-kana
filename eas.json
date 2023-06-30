@@ -28,6 +28,9 @@
       },
       "ios": {
         "resourceClass": "m1-medium"
+      },
+      "env" : {
+        "EXPO_PUBLIC_CODE_NAME": "neko"
       }
     },
     "preview-simulator": {
