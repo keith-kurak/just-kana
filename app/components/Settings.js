@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { View, Text, Pressable, Alert, RefreshControl } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
-import Constants from 'expo-constants';
 import * as Application from 'expo-application';
 import * as Updates from 'expo-updates';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -132,7 +131,7 @@ export default function ({ onDeleteAll }) {
           <Text style={versionStyle}>{Application.nativeApplicationVersion}</Text>
           <Text style={versionStyle}>{Application.nativeBuildVersion}</Text>
           <Text style={versionStyle}>{Updates.updateId}</Text>
-          <Text style={versionStyle}>{Constants.expoConfig.extra?.codeName}</Text>
+          <Text style={versionStyle}>{process.env.EXPO_PUBLIC_CODE_NAME}</Text>
         </View>
       </Pressable>
       {isUpdateReady && (
