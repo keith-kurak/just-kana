@@ -2,7 +2,7 @@
   "expo": {
     "name": "Some Kana",
     "slug": "just-kana",
-    "version": "1.1.2",
+    "version": "1.1.3",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "icon": "./assets/icon.png",
@@ -51,7 +51,19 @@
             "kotlinVersion": "1.8.10"
           }
         }
+      ],
+      "sentry-expo"
+    ],
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "keithexpo",
+            "project": "just-some-kana"
+          }
+        }
       ]
-    ]
+    }
   }
 }
