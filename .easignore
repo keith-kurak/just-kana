@@ -18,3 +18,5 @@ android/**
 # store / website
 docs/**
 store/**
+
+.env*
