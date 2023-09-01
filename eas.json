@@ -11,6 +11,9 @@
       "channel": "development",
       "ios": {
         "resourceClass": "m1-medium"
+      },
+      "env": {
+        "DEV_VERSION": "1"
       }
     },
     "development-simulator": {
@@ -42,7 +45,7 @@
       "ios": {
         "resourceClass": "m1-medium"
       },
-      "env" : {
+      "env": {
         "EXPO_PUBLIC_CODE_NAME": "kitsune",
         "EXPO_PUBLIC_TEST_VAL_A": "alpaca"
       }
