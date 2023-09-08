@@ -63,6 +63,13 @@
       "android": {
         "buildType": "apk"
       }
+    },
+    "external-preview": {
+      "extends": "production",
+      "channel": "external-preview",
+      "android": {
+        "buildType": "apk"
+      }
     }
   },
   "submit": {
