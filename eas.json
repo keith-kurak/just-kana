@@ -46,8 +46,7 @@
         "resourceClass": "m1-medium"
       },
       "env": {
-        "EXPO_PUBLIC_CODE_NAME": "kitsune",
-        "EXPO_PUBLIC_TEST_VAL_A": "alpaca"
+        "EXPO_PUBLIC_CODE_NAME": "kitsune"
       }
     },
     "production-simulator": {
