@@ -17,7 +17,7 @@
         "DEV_VERSION": "1"
       }
     },
-    "development-simulator": {
+    "development:simulator": {
       "extends": "development",
       "ios": {
         "simulator": true
@@ -35,7 +35,7 @@
         "resourceClass": "m1-medium"
       }
     },
-    "preview-simulator": {
+    "preview:simulator": {
       "extends": "preview",
       "ios": {
         "simulator": true
@@ -52,7 +52,7 @@
         "EXPO_PUBLIC_CODE_NAME": "kitsune"
       }
     },
-    "production-simulator": {
+    "production:simulator": {
       "channel": "production",
       "autoIncrement": true,
       "ios": {
@@ -60,13 +60,13 @@
         "simulator": true
       }
     },
-    "production-apk": {
+    "production:apk": {
       "extends": "production",
       "android": {
         "buildType": "apk"
       }
     },
-    "external-preview": {
+    "external:preview": {
       "extends": "production",
       "channel": "external-preview",
       "android": {
