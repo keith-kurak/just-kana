@@ -6,6 +6,7 @@
   },
   "build": {
     "development": {
+      "environment": "development",
       "developmentClient": true,
       "distribution": "internal",
       "channel": "development",
@@ -26,6 +27,7 @@
       "distribution": "internal",
       "autoIncrement": true,
       "channel": "preview",
+      "environment": "preview",
       "android": {
         "buildType": "apk"
       },
@@ -41,6 +43,7 @@
     },
     "production": {
       "channel": "production",
+      "environment": "production",
       "autoIncrement": true,
       "ios": {
         "resourceClass": "m1-medium"
