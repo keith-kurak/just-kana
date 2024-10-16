@@ -53,17 +53,6 @@
         }
       ],
       "sentry-expo"
-    ],
-    "hooks": {
-      "postPublish": [
-        {
-          "file": "sentry-expo/upload-sourcemaps",
-          "config": {
-            "organization": "keithexpo",
-            "project": "just-some-kana"
-          }
-        }
-      ]
-    }
+    ]
   }
 }
