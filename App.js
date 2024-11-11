@@ -1,7 +1,6 @@
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import Screens from './app/screens';
-import * as Sentry from 'sentry-expo';
 
 /*Sentry.init({
   dsn: 'https://1ecb149b0d21ed992c4b9851438fc797@o1310900.ingest.sentry.io/4505705506013184',
