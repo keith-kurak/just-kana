@@ -64,8 +64,5 @@
     "prettier": "^2.7.1",
     "source-map-explorer": "^2.5.3"
   },
-  "resolutions": {
-    "metro-config": "0.80.4"
-  },
   "private": true
 }
