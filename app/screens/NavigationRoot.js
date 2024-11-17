@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Platform } from 'react-native';
 import KanaScreen from './KanaScreen';
 import WordListScreen from './WordListScreen';
 import { useAppState } from '../stores';
@@ -16,7 +17,7 @@ export default function NavigationRoot() {
     return null;
   }
 
-  if (initialOnboardingRequired) {
+  if (initialOnboardingRequired && Platform.OS !== 'web') {
     return <OnboardingScreen />;
   }
 

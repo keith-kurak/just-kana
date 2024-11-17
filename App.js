@@ -1,6 +1,8 @@
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import Screens from './app/screens';
+import WebOverlay from './app/components/WebOverlay';
+import { ThemeProvider } from './app/config/styles';
 
 /*Sentry.init({
   dsn: 'https://1ecb149b0d21ed992c4b9851438fc797@o1310900.ingest.sentry.io/4505705506013184',
@@ -15,7 +17,11 @@ import Screens from './app/screens';
 export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <Screens />
+      <ThemeProvider>
+        <WebOverlay>
+          <Screens />
+        </WebOverlay>
+      </ThemeProvider>
       <StatusBar style="auto" />
     </GestureHandlerRootView>
   );

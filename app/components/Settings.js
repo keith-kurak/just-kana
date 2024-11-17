@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { View, Text, Pressable, Alert, RefreshControl } from 'react-native';
+import { View, Text, Pressable, Alert, RefreshControl, Platform } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 import * as Application from 'expo-application';
 import * as Updates from 'expo-updates';
@@ -86,7 +86,7 @@ export default function ({ onDeleteAll }) {
   const optionsSection = (
     <View style={{ flex: 1, justifyContent: 'space-around', width: '100%', rowGap: sizes.large }}>
       <View style={{ alignItems: 'center', rowGap: sizes.small }}>
-      <Text style={[textStyles.mediumDark]}>Export words</Text>
+        <Text style={[textStyles.mediumDark]}>Export words</Text>
         <Text style={textStyles.smallLight}>Save your learned words for posterity.</Text>
         <Pressable onPress={onCopyAllToClipboard}>
           <View
@@ -101,22 +101,24 @@ export default function ({ onDeleteAll }) {
             </Text>
           </View>
         </Pressable>
-        <Pressable onPress={onShareAllAsFile}>
-          <View
-            style={{
-              padding: sizes.medium,
-              borderRadius: sizes.borderRadius,
-              backgroundColor: colors.buttonColor,
-              marginTop: sizes.small,
-            }}>
-            <Text style={[textStyles.smallDark, { color: colors.buttonTextColor }]}>
-              Export all to text file
-            </Text>
-          </View>
-        </Pressable>
+        {Platform.OS === 'web' ? null : (
+          <Pressable onPress={onShareAllAsFile}>
+            <View
+              style={{
+                padding: sizes.medium,
+                borderRadius: sizes.borderRadius,
+                backgroundColor: colors.buttonColor,
+                marginTop: sizes.small,
+              }}>
+              <Text style={[textStyles.smallDark, { color: colors.buttonTextColor }]}>
+                Export all to text file
+              </Text>
+            </View>
+          </Pressable>
+        )}
       </View>
       <View style={{ alignItems: 'center', rowGap: sizes.small }}>
-      <Text style={[textStyles.mediumDark]}>Delete all words</Text>
+        <Text style={[textStyles.mediumDark]}>Delete all words</Text>
         <Text style={textStyles.smallLight}>Restart with a blank slate.</Text>
         <Text style={[textStyles.smallDark, { color: colors.destructive }]}>
           This cannot be undone!
@@ -176,7 +178,7 @@ export default function ({ onDeleteAll }) {
           marginBottom: bottom,
         }}>
         {optionsSection}
-        {versionSection}
+        {Platform.OS === 'web' ? null : versionSection}
       </View>
     </ScrollView>
   );
