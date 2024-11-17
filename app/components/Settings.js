@@ -8,12 +8,14 @@ import AlertAsync from 'react-native-alert-async';
 import { useStyles } from '../config/styles';
 import { trackAnalyticsEvent } from '../stores/analytics';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useAppState } from '../stores';
 
 export default function ({ onDeleteAll }) {
-  const { colors, colorOptions, sizes, textStyles } = useStyles();
+  const { colors, sizes, textStyles } = useStyles();
   const { bottom } = useSafeAreaInsets();
   const [isUpdateReady, setIsUpdateReady] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { onCopyAllToClipboard, onShareAllAsFile } = useAppState();
 
   useEffect(() => {
     (async function runAsync() {
@@ -82,18 +84,39 @@ export default function ({ onDeleteAll }) {
   }, [onDeleteAll]);
 
   const optionsSection = (
-    <View style={{ flex: 1, justifyContent: 'center', width: '100%' }}>
-      <View
-        style={{
-          borderBottomWidth: 1,
-          borderBottomColor: colors.secondaryTextColor,
-          alignItems: 'center',
-          marginBottom: sizes.small,
-          marginHorizontal: sizes.medium,
-        }}>
-        <Text style={[textStyles.mediumDark]}>Delete all words</Text>
+    <View style={{ flex: 1, justifyContent: 'space-around', width: '100%', rowGap: sizes.large }}>
+      <View style={{ alignItems: 'center', rowGap: sizes.small }}>
+      <Text style={[textStyles.mediumDark]}>Export words</Text>
+        <Text style={textStyles.smallLight}>Save your learned words for posterity.</Text>
+        <Pressable onPress={onCopyAllToClipboard}>
+          <View
+            style={{
+              padding: sizes.medium,
+              borderRadius: sizes.borderRadius,
+              backgroundColor: colors.buttonColor,
+              marginTop: sizes.small,
+            }}>
+            <Text style={[textStyles.smallDark, { color: colors.buttonTextColor }]}>
+              Copy all to clipboard
+            </Text>
+          </View>
+        </Pressable>
+        <Pressable onPress={onShareAllAsFile}>
+          <View
+            style={{
+              padding: sizes.medium,
+              borderRadius: sizes.borderRadius,
+              backgroundColor: colors.buttonColor,
+              marginTop: sizes.small,
+            }}>
+            <Text style={[textStyles.smallDark, { color: colors.buttonTextColor }]}>
+              Export all to text file
+            </Text>
+          </View>
+        </Pressable>
       </View>
-      <View style={{ alignItems: 'center' }}>
+      <View style={{ alignItems: 'center', rowGap: sizes.small }}>
+      <Text style={[textStyles.mediumDark]}>Delete all words</Text>
         <Text style={textStyles.smallLight}>Restart with a blank slate.</Text>
         <Text style={[textStyles.smallDark, { color: colors.destructive }]}>
           This cannot be undone!
@@ -101,10 +124,10 @@ export default function ({ onDeleteAll }) {
         <Pressable onPress={confirmDelete}>
           <View
             style={{
-              marginTop: sizes.small,
               padding: sizes.medium,
               borderRadius: sizes.borderRadius,
               backgroundColor: colors.destructive,
+              marginTop: sizes.small,
             }}>
             <Text style={[textStyles.smallDark, { color: colors.buttonTextColor }]}>
               Delete everything
@@ -131,7 +154,6 @@ export default function ({ onDeleteAll }) {
           <Text style={versionStyle}>{Application.nativeApplicationVersion}</Text>
           <Text style={versionStyle}>{Application.nativeBuildVersion}</Text>
           <Text style={versionStyle}>{Updates.updateId}</Text>
-          <Text style={versionStyle}>{process.env.EXPO_PUBLIC_CODE_NAME}</Text>
         </View>
       </Pressable>
       {isUpdateReady && (
