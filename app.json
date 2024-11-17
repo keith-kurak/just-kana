@@ -52,8 +52,7 @@
             "kotlinVersion": "1.8.10"
           }
         }
-      ],
-      "sentry-expo"
+      ]
     ]
   }
 }
