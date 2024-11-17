@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { SectionList, View, Text, StyleSheet, Pressable } from 'react-native';
+import { SectionList, View, Text, StyleSheet, Pressable, Platform } from 'react-native';
 import { groupBy, sortBy, keys } from 'lodash';
 import { DateTime } from 'luxon';
 import { Ionicons } from '@expo/vector-icons';
@@ -13,9 +13,17 @@ export default function WordList({ words, onPressWord, grouping = 'date' }) {
   const { textStyles, sizes, colors } = useStyles();
   const insets = useSafeAreaInsets();
 
+  const onPressEllipsis = useCallback((item) => {
+    if (Platform.OS === 'web') {
+      alert('More options available in the mobile app!');
+      return;
+    }
+    onPressWord(item);
+  }, []);
+
   const renderItem = useCallback(({ item }) => {
     return (
-      <Pressable onPress={() => onPressWord(item)}>
+      <Pressable onPress={() => onPressEllipsis(item)}>
         <View style={{ flexDirection: 'row', flex: 1, padding: sizes.medium }}>
           <View style={{ flex: 1, paddingRight: sizes.medium }}>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
@@ -35,7 +43,7 @@ export default function WordList({ words, onPressWord, grouping = 'date' }) {
           </View>
           <Ionicons
             style={{ alignSelf: 'center' }}
-            name="md-ellipsis-vertical-outline"
+            name="ellipsis-horizontal-outline"
             size={24}
             color={colors.secondaryTextColor}
           />
