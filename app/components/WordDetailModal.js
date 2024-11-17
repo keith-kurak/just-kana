@@ -125,7 +125,7 @@ export default function ({ isVisible, word, onDismiss, onPressDelete, canDelete 
             IconComponent={MaterialIcons}
             iconName="translate"
           />
-          <ToolbarButton onPress={copy} IconComponent={Ionicons} iconName="ios-copy-outline" />
+          <ToolbarButton onPress={copy} IconComponent={Ionicons} iconName="copy-outline" />
           {canDelete && (
             <ToolbarButton
               color={colors.destructive}
