@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { View, Pressable, Text } from 'react-native';
+import { View, Pressable, Text, Platform } from 'react-native';
 import { groupBy, keys } from 'lodash';
 import { colord } from 'colord';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -112,7 +112,13 @@ export default function KanaFormOverlay({
             </View>
             <View style={{ height: sizes.small }} />
             <KanaButton
-              icon={<MaterialIcons name="close" size={30} color={colors.buttonTextColor} />}
+              icon={
+                <MaterialIcons
+                  name="close"
+                  size={Platform.OS === 'web' ? 40: 30}
+                  color={colors.buttonTextColor}
+                />
+              }
               onPress={onRequestHide}
               color={colors.destructive}
             />
