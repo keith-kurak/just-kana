@@ -27,8 +27,7 @@ export default function WebOverlay({ children }) {
       <View
         style={{
           maxWidth: 400,
-          minWidth: 340,
-          width: 400,
+          width: '100%',
           flex: 1,
           paddingHorizontal: sizes.small,
           marginHorizontal: sizes.small,
