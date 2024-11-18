@@ -44,15 +44,11 @@
     "runtimeVersion": {
       "policy": "appVersion"
     },
+    "experiments": {
+      "baseUrl": "/just-kana"
+    },
     "plugins": [
-      [
-        "expo-build-properties",
-        {
-          "android": {
-            "kotlinVersion": "1.8.10"
-          }
-        }
-      ]
+      
     ]
   }
 }

@@ -6,7 +6,9 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "android": "expo run:android",
-    "ios": "expo run:ios"
+    "ios": "expo run:ios",
+    "deploy-web": "gh-pages -t -d dist",
+    "predeploy-web": "expo export -p web"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.0",
@@ -54,6 +56,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
+    "gh-pages": "^6.2.0",
     "prettier": "^2.7.1",
     "source-map-explorer": "^2.5.3"
   },
