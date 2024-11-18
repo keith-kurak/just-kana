@@ -1,5 +1,9 @@
 import { createContext, useState, useContext, useCallback, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Alert } from 'react-native';
+import * as Clipboard from 'expo-clipboard';
+import * as FileSystem from 'expo-file-system';
+import * as Sharing from "expo-sharing"
 import { DateTime } from 'luxon';
 import { useTheme } from '../config/styles';
 
@@ -16,7 +20,7 @@ const initialSettings = {
   onboardingsCompleted: [],
 };
 
-const requiredOnboardingKey = "june2023update";
+const requiredOnboardingKey = 'june2023update';
 
 //create a context, with createContext api
 export const AppStateContext = createContext();
@@ -51,7 +55,11 @@ const AppStateProvider = (props) => {
   const addWord = useCallback(
     (wordKana) => {
       const newSavedWords = savedWords.slice();
-      newSavedWords.push({ word: wordKana, date: DateTime.local().toISO(), isHiragana : kanaType === 'hiragana' });
+      newSavedWords.push({
+        word: wordKana,
+        date: DateTime.local().toISO(),
+        isHiragana: kanaType === 'hiragana',
+      });
       setSavedWords(newSavedWords);
       const jsonValue = JSON.stringify(newSavedWords);
       AsyncStorage.setItem('@saved_words', jsonValue);
@@ -84,7 +92,7 @@ const AppStateProvider = (props) => {
     [settings]
   );
 
-  const completeRequiredOnboarding = () => completeOnboarding(requiredOnboardingKey)
+  const completeRequiredOnboarding = () => completeOnboarding(requiredOnboardingKey);
 
   // settings
   const setSetting = useCallback(
@@ -108,9 +116,22 @@ const AppStateProvider = (props) => {
     AsyncStorage.setItem('@saved_words', JSON.stringify([]));
   }, []);
 
+  const onCopyAllToClipboard = useCallback(async () => {
+    const text = wordsToText(savedWords);
+    await Clipboard.setStringAsync(text);
+    Alert.alert('Copied!');
+  }, [savedWords]);
+
+  const onShareAllAsFile = useCallback(async () => {
+    const text = wordsToText(savedWords);
+    const filename = FileSystem.documentDirectory + 'kanaexport.txt'
+    FileSystem.writeAsStringAsync(filename, text);
+    Sharing.shareAsync(filename)
+  }, [savedWords]);
+
   const toggleKanaType = useCallback(() => {
     setKanaType(kanaType === 'hiragana' ? 'katakana' : 'hiragana');
-  }, [ kanaType ]);
+  }, [kanaType]);
 
   return (
     // this is the provider providing state
@@ -122,10 +143,14 @@ const AppStateProvider = (props) => {
         settings,
         deleteWord,
         isLoaded,
-        initialOnboardingRequired: !settings.onboardingsCompleted.find((i) => requiredOnboardingKey),
+        initialOnboardingRequired: !settings.onboardingsCompleted.find(
+          (i) => requiredOnboardingKey
+        ),
         completeOnboarding,
         completeRequiredOnboarding,
         onDeleteAll,
+        onCopyAllToClipboard,
+        onShareAllAsFile,
         kanaType,
         toggleKanaType,
       }}>
@@ -136,6 +161,23 @@ const AppStateProvider = (props) => {
 
 function useAppState() {
   return useContext(AppStateContext);
+}
+
+function wordsToText(words) {
+  let text = '';
+  words.forEach((word) => {
+    let kanaWord = '';
+    let romajiWord = '';
+    word.word.forEach((kanaBit) => {
+      kanaWord += kanaBit.kana;
+      romajiWord += kanaBit.romaji;
+    });
+    const line = kanaWord + ',' + romajiWord + ',' + word.date.split('T')[0];
+    text += line;
+    text += '\n';
+  });
+
+  return text;
 }
 
 export { AppStateProvider, useAppState };

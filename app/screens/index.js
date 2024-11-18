@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { AppStateProvider } from '../stores';
-import { useStyles, ThemeProvider } from '../config/styles';
+import { useStyles } from '../config/styles';
 import NavigationRoot from './NavigationRoot';
 
 const Stack = createNativeStackNavigator();
@@ -17,7 +17,7 @@ function NavigationRootWithAppState() {
         flex: 1,
         backgroundColor: colors.backgroundColor /* to make color uniform on nav transitions */,
       }}>
-        <StatusBar />
+      <StatusBar />
       <SafeAreaProvider>
         <AppStateProvider>
           <NavigationRoot />
@@ -28,9 +28,5 @@ function NavigationRootWithAppState() {
 }
 
 export default function NavigationRootWithTheme() {
-  return (
-    <ThemeProvider>
-      <NavigationRootWithAppState />
-    </ThemeProvider>
-  );
+  return <NavigationRootWithAppState />;
 }

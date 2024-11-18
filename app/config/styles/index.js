@@ -13,7 +13,7 @@ let overlayColorSolid = '#9B9B9B';
 
 const darkColors = ['#076FF8', '#F89007', '#9007f8', '#f8076f', '#05ae65'];
 
-const lightColors = ['#02c6d4', '#F89007','#b969f5', '#f8076f', '#05ae65'];
+const lightColors = ['#02c6d4', '#F89007', '#b969f5', '#f8076f', '#05ae65'];
 
 const ThemeContext = createContext();
 
@@ -29,7 +29,10 @@ const ThemeProvider = (props) => {
 
 const useStyles = function () {
   const { primaryColorIndex } = useContext(ThemeContext);
-  const colorScheme = useColorScheme();
+  let colorScheme = useColorScheme();
+  if (Platform.OS === 'web') {
+    colorScheme = 'dark';
+  }
   const { width } = useWindowDimensions();
 
   const activeColorOptions = colorScheme === 'dark' ? darkColors : lightColors;
@@ -43,6 +46,11 @@ const useStyles = function () {
   let smallDark = {
     color: black,
     fontSize: 18,
+  };
+
+  let verySmallDark = {
+    color: black,
+    fontSize: 14,
   };
 
   let smallLight = {
@@ -70,6 +78,7 @@ const useStyles = function () {
     smallLight.color = lightGray;
     mediumDark.color = white;
     mediumLight.color = lightGray;
+    verySmallDark.color = white;
     overlayColorSolid = '#7F7F7FFF';
   }
 
@@ -107,6 +116,7 @@ const useStyles = function () {
     smallLight,
     mediumDark,
     mediumLight,
+    verySmallDark,
   };
 
   return {
@@ -120,6 +130,6 @@ const useStyles = function () {
 
 const useTheme = function () {
   return useContext(ThemeContext);
-}
+};
 
 export { useStyles, ThemeContext, ThemeProvider, useTheme };

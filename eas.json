@@ -10,9 +10,6 @@
       "developmentClient": true,
       "distribution": "internal",
       "channel": "development",
-      "ios": {
-        "resourceClass": "m1-medium"
-      },
       "env": {
         "DEV_VERSION": "1"
       }
@@ -30,9 +27,6 @@
       "environment": "preview",
       "android": {
         "buildType": "apk"
-      },
-      "ios": {
-        "resourceClass": "m1-medium"
       }
     },
     "preview:simulator": {
@@ -45,9 +39,6 @@
       "channel": "production",
       "environment": "production",
       "autoIncrement": true,
-      "ios": {
-        "resourceClass": "m1-medium"
-      },
       "env": {
         "EXPO_PUBLIC_CODE_NAME": "kitsune"
       }
@@ -56,7 +47,6 @@
       "channel": "production",
       "autoIncrement": true,
       "ios": {
-        "resourceClass": "m1-medium",
         "simulator": true
       }
     },
