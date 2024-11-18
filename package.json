@@ -1,13 +1,13 @@
 {
   "name": "just-kana",
-  "version": "1.1.0",
+  "version": "1.4.0",
   "scripts": {
     "start": "DEV_VERSION=1 npx expo start",
     "web": "expo start --web",
     "eject": "expo eject",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "deploy-web": "gh-pages -t -d dist",
+    "deploy-web": "gh-pages --nojekyll -d dist",
     "predeploy-web": "expo export -p web"
   },
   "dependencies": {
