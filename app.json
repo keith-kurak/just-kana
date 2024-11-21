@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Some Kana",
+    "name": "SDK 51",
     "slug": "just-kana",
     "owner": "keith-kurak",
     "version": "1.4.0",
@@ -28,7 +28,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#222222"
       },
-      "package": "com.keithkurak.justkana"
+      "package": "com.keithkurak.justkana51"
     },
     "web": {
       "favicon": "./assets/favicon.png"
