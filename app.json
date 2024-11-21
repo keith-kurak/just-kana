@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "SDK 51",
+    "name": "SDK 52",
     "slug": "just-kana",
     "owner": "keith-kurak",
     "version": "1.4.0",
@@ -18,7 +18,7 @@
     ],
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.keithkurak.justkana",
+      "bundleIdentifier": "com.keithkurak.justkananewsplash",
       "config": {
         "usesNonExemptEncryption": false
       }
@@ -28,7 +28,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#222222"
       },
-      "package": "com.keithkurak.justkana51"
+      "package": "com.keithkurak.justkana52"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -46,6 +46,17 @@
     },
     "experiments": {
       "baseUrl": "/just-kana"
-    }
+    },
+    "plugins": [
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#222222",
+          "image": "./assets/adaptive-icon.png",
+          "imageWidth": 200,
+          //"enableFullScreenImage_legacy" : true
+        }
+      ]
+    ],
   }
 }
