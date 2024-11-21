@@ -1,10 +1,5 @@
 module.exports = ({ config }) => {
   const myPlugins = config.plugins;
-  myPlugins.push([
-    "expo-dev-client", {
-      addGeneratedScheme: process.env.DEV_VERSION
-    }
-  ])
   return {
     ...config,
     name: process.env.DEV_VERSION ? `${config.name} - DEV` : config.name,

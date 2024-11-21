@@ -46,9 +46,6 @@
     },
     "experiments": {
       "baseUrl": "/just-kana"
-    },
-    "plugins": [
-      
-    ]
+    }
   }
 }

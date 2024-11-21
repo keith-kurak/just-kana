@@ -17,9 +17,9 @@ export default function NavigationRoot() {
     return null;
   }
 
-  if (initialOnboardingRequired && Platform.OS !== 'web') {
+  /*if (initialOnboardingRequired && Platform.OS !== 'web') {
     return <OnboardingScreen />;
-  }
+  }*/
 
   return (
     <NavigationContainer>
