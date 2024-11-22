@@ -1,11 +1,11 @@
-import { useEffect, useCallback, useState } from "react";
-import * as SplashScreen from "expo-splash-screen";
+import { useEffect, useCallback, useState } from 'react';
+import * as SplashScreen from 'expo-splash-screen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { StatusBar } from 'expo-status-bar';
 import Screens from './app/screens';
-import { View } from 'react-native'
+import { View } from 'react-native';
 import WebOverlay from './app/components/WebOverlay';
 import { ThemeProvider } from './app/config/styles';
+import { SystemBars } from "react-native-edge-to-edge";
 
 /*Sentry.init({
   dsn: 'https://1ecb149b0d21ed992c4b9851438fc797@o1310900.ingest.sentry.io/4505705506013184',
@@ -25,7 +25,6 @@ SplashScreen.setOptions({
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-
   const [appIsReady, setAppIsReady] = useState(false);
 
   useEffect(() => {
@@ -33,7 +32,7 @@ export default function App() {
       try {
         // Artificially delay for two seconds to simulate a slow loading
         // experience. Please remove this if you copy and paste the code!
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise((resolve) => setTimeout(resolve, 2000));
       } catch (e) {
         console.warn(e);
       } finally {
@@ -62,14 +61,14 @@ export default function App() {
 
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <ThemeProvider>
-        <WebOverlay>
-          <Screens />
-        </WebOverlay>
-      </ThemeProvider>
-      <StatusBar style="auto" />
-    </GestureHandlerRootView>
+      <SystemBars style="auto" />
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <ThemeProvider>
+          <WebOverlay>
+            <Screens />
+          </WebOverlay>
+        </ThemeProvider>
+      </GestureHandlerRootView>
     </View>
   );
 }

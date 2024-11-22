@@ -27,6 +27,10 @@ export default function NavigationRoot() {
         screenOptions={{
           //presentation: 'modal',
           header: () => null,
+          statusBarTranslucent: true,
+          navigationBarTranslucent: true,
+          navigationBarColor: "transparent",
+          statusBarBackgroundColor: "transparent",
         }}>
         <Stack.Screen name="Home" component={KanaScreen} />
         <Stack.Screen name="Words" component={WordListScreen} />

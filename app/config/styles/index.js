@@ -1,6 +1,5 @@
 import { useEffect, useContext, createContext, useState } from 'react';
 import { useColorScheme, useWindowDimensions, Platform } from 'react-native';
-import * as NavigationBar from 'expo-navigation-bar';
 
 const white = '#FFFFFF';
 const notQuiteWhite = '#e8e8e8';
@@ -84,7 +83,7 @@ const useStyles = function () {
 
   useEffect(() => {
     if (Platform.OS === 'android') {
-      NavigationBar.setBackgroundColorAsync(backgroundColor);
+
     }
   }, [colorScheme]);
 
