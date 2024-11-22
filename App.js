@@ -17,6 +17,11 @@ import { ThemeProvider } from './app/config/styles';
 
 //Sentry.Native.captureMessage('test event')
 
+SplashScreen.setOptions({
+  duration: 1000,
+  fade: true,
+});
+
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
