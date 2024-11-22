@@ -18,7 +18,7 @@ import { SystemBars } from "react-native-edge-to-edge";
 //Sentry.Native.captureMessage('test event')
 
 SplashScreen.setOptions({
-  duration: 1000,
+  duration: 500,
   fade: true,
 });
 
@@ -32,7 +32,7 @@ export default function App() {
       try {
         // Artificially delay for two seconds to simulate a slow loading
         // experience. Please remove this if you copy and paste the code!
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        await new Promise((resolve) => setTimeout(resolve, 500));
       } catch (e) {
         console.warn(e);
       } finally {
