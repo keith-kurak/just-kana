@@ -5,6 +5,7 @@ module.exports = ({ config }) => {
       addGeneratedScheme: process.env.DEV_VERSION
     }
   ])
+  
   return {
     ...config,
     name: process.env.DEV_VERSION ? `${config.name} - DEV` : config.name,

@@ -3,7 +3,7 @@
     "name": "Some Kana",
     "slug": "just-kana",
     "owner": "keith-kurak",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "icon": "./assets/icon.png",
@@ -48,7 +48,15 @@
       "baseUrl": "/just-kana"
     },
     "plugins": [
-      
-    ]
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#222222",
+          "image": "./assets/adaptive-icon.png",
+          "imageWidth": 200
+        }
+      ],
+      "react-native-edge-to-edge"
+    ],
   }
 }
