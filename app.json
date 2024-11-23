@@ -3,7 +3,7 @@
     "name": "SDK 52",
     "slug": "just-kana",
     "owner": "keith-kurak",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "icon": "./assets/icon.png",
@@ -18,7 +18,7 @@
     ],
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.keithkurak.justkananewsplash",
+      "bundleIdentifier": "com.keithkurak.justkana",
       "config": {
         "usesNonExemptEncryption": false
       }
@@ -28,7 +28,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#222222"
       },
-      "package": "com.keithkurak.justkana52"
+      "package": "com.keithkurak.justkana"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -53,8 +53,7 @@
         {
           "backgroundColor": "#222222",
           "image": "./assets/adaptive-icon.png",
-          "imageWidth": 200,
-          //"enableFullScreenImage_legacy" : true
+          "imageWidth": 200
         }
       ],
       "react-native-edge-to-edge"
