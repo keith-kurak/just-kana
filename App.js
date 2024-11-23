@@ -5,7 +5,6 @@ import Screens from './app/screens';
 import { View } from 'react-native';
 import WebOverlay from './app/components/WebOverlay';
 import { ThemeProvider } from './app/config/styles';
-import { SystemBars } from "react-native-edge-to-edge";
 
 /*Sentry.init({
   dsn: 'https://1ecb149b0d21ed992c4b9851438fc797@o1310900.ingest.sentry.io/4505705506013184',
@@ -59,7 +58,6 @@ export default function App() {
 
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <SystemBars style="auto" />
       <GestureHandlerRootView style={{ flex: 1 }}>
         <ThemeProvider>
           <WebOverlay>
