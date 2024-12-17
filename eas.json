@@ -38,16 +38,17 @@
     "production": {
       "channel": "production",
       "environment": "production",
-      "autoIncrement": true,
-      "env": {
-        "EXPO_PUBLIC_CODE_NAME": "kitsune"
-      }
+      "autoIncrement": true
     },
     "production:simulator": {
+      "extends": "production",
       "channel": "production",
       "autoIncrement": true,
       "ios": {
         "simulator": true
+      },
+      "android": {
+        "buildType": "apk"
       }
     },
     "production:apk": {

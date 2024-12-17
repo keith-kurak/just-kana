@@ -7,6 +7,7 @@ import KanaTypingOverlay from '../components/KanaTypingOverlay';
 import { hiraganaProvider, katakanaProvider } from '../kana-utils';
 import { useAppState } from '../stores';
 import { useStyles } from '../config/styles';
+import { UpdateOverlay } from '../components/UpdateOverlay';
 
 export default function ({ navigation }) {
   const { savedWords, addWord, settings, setSetting, toggleKanaType, kanaType } = useAppState();
@@ -125,6 +126,7 @@ export default function ({ navigation }) {
         onPressKanaType={toggleKanaType}
         kanaType={kanaType}
       />
+      <UpdateOverlay />
     </View>
   );
 }

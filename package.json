@@ -6,13 +6,15 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "android": "expo run:android",
-    "ios": "expo run:ios",
+    "ios": "DEV_VERSION=1 expo run:ios",
     "deploy-web": "gh-pages --nojekyll -d dist",
     "predeploy-web": "expo export -p web"
   },
   "dependencies": {
+    "@expo/metro-runtime": "~4.0.0",
     "@expo/vector-icons": "^14.0.0",
     "@react-native-async-storage/async-storage": "1.23.1",
+    "@react-native-community/hooks": "^3.0.0",
     "@react-navigation/native": "^6.0.11",
     "@react-navigation/native-stack": "^6.7.0",
     "@types/react": "~18.3.12",
