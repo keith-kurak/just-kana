@@ -15,14 +15,14 @@ export const UpdateOverlay = function UpdateOverlay() {
   const { colors, spacing, sizes, textStyles } = useStyles();
 
   useEffect(() => {
-    if (currentAppState === 'active') {
+    if (currentAppState === 'background') {
       checkForUpdateAsync().then(() => {
         fetchUpdateAsync().then(() => {
           console.log('update fetched');
         });
       });
     }
-  });
+  }, [currentAppState]);
 
   if (!isUpdatePending) {
     return null;

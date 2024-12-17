@@ -3,7 +3,7 @@
     "name": "Some Kana",
     "slug": "just-kana",
     "owner": "keith-kurak",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "icon": "./assets/icon.png",
