@@ -161,6 +161,18 @@
       {
         "word": "カメ",
         "translation": "turtle"
+      },
+      {
+        "word": "ねこ",
+        "translation": "cat"
+      },
+      {
+        "word": "いぬ",
+        "translation": "dog"
+      },
+      {
+        "word": "うし",
+        "translation": "cow"
       }
     ]
   }
