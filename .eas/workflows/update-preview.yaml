@@ -1,0 +1,22 @@
+name: Publish preview update
+
+on:
+  # Trigger on pushes to main branch
+  push:
+    branches: [master]
+
+jobs:
+  update_preview:
+    name: Update Preview Channel
+    type: update
+    params:
+      channel: preview
+  next_steps:
+    name: Next Steps
+    needs: [update_preview]
+    type: doc
+    params:
+      md: |
+        # To do next
+
+        Preview app has been updated. Open the app and go to Settings and apply the update.

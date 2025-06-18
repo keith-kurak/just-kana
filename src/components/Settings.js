@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { View, Text, Pressable, Alert, RefreshControl, Platform } from 'react-native';
+import { View, Text, Pressable, Alert, RefreshControl, Platform, AppState } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 import * as Application from 'expo-application';
 import * as Updates from 'expo-updates';
@@ -16,6 +16,24 @@ export default function ({ onDeleteAll }) {
   const [isUpdateReady, setIsUpdateReady] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { onCopyAllToClipboard, onShareAllAsFile } = useAppState();
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', (nextAppState) => {
+      if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
+        (async function runAsync() {
+          const status = await Updates.checkForUpdateAsync();
+          if (status.isAvailable) {
+            await Updates.fetchUpdateAsync();
+            setIsUpdateReady(true);
+          }
+        })();
+      }
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   useEffect(() => {
     (async function runAsync() {

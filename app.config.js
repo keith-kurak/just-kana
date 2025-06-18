@@ -1,23 +1,29 @@
 module.exports = ({ config }) => {
-  const myPlugins = config.plugins;
-  myPlugins.push([
-    "expo-dev-client", {
-      addGeneratedScheme: process.env.DEV_VERSION
-    }
+  let bundleIdSuffix = '';
+  if (process.env.APP_VARIANT) {
+    bundleIdSuffix += process.env.APP_VARIANT.toLowerCase();
+  }
+
+  const plugins = config.plugins || [];
+  plugins.push([
+    "expo-dev-client",
+        {
+          "addGeneratedScheme	": process.env.APP_VARIANT === "DEV"
+        }
   ])
   
   return {
     ...config,
-    name: process.env.DEV_VERSION ? `${config.name} - DEV` : config.name,
+    name: process.env.APP_VARIANT ? ("JSK-" + process.env.APP_VARIANT) : config.name,
     ios: {
       ...config.ios,
-      bundleIdentifier: process.env.DEV_VERSION ? `${config.ios.bundleIdentifier}-dev` : config.ios.bundleIdentifier,
+      bundleIdentifier: config.ios.bundleIdentifier + bundleIdSuffix,
     },
     android: {
       ...config.android,
-      package: process.env.DEV_VERSION ? `${config.android.package}dev` : config.android.package,
+      package: config.android.package + bundleIdSuffix,
     },
-    plugins: myPlugins,
+    plugins,
     extra: {
       ...config.extra,
       amplitudeApiKey: process.env.EXPO_PUBLIC_AMPLITUDE_API_KEY,
