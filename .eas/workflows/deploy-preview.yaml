@@ -1,8 +1,4 @@
-name: Deploy to production
-
-on:
-  push:
-    branches: ['main']
+name: Deploy to preview
 
 jobs:
   fingerprint:
@@ -14,14 +10,14 @@ jobs:
     type: get-build
     params:
       fingerprint_hash: ${{ needs.fingerprint.outputs.android_fingerprint_hash }}
-      profile: production
+      profile: preview
   get_ios_build:
     name: Check for existing ios build
     needs: [fingerprint]
     type: get-build
     params:
       fingerprint_hash: ${{ needs.fingerprint.outputs.ios_fingerprint_hash }}
-      profile: production
+      profile: preview
   build_android:
     name: Build Android
     needs: [get_android_build]
@@ -29,7 +25,7 @@ jobs:
     type: build
     params:
       platform: android
-      profile: production
+      profile: preview
   build_ios:
     name: Build iOS
     needs: [get_ios_build]
@@ -37,7 +33,7 @@ jobs:
     type: build
     params:
       platform: ios
-      profile: production
+      profile: preview
   submit_android_build:
     name: Submit Android Build
     needs: [build_android]
@@ -56,7 +52,7 @@ jobs:
     if: ${{ needs.get_android_build.outputs.build_id }}
     type: update
     params:
-      branch: production
+      branch: preview
       platform: android
   publish_ios_update:
     name: Publish iOS update
@@ -64,5 +60,5 @@ jobs:
     if: ${{ needs.get_ios_build.outputs.build_id }}
     type: update
     params:
-      branch: production
+      branch: preview
       platform: ios
