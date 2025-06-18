@@ -17,6 +17,8 @@ import { AppStateProvider } from '@/src/stores';
 
 //Sentry.Native.captureMessage('test event')
 
+// just a comment
+
 SplashScreen.setOptions({
   duration: 500,
   fade: true,
