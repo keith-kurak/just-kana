@@ -9,7 +9,7 @@
       "environment": "development",
       "developmentClient": true,
       "distribution": "internal",
-      "channel": "development",
+      "channel": "development"
     },
     "development:simulator": {
       "extends": "development",
