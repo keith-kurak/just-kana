@@ -2,8 +2,8 @@
   "expo": {
     "name": "Some Kana",
     "slug": "just-kana",
-    "owner": "keith-kurak",
-    "version": "1.4.1",
+    "owner": "expo-production",
+    "version": "1.5.0",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "icon": "./assets/icon.png",
@@ -48,6 +48,7 @@
       "baseUrl": "/just-kana"
     },
     "plugins": [
+      "expo-router",
       [
         "expo-splash-screen",
         {

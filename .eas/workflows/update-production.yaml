@@ -1,0 +1,13 @@
+name: Update Production
+
+jobs:
+  update_production:
+    name: Update Production Channel
+    type: update
+    params:
+      channel: production
+  deploy_web:
+    needs: [update_production] # only deploy website if update is successful
+    type: deploy
+    params:
+      prod: true

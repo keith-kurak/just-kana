@@ -1,0 +1,18 @@
+name: Build Production
+
+jobs:
+  build_ios:
+    type: build
+    params:
+      platform: ios # required
+      profile: production
+  build_android:
+    type: build
+    params:
+      platform: ios # required
+      profile: production
+  deploy_web:
+    needs: [build_ios, build_android] # only update website if builds are successful
+    type: deploy
+    params:
+      prod: true

@@ -1,10 +1,11 @@
 import { useEffect, useCallback, useState } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import Screens from './app/screens';
 import { View } from 'react-native';
-import WebOverlay from './app/components/WebOverlay';
-import { ThemeProvider } from './app/config/styles';
+import WebOverlay from '@/src/components/WebOverlay';
+import { ThemeProvider } from '@/src/config/styles';
+import { Stack } from 'expo-router';
+import { AppStateProvider } from '@/src/stores';
 
 /*Sentry.init({
   dsn: 'https://1ecb149b0d21ed992c4b9851438fc797@o1310900.ingest.sentry.io/4505705506013184',
@@ -15,6 +16,8 @@ import { ThemeProvider } from './app/config/styles';
 // super-cryptic sentry error
 
 //Sentry.Native.captureMessage('test event')
+
+// just a comment again
 
 SplashScreen.setOptions({
   duration: 500,
@@ -61,7 +64,9 @@ export default function App() {
       <GestureHandlerRootView style={{ flex: 1 }}>
         <ThemeProvider>
           <WebOverlay>
-            <Screens />
+            <AppStateProvider>
+              <Stack screenOptions={{ headerShown: false }} />
+            </AppStateProvider>
           </WebOverlay>
         </ThemeProvider>
       </GestureHandlerRootView>

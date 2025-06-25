@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Pressable } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useStyles } from '../config/styles';
 
 export default function MinimalNavbarWrapper({ children, showBackButton = true, rightButton, center }) {
-  const navigation = useNavigation();
+  const router = useRouter();
   const insets = useSafeAreaInsets();
   const { colors } = useStyles();
   return (
@@ -22,7 +22,7 @@ export default function MinimalNavbarWrapper({ children, showBackButton = true, 
         {showBackButton ? (
           <Pressable
             onPress={() => {
-              navigation.goBack();
+              router.back();
             }}>
             <Ionicons name="arrow-back" size={40} color={colors.buttonTextColor} />
           </Pressable>
