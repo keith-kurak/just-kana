@@ -1,4 +1,5 @@
 # Just Some Kana
+
 That's all it is, just some kana, you know!
 
 Find foreign/ loan words in Japanese text, sound them out, add them to your collection!
@@ -12,6 +13,7 @@ Find foreign/ loan words in Japanese text, sound them out, add them to your coll
 ---
 
 ## Running the code
+
 1. Run `yarn`
 2. Download Expo Go to your device
 3. Run `yarn start`

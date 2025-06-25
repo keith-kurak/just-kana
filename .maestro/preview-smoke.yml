@@ -1,0 +1,4 @@
+appId: com.keithkurak.justkanapreview
+---
+- launchApp
+- takeScreenshot: 'preview-smoke'

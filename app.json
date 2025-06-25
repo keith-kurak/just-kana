@@ -13,9 +13,7 @@
       "resizeMode": "cover",
       "backgroundColor": "#222222"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.keithkurak.justkana",
@@ -28,10 +26,12 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#222222"
       },
-      "package": "com.keithkurak.justkana"
+      "package": "com.keithkurak.justkana",
+      "edgeToEdgeEnabled": true
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "output": "static"
     },
     "extra": {
       "eas": {
@@ -56,8 +56,7 @@
           "image": "./assets/adaptive-icon.png",
           "imageWidth": 200
         }
-      ],
-      "react-native-edge-to-edge"
-    ],
+      ]
+    ]
   }
 }
