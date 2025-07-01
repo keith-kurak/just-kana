@@ -44,9 +44,6 @@
     "runtimeVersion": {
       "policy": "appVersion"
     },
-    "experiments": {
-      "baseUrl": "/just-kana"
-    },
     "plugins": [
       "expo-router",
       [
