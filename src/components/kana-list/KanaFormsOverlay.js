@@ -115,7 +115,7 @@ export default function KanaFormOverlay({
               icon={
                 <MaterialIcons
                   name="close"
-                  size={Platform.OS === 'web' ? 40: 30}
+                  size={Platform.OS === 'web' ? 40 : 30}
                   color={colors.buttonTextColor}
                 />
               }
