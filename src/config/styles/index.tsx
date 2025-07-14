@@ -14,9 +14,15 @@ const darkColors = ['#076FF8', '#F89007', '#9007f8', '#f8076f', '#05ae65'];
 
 const lightColors = ['#02c6d4', '#F89007', '#b969f5', '#f8076f', '#05ae65'];
 
-const ThemeContext = createContext();
+const ThemeContext = createContext<{
+  primaryColorIndex: number;
+  setPrimaryColorIndex: (index: number) => void;
+}>({
+  primaryColorIndex: 0,
+  setPrimaryColorIndex: () => {},
+});
 
-const ThemeProvider = (props) => {
+const ThemeProvider = (props: { children: React.ReactNode }) => {
   const [primaryColorIndex, setPrimaryColorIndex] = useState(0);
   return (
     // this is the provider providing state
@@ -83,7 +89,6 @@ const useStyles = function () {
 
   useEffect(() => {
     if (Platform.OS === 'android') {
-
     }
   }, [colorScheme]);
 

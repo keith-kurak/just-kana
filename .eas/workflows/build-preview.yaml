@@ -6,10 +6,15 @@ jobs:
     params:
       platform: ios # required
       profile: preview
-  build_android:
+  build_ios_simulator:
     type: build
     params:
       platform: ios # required
+      profile: preview-simulator
+  build_android:
+    type: build
+    params:
+      platform: android # required
       profile: preview
   deploy_web:
     needs: [build_ios, build_android] # only update website if builds are successful

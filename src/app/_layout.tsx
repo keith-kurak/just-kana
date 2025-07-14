@@ -2,10 +2,11 @@ import { useEffect, useCallback, useState } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { View } from 'react-native';
-import WebOverlay from '@/src/components/WebOverlay';
-import { ThemeProvider } from '@/src/config/styles';
+import WebOverlay from '@/components/WebOverlay';
+import { ThemeProvider } from '@/config/styles';
 import { Stack } from 'expo-router';
-import { AppStateProvider } from '@/src/stores';
+import { AppStateProvider } from '@/stores';
+import ExpoOtaUpdateMonitor from '@/components/ExpoOtaUpdateMonitor';
 
 /*Sentry.init({
   dsn: 'https://1ecb149b0d21ed992c4b9851438fc797@o1310900.ingest.sentry.io/4505705506013184',
@@ -66,6 +67,7 @@ export default function App() {
           <WebOverlay>
             <AppStateProvider>
               <Stack screenOptions={{ headerShown: false }} />
+              <ExpoOtaUpdateMonitor />
             </AppStateProvider>
           </WebOverlay>
         </ThemeProvider>

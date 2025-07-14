@@ -6,15 +6,15 @@ module.exports = ({ config }) => {
 
   const plugins = config.plugins || [];
   plugins.push([
-    "expo-dev-client",
-        {
-          "addGeneratedScheme	": process.env.APP_VARIANT === "DEV"
-        }
-  ])
-  
+    'expo-dev-client',
+    {
+      addGeneratedScheme: process.env.APP_VARIANT === 'DEV',
+    },
+  ]);
+
   return {
     ...config,
-    name: process.env.APP_VARIANT ? ("JSK-" + process.env.APP_VARIANT) : config.name,
+    name: process.env.APP_VARIANT ? 'JSK-' + process.env.APP_VARIANT : config.name,
     ios: {
       ...config.ios,
       bundleIdentifier: config.ios.bundleIdentifier + bundleIdSuffix,
@@ -30,6 +30,6 @@ module.exports = ({ config }) => {
       codeName: process.env.EXPO_PUBLIC_CODE_NAME,
       testValA: process.env.EXPO_PUBLIC_TEST_VAL_A,
       testValB: process.env.EXPO_PUBLIC_TEST_VAL_B,
-    }
+    },
   };
 };

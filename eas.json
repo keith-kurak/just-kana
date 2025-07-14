@@ -11,7 +11,7 @@
       "distribution": "internal",
       "channel": "development"
     },
-    "development:simulator": {
+    "development-simulator": {
       "extends": "development",
       "ios": {
         "simulator": true
@@ -26,7 +26,7 @@
         "buildType": "apk"
       }
     },
-    "preview:simulator": {
+    "preview-simulator": {
       "extends": "preview",
       "ios": {
         "simulator": true
