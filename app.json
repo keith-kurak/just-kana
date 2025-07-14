@@ -54,7 +54,8 @@
           "image": "./assets/adaptive-icon.png",
           "imageWidth": 200
         }
-      ]
+      ],
+      "expo-background-task"
     ]
   }
 }

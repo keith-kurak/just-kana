@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",
+    "@legendapp/list": "^1.1.4",
+    "@legendapp/state": "^3.0.0-beta.31",
     "@react-native-async-storage/async-storage": "2.1.2",
     "@react-navigation/native": "^7.0.14",
     "@react-navigation/native-stack": "^7.2.0",
@@ -20,6 +22,7 @@
     "colord": "^2.9.3",
     "expo": "^53.0.0",
     "expo-application": "~6.1.4",
+    "expo-background-task": "~0.2.8",
     "expo-blur": "~14.1.5",
     "expo-build-properties": "~0.14.6",
     "expo-clipboard": "~7.1.4",

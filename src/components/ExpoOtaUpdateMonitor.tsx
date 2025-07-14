@@ -1,15 +1,18 @@
-import { useUpdates, fetchUpdateAsync, checkForUpdateAsync } from 'expo-updates';
+import { useUpdates, fetchUpdateAsync, checkForUpdateAsync, reloadAsync } from 'expo-updates';
 import { useEffect, useState } from 'react';
 import { View, Text, Pressable, AppState } from 'react-native';
+import * as Constants from 'expo-constants';
 import { useStyles } from '@/config/styles';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/build/Ionicons';
+import { updatesLogStore$ } from '@/stores/updatesLog';
+import { ExpoUpdatesManifest } from 'expo/config';
 
 // const for testing update visuals
 const OVERRIDE_OVERLAY_VISIBLE = true;
 
 export default function ExpoOtaUpdateMonitor() {
-  const { currentlyRunning, isUpdateAvailable, isUpdatePending } = useUpdates();
+  const { currentlyRunning, isUpdateAvailable, isUpdatePending, availableUpdate } = useUpdates();
   const { top } = useSafeAreaInsets();
   const { colors, textStyles, sizes } = useStyles();
   const [visible, setVisible] = useState(true);
@@ -31,6 +34,16 @@ export default function ExpoOtaUpdateMonitor() {
   useEffect(() => {
     if (isUpdateAvailable) {
       fetchUpdateAsync();
+      updatesLogStore$.addUpdate({
+        timestamp: new Date().toISOString(),
+        version:
+          (availableUpdate?.manifest as ExpoUpdatesManifest).extra?.expoClient?.version ?? '',
+        updateId: availableUpdate?.updateId ?? '',
+        updateType: 'foreground',
+        updatePriority: 'normal',
+        updateStatus: 'downloading',
+        updateError: null,
+      });
     }
   }, [isUpdateAvailable]);
 
@@ -63,7 +76,18 @@ export default function ExpoOtaUpdateMonitor() {
               paddingVertical: sizes.large,
             }}
             onPress={() => {
-              console.log('update');
+              updatesLogStore$.addUpdate({
+                timestamp: new Date().toISOString(),
+                version:
+                  (availableUpdate?.manifest as ExpoUpdatesManifest).extra?.expoClient?.version ??
+                  '',
+                updateId: availableUpdate?.updateId ?? '',
+                updateType: 'foreground',
+                updatePriority: 'normal',
+                updateStatus: 'applied',
+                updateError: null,
+              });
+              reloadAsync();
             }}>
             <Text
               style={[
@@ -73,7 +97,7 @@ export default function ExpoOtaUpdateMonitor() {
                   textAlign: 'left',
                 },
               ]}>
-              Tap here to update
+              An update is available. Tap here to update.
             </Text>
           </Pressable>
           <Pressable

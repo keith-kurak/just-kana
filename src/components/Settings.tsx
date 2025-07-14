@@ -1,58 +1,39 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, Text, Pressable, Alert, RefreshControl, Platform, AppState } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 import * as Application from 'expo-application';
-import * as Updates from 'expo-updates';
+import {
+  useUpdates,
+  reloadAsync,
+  checkForUpdateAsync,
+  fetchUpdateAsync,
+  updateId,
+} from 'expo-updates';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AlertAsync from 'react-native-alert-async';
 import { useStyles } from '../config/styles';
 import { trackAnalyticsEvent } from '../stores/analytics';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useAppState } from '../stores';
+import { useRouter } from 'expo-router';
 
-export default function ({ onDeleteAll }) {
+export default function Settings({ onDeleteAll }: { onDeleteAll: () => void }) {
   const { colors, sizes, textStyles } = useStyles();
   const { bottom } = useSafeAreaInsets();
-  const [isUpdateReady, setIsUpdateReady] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { onCopyAllToClipboard, onShareAllAsFile } = useAppState();
+  const [secretVersionTapCount, setSecretVersionTapCount] = useState(0);
+  const { navigate } = useRouter();
 
-  useEffect(() => {
-    const subscription = AppState.addEventListener('change', (nextAppState) => {
-      if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
-        (async function runAsync() {
-          const status = await Updates.checkForUpdateAsync();
-          if (status.isAvailable) {
-            await Updates.fetchUpdateAsync();
-            setIsUpdateReady(true);
-          }
-        })();
-      }
-    });
-
-    return () => {
-      subscription.remove();
-    };
-  }, []);
-
-  useEffect(() => {
-    (async function runAsync() {
-      const status = await Updates.checkForUpdateAsync();
-      if (status.isAvailable) {
-        await Updates.fetchUpdateAsync();
-        setIsUpdateReady(true);
-      }
-    })();
-  }, []);
+  const { isUpdatePending } = useUpdates();
 
   const onPullToRefresh = useCallback(() => {
     (async function runAsync() {
       setIsLoading(true);
       try {
-        const status = await Updates.checkForUpdateAsync();
+        const status = await checkForUpdateAsync();
         if (status.isAvailable) {
-          await Updates.fetchUpdateAsync();
-          setIsUpdateReady(true);
+          await fetchUpdateAsync();
         }
       } catch (e) {
       } finally {
@@ -63,7 +44,7 @@ export default function ({ onDeleteAll }) {
 
   const update = useCallback(async () => {
     trackAnalyticsEvent('UpdateApp');
-    Updates.reloadAsync();
+    reloadAsync();
   }, []);
 
   const confirmDelete = useCallback(() => {
@@ -158,13 +139,20 @@ export default function ({ onDeleteAll }) {
     </View>
   );
 
-  const versionString = `v. ${Application.nativeApplicationVersion} b. ${Application.nativeBuildVersion} u. ${Updates.updateId}`;
+  const versionString = `v. ${Application.nativeApplicationVersion} b. ${Application.nativeBuildVersion} u. ${updateId}`;
 
   const versionStyle = [textStyles.smallLight, { fontSize: 14 }];
 
   const versionSection = (
     <View style={{ alignItems: 'center' }}>
       <Pressable
+        onPress={() => {
+          setSecretVersionTapCount(secretVersionTapCount + 1);
+          if (secretVersionTapCount === 3) {
+            navigate('/update-info');
+            setSecretVersionTapCount(0);
+          }
+        }}
         onLongPress={() => {
           Clipboard.setStringAsync(versionString);
           Alert.alert('Version info copied!');
@@ -173,10 +161,10 @@ export default function ({ onDeleteAll }) {
           <Text style={textStyles.smallDark}>Version info</Text>
           <Text style={versionStyle}>{Application.nativeApplicationVersion}</Text>
           <Text style={versionStyle}>{Application.nativeBuildVersion}</Text>
-          <Text style={versionStyle}>{Updates.updateId}</Text>
+          <Text style={versionStyle}>{updateId}</Text>
         </View>
       </Pressable>
-      {isUpdateReady && (
+      {isUpdatePending && (
         <Pressable style={{ marginTop: sizes.small }} onPress={update}>
           <Text style={textStyles.smallDark}>Load latest update</Text>
         </Pressable>
