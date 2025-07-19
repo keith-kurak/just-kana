@@ -4,7 +4,7 @@ import MinimalNavbarWrapper from '../components/MinimalNavbarWrapper';
 import { LegendList } from '@legendapp/list';
 import { UpdatesLogItem, updatesLogStore$ } from '@/stores/updatesLog';
 
-const USE_SAMPLE_DATA = true;
+const USE_SAMPLE_DATA = false;
 
 const SAMPLE_DATA: UpdatesLogItem[] = [
   {
