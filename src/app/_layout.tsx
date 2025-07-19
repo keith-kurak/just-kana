@@ -7,6 +7,7 @@ import { ThemeProvider } from '@/config/styles';
 import { Stack } from 'expo-router';
 import { AppStateProvider } from '@/stores';
 import ExpoOtaUpdateMonitor from '@/components/ExpoOtaUpdateMonitor';
+import '@/utils/background-updater';
 
 /*Sentry.init({
   dsn: 'https://1ecb149b0d21ed992c4b9851438fc797@o1310900.ingest.sentry.io/4505705506013184',

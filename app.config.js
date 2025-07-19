@@ -23,6 +23,10 @@ module.exports = ({ config }) => {
       ...config.android,
       package: config.android.package + bundleIdSuffix,
     },
+    updates: {
+      ...config.updates,
+      disableAntiBrickingMeasures: process.env.APP_VARIANT === 'PREVIEW',
+    },
     plugins,
     extra: {
       ...config.extra,

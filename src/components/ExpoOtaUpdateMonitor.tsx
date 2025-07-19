@@ -1,18 +1,19 @@
 import { useUpdates, fetchUpdateAsync, checkForUpdateAsync, reloadAsync } from 'expo-updates';
 import { useEffect, useState } from 'react';
 import { View, Text, Pressable, AppState } from 'react-native';
-import * as Constants from 'expo-constants';
 import { useStyles } from '@/config/styles';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/build/Ionicons';
 import { updatesLogStore$ } from '@/stores/updatesLog';
 import { ExpoUpdatesManifest } from 'expo/config';
+import { isAvailableUpdateCritical } from '@/utils/update-utils';
 
 // const for testing update visuals
-const OVERRIDE_OVERLAY_VISIBLE = true;
+const OVERRIDE_OVERLAY_VISIBLE = false;
 
 export default function ExpoOtaUpdateMonitor() {
-  const { currentlyRunning, isUpdateAvailable, isUpdatePending, availableUpdate } = useUpdates();
+  const updatesSystem = useUpdates();
+  const { isUpdateAvailable, isUpdatePending, availableUpdate } = updatesSystem;
   const { top } = useSafeAreaInsets();
   const { colors, textStyles, sizes } = useStyles();
   const [visible, setVisible] = useState(true);
@@ -32,19 +33,27 @@ export default function ExpoOtaUpdateMonitor() {
 
   // download update if available (either found on cold start or after foregrounding)
   useEffect(() => {
-    if (isUpdateAvailable) {
-      fetchUpdateAsync();
-      updatesLogStore$.addUpdate({
-        timestamp: new Date().toISOString(),
-        version:
-          (availableUpdate?.manifest as ExpoUpdatesManifest).extra?.expoClient?.version ?? '',
-        updateId: availableUpdate?.updateId ?? '',
-        updateType: 'foreground',
-        updatePriority: 'normal',
-        updateStatus: 'downloading',
-        updateError: null,
-      });
-    }
+    (async function doAsync() {
+      if (isUpdateAvailable) {
+        await fetchUpdateAsync();
+        updatesLogStore$.addUpdate({
+          timestamp: new Date().toISOString(),
+          version:
+            (availableUpdate?.manifest as ExpoUpdatesManifest).extra?.expoClient?.version ?? '',
+          updateId: availableUpdate?.updateId ?? '',
+          updateType: 'foreground',
+          updatePriority: isAvailableUpdateCritical(updatesSystem) ? 'critical' : 'normal',
+          updateStatus: 'downloaded',
+          updateError: null,
+        });
+
+        if (isAvailableUpdateCritical(updatesSystem)) {
+          setTimeout(() => {
+            reloadAsync();
+          }, 3000);
+        }
+      }
+    })();
   }, [isUpdateAvailable]);
 
   if (!visible) return null;
@@ -58,7 +67,9 @@ export default function ExpoOtaUpdateMonitor() {
             left: 0,
             right: 0,
             top: 0,
-            backgroundColor: colors.overlayColorSolid,
+            backgroundColor: isAvailableUpdateCritical(updatesSystem)
+              ? colors.destructive
+              : colors.overlayColorSolid,
             paddingTop: top,
           },
         ]}>
@@ -83,7 +94,7 @@ export default function ExpoOtaUpdateMonitor() {
                   '',
                 updateId: availableUpdate?.updateId ?? '',
                 updateType: 'foreground',
-                updatePriority: 'normal',
+                updatePriority: isAvailableUpdateCritical(updatesSystem) ? 'critical' : 'normal',
                 updateStatus: 'applied',
                 updateError: null,
               });
@@ -97,7 +108,9 @@ export default function ExpoOtaUpdateMonitor() {
                   textAlign: 'left',
                 },
               ]}>
-              An update is available. Tap here to update.
+              {isAvailableUpdateCritical(updatesSystem)
+                ? 'A critical update is available. Updating now.'
+                : 'An update is available. Tap here to update.'}
             </Text>
           </Pressable>
           <Pressable

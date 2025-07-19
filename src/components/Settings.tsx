@@ -16,6 +16,9 @@ import { trackAnalyticsEvent } from '../stores/analytics';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useAppState } from '../stores';
 import { useRouter } from 'expo-router';
+import { updatesLogStore$ } from '@/stores/updatesLog';
+import { ExpoUpdatesManifest } from 'expo/config';
+import { isAvailableUpdateCritical } from '@/utils/update-utils';
 
 export default function Settings({ onDeleteAll }: { onDeleteAll: () => void }) {
   const { colors, sizes, textStyles } = useStyles();
@@ -25,7 +28,8 @@ export default function Settings({ onDeleteAll }: { onDeleteAll: () => void }) {
   const [secretVersionTapCount, setSecretVersionTapCount] = useState(0);
   const { navigate } = useRouter();
 
-  const { isUpdatePending } = useUpdates();
+  const updatesSystem = useUpdates();
+  const { isUpdatePending, availableUpdate } = updatesSystem;
 
   const onPullToRefresh = useCallback(() => {
     (async function runAsync() {
@@ -44,6 +48,15 @@ export default function Settings({ onDeleteAll }: { onDeleteAll: () => void }) {
 
   const update = useCallback(async () => {
     trackAnalyticsEvent('UpdateApp');
+    updatesLogStore$.addUpdate({
+      timestamp: new Date().toISOString(),
+      version: (availableUpdate?.manifest as ExpoUpdatesManifest).extra?.expoClient?.version ?? '',
+      updateId: availableUpdate?.updateId ?? '',
+      updateType: 'foreground',
+      updatePriority: isAvailableUpdateCritical(updatesSystem) ? 'critical' : 'normal',
+      updateStatus: 'applied',
+      updateError: null,
+    });
     reloadAsync();
   }, []);
 

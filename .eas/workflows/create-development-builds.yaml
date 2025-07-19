@@ -6,7 +6,7 @@ jobs:
     type: build
     params:
       platform: ios
-      profile: development:simulator
+      profile: development-simulator
   android_development_build:
     name: Build Android
     needs: [ios_simulator_development_build] # canary / coal mine
