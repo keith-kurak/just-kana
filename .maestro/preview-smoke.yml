@@ -1,4 +1,9 @@
 appId: com.keithkurak.justkanapreview
 ---
 - launchApp
-- takeScreenshot: 'preview-smoke'
+- takeScreenshot: 'preview-smoke-1'
+- assertVisible: 'カナ'
+- tapOn:
+    id: "show-word-list-button"
+- takeScreenshot: 'preview-smoke-2'
+- assertVisible: '.*first word.*'

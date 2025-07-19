@@ -74,7 +74,7 @@ export default function Toolbar({
           flex: 1,
         }}>
         <IconBadge badgeCount={savedWords.length} color={colors.buttonColor} size={sizes.topBar}>
-          <Pressable onPress={onPressShowWordList}>
+          <Pressable onPress={onPressShowWordList} testID="show-word-list-button">
             <View
               style={{
                 paddingVertical: 5,
