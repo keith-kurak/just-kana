@@ -8,7 +8,7 @@ export interface UpdatesLogItem {
   updateId: string;
   updateType: 'background' | 'foreground';
   updatePriority: 'normal' | 'critical';
-  updateStatus: 'downloading' | 'downloaded' | 'applied' | 'failed';
+  updateStatus: 'downloading' | 'downloaded' | 'applied' | 'failed' | 'found';
   updateError: string | null;
 }
 

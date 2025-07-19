@@ -35,6 +35,16 @@ export default function ExpoOtaUpdateMonitor() {
   useEffect(() => {
     (async function doAsync() {
       if (isUpdateAvailable) {
+        updatesLogStore$.addUpdate({
+          timestamp: new Date().toISOString(),
+          version:
+            (availableUpdate?.manifest as ExpoUpdatesManifest).extra?.expoClient?.version ?? '',
+          updateId: availableUpdate?.updateId ?? '',
+          updateType: 'foreground',
+          updatePriority: isAvailableUpdateCritical(updatesSystem) ? 'critical' : 'normal',
+          updateStatus: 'found',
+          updateError: null,
+        });
         await fetchUpdateAsync();
         updatesLogStore$.addUpdate({
           timestamp: new Date().toISOString(),
