@@ -63,7 +63,7 @@ export default function UpdateInfo() {
                       color:
                         item.updateStatus === 'applied'
                           ? 'green'
-                          : item.updateStatus === 'downloading'
+                          : item.updateStatus === 'downloaded'
                           ? 'yellow'
                           : colors.buttonTextColor,
                     },
@@ -73,7 +73,9 @@ export default function UpdateInfo() {
                 <Text style={[textStyles.smallLight, { marginBottom: 12 }]}>
                   {item.updateStatus}
                 </Text>
-                <Text style={[textStyles.smallLight, { marginBottom: 12 }]}>{item.timestamp}</Text>
+                <Text style={[textStyles.smallLight, { marginBottom: 12 }]}>
+                  {item.timestamp.toString()}
+                </Text>
               </View>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Text style={[textStyles.smallLight, { marginBottom: 12 }]}>

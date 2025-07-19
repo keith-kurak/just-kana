@@ -1,6 +1,7 @@
 import { observable } from '@legendapp/state';
-import { syncObservable } from '@legendapp/state/sync';
-import { ObservablePersistLocalStorage } from '@legendapp/state/persist-plugins/local-storage';
+import { configureSynced, syncObservable } from '@legendapp/state/sync';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { observablePersistAsyncStorage } from '@legendapp/state/persist-plugins/async-storage';
 
 export interface UpdatesLogItem {
   timestamp: string;
@@ -24,10 +25,18 @@ export const updatesLogStore$ = observable<UpdatesLog>({
   },
 });
 
-// Persist the observable to the named key of the global persist plugin
-syncObservable(updatesLogStore$, {
+const persistOptions = configureSynced({
   persist: {
-    name: 'persistKey',
-    plugin: ObservablePersistLocalStorage,
+    plugin: observablePersistAsyncStorage({
+      AsyncStorage,
+    }),
   },
 });
+syncObservable(
+  updatesLogStore$,
+  persistOptions({
+    persist: {
+      name: 'updatesLog',
+    },
+  })
+);

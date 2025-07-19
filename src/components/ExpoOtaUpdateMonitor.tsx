@@ -1,6 +1,6 @@
 import { useUpdates, fetchUpdateAsync, checkForUpdateAsync, reloadAsync } from 'expo-updates';
 import { useEffect, useState } from 'react';
-import { View, Text, Pressable, AppState } from 'react-native';
+import { View, Text, Pressable, AppState, Alert } from 'react-native';
 import { useStyles } from '@/config/styles';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/build/Ionicons';
@@ -35,28 +35,35 @@ export default function ExpoOtaUpdateMonitor() {
   useEffect(() => {
     (async function doAsync() {
       if (isUpdateAvailable) {
-        updatesLogStore$.addUpdate({
-          timestamp: new Date().toISOString(),
-          version:
-            (availableUpdate?.manifest as ExpoUpdatesManifest).extra?.expoClient?.version ?? '',
-          updateId: availableUpdate?.updateId ?? '',
-          updateType: 'foreground',
-          updatePriority: isAvailableUpdateCritical(updatesSystem) ? 'critical' : 'normal',
-          updateStatus: 'found',
-          updateError: null,
-        });
+        try {
+          updatesLogStore$.addUpdate({
+            timestamp: new Date().toISOString(),
+            version:
+              (availableUpdate?.manifest as ExpoUpdatesManifest).extra?.expoClient?.version ?? '',
+            updateId: availableUpdate?.updateId ?? '',
+            updateType: 'foreground',
+            updatePriority: isAvailableUpdateCritical(updatesSystem) ? 'critical' : 'normal',
+            updateStatus: 'found',
+            updateError: null,
+          });
+        } catch (error) {
+          Alert.alert('Error', 'Error logging update found');
+        }
         await fetchUpdateAsync();
-        updatesLogStore$.addUpdate({
-          timestamp: new Date().toISOString(),
-          version:
-            (availableUpdate?.manifest as ExpoUpdatesManifest).extra?.expoClient?.version ?? '',
-          updateId: availableUpdate?.updateId ?? '',
-          updateType: 'foreground',
-          updatePriority: isAvailableUpdateCritical(updatesSystem) ? 'critical' : 'normal',
-          updateStatus: 'downloaded',
-          updateError: null,
-        });
-
+        try {
+          updatesLogStore$.addUpdate({
+            timestamp: new Date().toISOString(),
+            version:
+              (availableUpdate?.manifest as ExpoUpdatesManifest).extra?.expoClient?.version ?? '',
+            updateId: availableUpdate?.updateId ?? '',
+            updateType: 'foreground',
+            updatePriority: isAvailableUpdateCritical(updatesSystem) ? 'critical' : 'normal',
+            updateStatus: 'downloaded',
+            updateError: null,
+          });
+        } catch (error) {
+          Alert.alert('Error', 'Error logging update found');
+        }
         if (isAvailableUpdateCritical(updatesSystem)) {
           setTimeout(() => {
             reloadAsync();
