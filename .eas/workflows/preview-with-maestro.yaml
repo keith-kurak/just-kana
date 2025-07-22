@@ -34,7 +34,7 @@ jobs:
     image: latest
     params:
       build_id: ${{ needs.android_repack.outputs.build_id || needs.android_build.outputs.build_id }}
-      flow_path: ['.maestro/preview-smoke.yml']
+      flow_path: ['.maestro/preview-smoke.yaml']
 
   ios_get_build:
     needs: [fingerprint]
@@ -42,7 +42,7 @@ jobs:
     params:
       fingerprint_hash: ${{ needs.fingerprint.outputs.ios_fingerprint_hash }}
       platform: ios
-      profile: preview:simulator
+      profile: preview-simulator
 
   ios_repack:
     needs: [ios_get_build]
@@ -57,7 +57,7 @@ jobs:
     type: build
     params:
       platform: ios
-      profile: preview:simulator
+      profile: preview-simulator
 
   ios_maestro:
     after: [ios_repack, ios_build]
