@@ -5,7 +5,19 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useStyles } from '../config/styles';
 
-export default function MinimalNavbarWrapper({ children, showBackButton = true, rightButton, center }) {
+interface MinimalNavbarWrapperProps {
+  children: React.ReactNode;
+  showBackButton?: boolean;
+  rightButton?: React.ReactNode;
+  center?: React.ReactNode;
+}
+
+export default function MinimalNavbarWrapper({
+  children,
+  showBackButton = true,
+  rightButton,
+  center,
+}: MinimalNavbarWrapperProps) {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const { colors } = useStyles();

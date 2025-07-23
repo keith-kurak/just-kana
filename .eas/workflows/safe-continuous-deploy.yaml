@@ -1,0 +1,102 @@
+name: Safe Soft Fingerprint Continuous Deploy
+# deploy updates to prod as long as they're safe for both platforms
+# HCF if anything isn't safe, notify the team, allow for an override
+
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  # phase 1: detect existing builds for android and ios
+  fingerprint:
+    name: Fingerprint
+    type: fingerprint
+  get_android_build:
+    name: Check for existing android build
+    needs: [fingerprint]
+    type: get-build
+    params:
+      fingerprint_hash: ${{ needs.fingerprint.outputs.android_fingerprint_hash }}
+      profile: production
+      # assumes version is included in fingerprint, but we could also add this as a param if we read config
+  get_ios_build:
+    name: Check for existing ios build
+    needs: [fingerprint]
+    type: get-build
+    params:
+      fingerprint_hash: ${{ needs.fingerprint.outputs.ios_fingerprint_hash }}
+      profile: production
+      # assumes version is included in fingerprint, but we could also add this as a param if we read config
+  next_steps_after_builds_found:
+    needs: [get_android_build, get_ios_build]
+    if: ${{ needs.get_android_build.outputs.build_id && needs.get_ios_build.outputs.build_id }}
+    type: doc
+    params:
+      md: "Compatible builds found for both platforms, Repacking and running maestro tests. If Maestro tests pass, the update will be published to production."
+  ios_repack:
+    needs: [get_ios_build]
+    after: [next_steps_after_builds_found]
+    if: ${{ needs.ios_get_build.outputs.build_id }}
+    type: repack
+    params:
+      build_id: ${{ needs.ios_get_build.outputs.build_id }}
+  android_repack:
+    needs: [get_android_build]
+    after: [next_steps_after_builds_found]
+    if: ${{ needs.android_get_build.outputs.build_id }}
+    type: repack
+    params:
+      build_id: ${{ needs.android_get_build.outputs.build_id }}
+  ios_maestro:
+    after: [ios_repack]
+    type: maestro
+    image: latest
+    params:
+      build_id: ${{ needs.ios_repack.outputs.build_id }}
+      flow_path: ['maestro.yaml']
+  android_maestro:
+    after: [android_repack]
+    type: maestro
+    image: latest
+    params:
+      build_id: ${{ needs.android_repack.outputs.build_id }}
+      flow_path: ['maestro.yaml']
+  next_steps_after_tests_pass:
+    needs: [ios_maestro, android_maestro]
+    if: ${{ needs.ios_maestro.outputs.status == 'success' && needs.android_maestro.outputs.status == 'success' }}
+    type: doc
+    params:
+      md: "Maestro tests passed for both platforms, publishing update to production."
+  publish_update:
+    name: Publish update 
+    needs: [ios_maestro, android_maestro, get_android_build, get_ios_build]
+    after: [next_steps_after_tests_pass]
+    if: ${{ needs.get_android_build.outputs.build_id && needs.get_ios_build.outputs.build_id && needs.ios_maestro.outputs.status == 'success' && needs.android_maestro.outputs.status == 'success' }}
+    type: update
+    params:
+      channel: production
+  # Slack if failed
+  send_slack_notification_builds_not_found:
+    needs: [get_android_build, get_ios_build]
+    if: ${{ !needs.get_android_build.outputs.build_id && !needs.get_ios_build.outputs.build_id }}
+    type: slack
+    params:
+      webhook_url: https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+      message: 'Cannot continuous deploy update, no production builds matching fingerprints for iOS and Android. Increment version and submit a new build to continue deploying, or override check to publish to production' # TODO: specify which platforms were missing builds, specify version number of build that was missing
+  send_slack_notification_tests_failed:
+    needs: [ios_maestro, android_maestro]
+    if: ${{ !needs.ios_maestro.outputs.status == 'success' && !needs.android_maestro.outputs.status == 'success' }}
+    type: slack
+    params:
+      webhook_url: https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+      message: 'Cannot continuous deploy update, Maestro tests failed for one or more platforms' # TODO: specify which platforms failed
+  override_update_check_to_deploy: # ideally attempt repack and test anyway - need to pull build based on version number to do this AFAIK
+    name: Approve deployment of production update anyway? (Make sure you test first!)
+    after: [send_slack_notification_builds_not_found]
+    type: require-approval
+  publish_update_after_override_approval:
+    name: Publish update 
+    needs: [override_update_check_to_deploy]
+    type: update
+    params:
+      channel: production

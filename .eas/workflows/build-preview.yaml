@@ -1,18 +1,21 @@
-name: Build Production
+name: Build Preview
 
 jobs:
   build_ios:
     type: build
     params:
       platform: ios # required
-      profile: production
+      profile: preview
+  build_ios_simulator:
+    type: build
+    params:
+      platform: ios # required
+      profile: preview-simulator
   build_android:
     type: build
     params:
       platform: android # required
-      profile: production
+      profile: preview
   deploy_web:
     needs: [build_ios, build_android] # only update website if builds are successful
     type: deploy
-    params:
-      prod: true

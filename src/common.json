@@ -1,5 +1,14 @@
 [
   {
+    "title": "Words of the Day: Animals",
+    "data": [
+      {
+        "word": "カメ",
+        "translation": "turtle"
+      }
+    ]
+  },
+  {
     "title": "Phrases",
     "data": [
       {
@@ -152,15 +161,6 @@
       {
         "word": "ご",
         "translation": "five"
-      }
-    ]
-  },
-  {
-    "title": "Words of the Day: Animals",
-    "data": [
-      {
-        "word": "カメ",
-        "translation": "turtle"
       }
     ]
   }

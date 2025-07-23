@@ -3,7 +3,7 @@ name: Publish preview update
 on:
   # Trigger on pushes to main branch
   push:
-    branches: [master]
+    branches: [main]
 
 jobs:
   update_preview:
