@@ -12,6 +12,8 @@ Find foreign/ loan words in Japanese text, sound them out, add them to your coll
 
 ---
 
+## test
+
 ## Running the code
 
 1. Run `yarn`
