@@ -9,7 +9,7 @@ jobs:
   build_android:
     type: build
     params:
-      platform: ios # required
+      platform: android # required
       profile: production
   deploy_web:
     needs: [build_ios, build_android] # only update website if builds are successful
