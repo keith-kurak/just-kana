@@ -11,6 +11,7 @@ export interface UpdatesLogItem {
   updatePriority: 'normal' | 'critical';
   updateStatus: 'downloading' | 'downloaded' | 'applied' | 'failed' | 'found';
   updateError: string | null;
+  updateVersion?: string | undefined;
 }
 
 interface UpdatesLog {

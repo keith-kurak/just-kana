@@ -39,7 +39,9 @@ const SAMPLE_DATA: UpdatesLogItem[] = [
 export default function UpdateInfo() {
   const { colors, textStyles, sizes } = useStyles();
 
-  const items = (USE_SAMPLE_DATA ? SAMPLE_DATA : updatesLogStore$.updatesLog.get()).reverse();
+  const items = (USE_SAMPLE_DATA ? SAMPLE_DATA : updatesLogStore$.updatesLog.get())
+    .reverse()
+    .filter((item) => item.updateStatus === 'applied');
 
   return (
     <MinimalNavbarWrapper showBackButton>
@@ -48,7 +50,7 @@ export default function UpdateInfo() {
         <LegendList
           data={items}
           renderItem={({ item }) => (
-            <View style={{ marginBottom: sizes.medium }}>
+            <View style={{ marginBottom: sizes.medium, columnGap: sizes.small }}>
               <View
                 style={{
                   flexDirection: 'row',
@@ -68,15 +70,27 @@ export default function UpdateInfo() {
                           : colors.buttonTextColor,
                     },
                   ]}>
-                  {item.version}
+                  {item.version}-{item.updateVersion}
                 </Text>
-                <Text style={[textStyles.smallLight, { marginBottom: 12 }]}>
+                <Text
+                  style={[
+                    textStyles.smallLight,
+                    {
+                      marginBottom: 12,
+                      color:
+                        item.updateStatus === 'applied'
+                          ? 'green'
+                          : item.updateStatus === 'downloaded'
+                          ? 'yellow'
+                          : colors.buttonTextColor,
+                    },
+                  ]}>
                   {item.updateStatus}
                 </Text>
-                <Text style={[textStyles.smallLight, { marginBottom: 12 }]}>
-                  {item.timestamp.toString()}
-                </Text>
               </View>
+              <Text style={[textStyles.smallLight, { marginBottom: 12 }]}>
+                {item.timestamp.toString()}
+              </Text>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Text style={[textStyles.smallLight, { marginBottom: 12 }]}>
                   {item.updateId} / {item.updateType} / {item.updatePriority}

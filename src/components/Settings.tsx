@@ -9,6 +9,7 @@ import {
   fetchUpdateAsync,
   updateId,
 } from 'expo-updates';
+import Constants from 'expo-constants';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AlertAsync from 'react-native-alert-async';
 import { useStyles } from '../config/styles';
@@ -51,6 +52,7 @@ export default function Settings({ onDeleteAll }: { onDeleteAll: () => void }) {
     updatesLogStore$.addUpdate({
       timestamp: new Date().toISOString(),
       version: (availableUpdate?.manifest as ExpoUpdatesManifest).extra?.expoClient?.version ?? '',
+      updateVersion: (availableUpdate?.manifest as ExpoUpdatesManifest).extra?.updateVersion ?? '',
       updateId: availableUpdate?.updateId ?? '',
       updateType: 'foreground',
       updatePriority: isAvailableUpdateCritical(updatesSystem) ? 'critical' : 'normal',
@@ -172,7 +174,10 @@ export default function Settings({ onDeleteAll }: { onDeleteAll: () => void }) {
         }}>
         <View style={{ alignItems: 'center' }}>
           <Text style={textStyles.smallDark}>Version info</Text>
-          <Text style={versionStyle}>{Application.nativeApplicationVersion}</Text>
+          <Text style={versionStyle}>
+            {Application.nativeApplicationVersion}-
+            {Constants.expoConfig?.extra?.updateVersion || '0'}
+          </Text>
           <Text style={versionStyle}>{Application.nativeBuildVersion}</Text>
           <Text style={versionStyle}>{updateId}</Text>
         </View>

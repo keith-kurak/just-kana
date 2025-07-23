@@ -45,6 +45,8 @@ export default function ExpoOtaUpdateMonitor() {
             updatePriority: isAvailableUpdateCritical(updatesSystem) ? 'critical' : 'normal',
             updateStatus: 'found',
             updateError: null,
+            updateVersion:
+              (availableUpdate?.manifest as ExpoUpdatesManifest).extra?.updateVersion ?? '',
           });
         } catch (error) {
           Alert.alert('Error', 'Error logging update found');
@@ -60,6 +62,8 @@ export default function ExpoOtaUpdateMonitor() {
             updatePriority: isAvailableUpdateCritical(updatesSystem) ? 'critical' : 'normal',
             updateStatus: 'downloaded',
             updateError: null,
+            updateVersion:
+              (availableUpdate?.manifest as ExpoUpdatesManifest).extra?.updateVersion ?? '',
           });
         } catch (error) {
           Alert.alert('Error', 'Error logging update found');
@@ -114,6 +118,8 @@ export default function ExpoOtaUpdateMonitor() {
                 updatePriority: isAvailableUpdateCritical(updatesSystem) ? 'critical' : 'normal',
                 updateStatus: 'applied',
                 updateError: null,
+                updateVersion:
+                  (availableUpdate?.manifest as ExpoUpdatesManifest).extra?.updateVersion ?? '',
               });
               reloadAsync();
             }}>

@@ -18,6 +18,7 @@ TaskManager.defineTask(BACKGROUND_TASK_NAME, async () => {
     updatesLogStore$.addUpdate({
       timestamp: new Date().toISOString(),
       version: availableUpdate.extra?.expoClient?.version ?? '',
+      updateVersion: availableUpdate.extra?.updateVersion ?? '',
       updateId: availableUpdate.id ?? '',
       updateType: 'background',
       updatePriority: isAvailableUpdateCritical ? 'critical' : 'normal',
@@ -28,6 +29,7 @@ TaskManager.defineTask(BACKGROUND_TASK_NAME, async () => {
     updatesLogStore$.addUpdate({
       timestamp: new Date().toISOString(),
       version: availableUpdate.extra?.expoClient?.version ?? '',
+      updateVersion: availableUpdate.extra?.updateVersion ?? '',
       updateId: availableUpdate.id ?? '',
       updateType: 'background',
       updatePriority: 'normal',
