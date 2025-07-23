@@ -1,10 +1,11 @@
 [
   {
-    "title": "Words of the Day: Animals",
+    "title": "Words of the Day",
     "data": [
       {
         "word": "ねこ",
-        "translation": "cat"
+        "translation": "cat",
+        "highlight": false
       }
     ]
   },
