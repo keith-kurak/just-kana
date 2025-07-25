@@ -18,3 +18,5 @@ Find foreign/ loan words in Japanese text, sound them out, add them to your coll
 2. Download Expo Go to your device
 3. Run `yarn start`
 4. Scan the QR Code
+
+# test
