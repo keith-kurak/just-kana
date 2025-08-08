@@ -4,6 +4,7 @@
   "main": "expo-router/entry",
   "scripts": {
     "start": "APP_VARIANT=DEV npx expo start",
+    "preinstall": "echo 'This project requires Node.js version 18 or higher.'",
     "web": "expo start --web",
     "eject": "expo eject",
     "android": "expo run:android",
