@@ -2,7 +2,7 @@ import { createContext, useState, useContext, useCallback, useEffect } from 'rea
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from 'expo-file-system/legacy';
 import * as Sharing from "expo-sharing"
 import { DateTime } from 'luxon';
 import { useTheme } from '../config/styles';

@@ -1,4 +1,4 @@
-name: Build Production
+name: Build and Submit Production and Deploy website
 
 jobs:
   build_ios:
@@ -11,8 +11,21 @@ jobs:
     params:
       platform: android # required
       profile: production
+  submit_android_build:
+    name: Submit Android Build
+    needs: [build_android]
+    type: submit
+    params:
+      build_id: ${{ needs.build_android.outputs.build_id }}
+  submit_ios_build:
+    name: Submit iOS Build
+    needs: [build_ios]
+    type: submit
+    params:
+      build_id: ${{ needs.build_ios.outputs.build_id }}
   deploy_web:
     needs: [build_ios, build_android] # only update website if builds are successful
     type: deploy
     params:
       prod: true
+  
