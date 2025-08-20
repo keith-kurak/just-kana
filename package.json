@@ -1,6 +1,6 @@
 {
   "name": "just-kana",
-  "version": "1.4.0",
+  "version": "1.6.1",
   "main": "expo-router/entry",
   "scripts": {
     "start": "APP_VARIANT=DEV npx expo start",
@@ -26,6 +26,7 @@
     "expo-application": "~7.0.2",
     "expo-background-task": "~1.0.2",
     "expo-blur": "~15.0.2",
+    "expo-build-properties": "~1.0.3",
     "expo-clipboard": "~8.0.2",
     "expo-constants": "~18.0.2",
     "expo-dev-client": "~6.0.3",
