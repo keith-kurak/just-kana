@@ -74,6 +74,7 @@ export default function ExpoOtaUpdateMonitor() {
             updateVersion:
               (availableUpdate?.manifest as ExpoUpdatesManifest).extra?.updateVersion ?? '',
           });
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
           Alert.alert('Error', 'Error logging update found');
         }
