@@ -10,6 +10,7 @@ import ExpoOtaUpdateMonitor from '@/components/ExpoOtaUpdateMonitor';
 import '@/utils/background-updater';
 import UpdateDebugVisor from '@/components/UpdateDebugVisor';
 import HighlightedWordOfTheDay from '@/components/HighlightedWordOfTheDay';
+import { vexo } from 'vexo-analytics';
 
 /*Sentry.init({
   dsn: 'https://1ecb149b0d21ed992c4b9851438fc797@o1310900.ingest.sentry.io/4505705506013184',
@@ -21,7 +22,9 @@ import HighlightedWordOfTheDay from '@/components/HighlightedWordOfTheDay';
 
 //Sentry.Native.captureMessage('test event')
 
-// just a comment again
+if (!__DEV__) {
+  vexo(process.env.EXPO_PUBLIC_VEXO_API_KEY);
+}
 
 SplashScreen.setOptions({
   duration: 500,
