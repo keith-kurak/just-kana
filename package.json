@@ -9,7 +9,9 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "deploy-web": "gh-pages --nojekyll -d dist",
-    "predeploy-web": "expo export -p web"
+    "predeploy-web": "expo export -p web",
+    "lint": "expo lint",
+    "test": "jest --watchAll"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",
@@ -66,10 +68,24 @@
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
+    "@types/jest": "^30.0.0",
+    "@types/lodash": "^4.17.20",
+    "eslint": "^9.0.0",
+    "eslint-config-expo": "~10.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
     "expo-atlas": "^0.4.0",
     "gh-pages": "^6.2.0",
-    "prettier": "^2.7.1",
+    "jest": "~29.7.0",
+    "jest-expo": "~53.0.9",
+    "prettier": "^3.6.2",
     "source-map-explorer": "^2.5.3"
   },
-  "private": true
+  "private": true,
+  "jest": {
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@sentry/react-native|native-base|react-native-svg)"
+    ]
+  }
 }

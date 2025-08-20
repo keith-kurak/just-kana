@@ -1,4 +1,4 @@
-import { keys, split } from 'lodash';
+import { split } from 'lodash';
 const katakanaData = require('./katakana.json');
 const hiraganaData = require('./hiragana.json');
 const commonWords = require('./common.json');
