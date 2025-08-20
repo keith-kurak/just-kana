@@ -51,4 +51,4 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: 🚀 Run maestro
-        run: eas workflow:run build-or-repack-maestro.yaml --wait --json
+        run: eas workflow:run build-or-repack-with-maestro.yaml --wait --json
