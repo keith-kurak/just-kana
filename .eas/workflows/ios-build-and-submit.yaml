@@ -1,0 +1,15 @@
+name: Build and Submit Production and Deploy website
+
+jobs:
+  build_ios:
+    type: build
+    params:
+      platform: ios # required
+      profile: production
+  submit_ios_build:
+    name: Submit iOS Build
+    needs: [build_ios]
+    type: submit
+    params:
+      build_id: ${{ needs.build_ios.outputs.build_id }}
+  

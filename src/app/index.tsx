@@ -8,7 +8,8 @@ import { hiraganaProvider, katakanaProvider } from '../kana-utils';
 import { useAppState } from '../stores';
 import { useStyles } from '../config/styles';
 import { useRouter } from 'expo-router';
-export default function () {
+
+export default function Index() {
   const { savedWords, addWord, settings, setSetting, toggleKanaType, kanaType } = useAppState();
   // a word that is being typed
   const [typingKana, setTypingKana] = useState([]);
