@@ -10,6 +10,7 @@ jobs:
       - uses: eas/checkout
       - uses: eas/install_node_modules
       - run: npx bun test
+      - run: npx expo lint
 
   publish_preview_update:
     name: Publish preview update
