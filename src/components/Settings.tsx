@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { View, Text, Pressable, Alert, RefreshControl, Platform, AppState } from 'react-native';
+import { View, Text, Pressable, Alert, RefreshControl, Platform } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 import * as Application from 'expo-application';
 import {

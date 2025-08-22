@@ -7,6 +7,9 @@ import Ionicons from '@expo/vector-icons/build/Ionicons';
 import { updatesLogStore$ } from '@/stores/updatesLog';
 import { ExpoUpdatesManifest } from 'expo/config';
 import { isAvailableUpdateCritical } from '@/utils/update-utils';
+import { customEvent } from 'vexo-analytics';
+import Constants from 'expo-constants';
+import * as Application from 'expo-application';
 
 // const for testing update visuals
 const OVERRIDE_OVERLAY_VISIBLE = false;
@@ -24,6 +27,12 @@ export default function ExpoOtaUpdateMonitor() {
       if (nextAppState === 'active') {
         checkForUpdateAsync();
       }
+    });
+
+    // log event with update index
+    customEvent('ack-updates-version', {
+      version: `${Application.nativeApplicationVersion}-
+            ${Constants.expoConfig?.extra?.updateVersion || '0'}`,
     });
 
     return () => {
@@ -65,6 +74,7 @@ export default function ExpoOtaUpdateMonitor() {
             updateVersion:
               (availableUpdate?.manifest as ExpoUpdatesManifest).extra?.updateVersion ?? '',
           });
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
           Alert.alert('Error', 'Error logging update found');
         }

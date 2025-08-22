@@ -3,9 +3,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 import * as FileSystem from 'expo-file-system/legacy';
-import * as Sharing from "expo-sharing"
+import * as Sharing from 'expo-sharing';
 import { DateTime } from 'luxon';
 import { useTheme } from '../config/styles';
+import { customEvent } from 'vexo-analytics';
 
 // clear storage for testing
 //AsyncStorage.setItem('@saved_words', JSON.stringify([]));
@@ -60,6 +61,7 @@ const AppStateProvider = (props) => {
         date: DateTime.local().toISO(),
         isHiragana: kanaType === 'hiragana',
       });
+      customEvent('add-word', {});
       setSavedWords(newSavedWords);
       const jsonValue = JSON.stringify(newSavedWords);
       AsyncStorage.setItem('@saved_words', jsonValue);
@@ -124,9 +126,9 @@ const AppStateProvider = (props) => {
 
   const onShareAllAsFile = useCallback(async () => {
     const text = wordsToText(savedWords);
-    const filename = FileSystem.documentDirectory + 'kanaexport.txt'
+    const filename = FileSystem.documentDirectory + 'kanaexport.txt';
     FileSystem.writeAsStringAsync(filename, text);
-    Sharing.shareAsync(filename)
+    Sharing.shareAsync(filename);
   }, [savedWords]);
 
   const toggleKanaType = useCallback(() => {
