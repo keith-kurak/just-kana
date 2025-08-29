@@ -9,18 +9,20 @@ import { useAppState } from '../stores';
 import { useStyles } from '../config/styles';
 import { useRouter } from 'expo-router';
 
+type TypingKana = { kana: string; romaji: string };
+
 export default function Index() {
   const { savedWords, addWord, settings, setSetting, toggleKanaType, kanaType } = useAppState();
   // a word that is being typed
-  const [typingKana, setTypingKana] = useState([]);
+  const [typingKana, setTypingKana] = useState<TypingKana[]>([]);
   // just peeking at a single letter
-  const [longPressKana, setLongPressKana] = useState([]);
+  const [longPressKana, setLongPressKana] = useState<TypingKana[]>([]);
   const { colors } = useStyles();
 
   const router = useRouter();
 
   const onPressKey = useCallback(
-    (key) => {
+    (key: string) => {
       if (key === '<') {
         if (typingKana.length === 1) {
           setTypingKana([]);
@@ -75,7 +77,7 @@ export default function Index() {
 
   // typing
   const onPressKana = useCallback(
-    (kana) => {
+    (kana: TypingKana) => {
       const newTypingKana = typingKana.slice();
       newTypingKana.push(kana);
       setTypingKana(newTypingKana);
@@ -85,10 +87,10 @@ export default function Index() {
 
   // long press extra context
   const onLongPressKana = useCallback(
-    (kana) => {
+    (kana: TypingKana) => {
       setLongPressKana([kana]);
     },
-    [longPressKana, setLongPressKana]
+    [setLongPressKana]
   );
 
   const onFinishLongPressKana = useCallback(() => {
@@ -102,7 +104,6 @@ export default function Index() {
   return (
     <View style={{ flex: 1, backgroundColor: colors.backgroundColor }}>
       <KanaList
-        kanaType={kanaType}
         onLongPressKana={onLongPressKana}
         onPressKana={onPressKana}
         showConsonants={settings['showVowelsAndConsonants']}

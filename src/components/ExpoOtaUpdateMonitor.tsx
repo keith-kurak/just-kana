@@ -7,9 +7,19 @@ import Ionicons from '@expo/vector-icons/build/Ionicons';
 import { updatesLogStore$ } from '@/stores/updatesLog';
 import { ExpoUpdatesManifest } from 'expo/config';
 import { isAvailableUpdateCritical } from '@/utils/update-utils';
-import { customEvent } from 'vexo-analytics';
-import Constants from 'expo-constants';
+import { isRunningInExpoGo } from 'expo';
 import * as Application from 'expo-application';
+import Constants from 'expo-constants';
+
+let vexoCustomEvent: any = () => {};
+
+if (!isRunningInExpoGo()) {
+  import('vexo-analytics').then(({ customEvent }) => {
+    if (!__DEV__) {
+      vexoCustomEvent = customEvent;
+    }
+  });
+}
 
 // const for testing update visuals
 const OVERRIDE_OVERLAY_VISIBLE = false;
@@ -30,7 +40,7 @@ export default function ExpoOtaUpdateMonitor() {
     });
 
     // log event with update index
-    customEvent('ack-updates-version', {
+    vexoCustomEvent('ack-updates-version', {
       version: `${Application.nativeApplicationVersion}-
             ${Constants.expoConfig?.extra?.updateVersion || '0'}`,
     });
