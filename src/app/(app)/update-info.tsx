@@ -66,8 +66,8 @@ export default function UpdateInfo() {
                         item.updateStatus === 'applied'
                           ? 'green'
                           : item.updateStatus === 'downloaded'
-                          ? 'yellow'
-                          : colors.buttonTextColor,
+                            ? 'yellow'
+                            : colors.buttonTextColor,
                     },
                   ]}>
                   {item.version}-{item.updateVersion}
@@ -81,8 +81,8 @@ export default function UpdateInfo() {
                         item.updateStatus === 'applied'
                           ? 'green'
                           : item.updateStatus === 'downloaded'
-                          ? 'yellow'
-                          : colors.buttonTextColor,
+                            ? 'yellow'
+                            : colors.buttonTextColor,
                     },
                   ]}>
                   {item.updateStatus}
