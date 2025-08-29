@@ -4,7 +4,7 @@ name: Safe Soft Fingerprint Continuous Deploy
 
 on:
   push:
-    branches: ['main']
+    branches: ['notarealbranchyet']
 
 jobs:
   # phase 1: detect existing builds for android and ios
