@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native';
-import { useStyles } from '../config/styles';
-import MinimalNavbarWrapper from '../components/MinimalNavbarWrapper';
+import { useStyles } from '@/config/styles';
+import MinimalNavbarWrapper from '@/components/MinimalNavbarWrapper';
 import { LegendList } from '@legendapp/list';
 import { UpdatesLogItem, updatesLogStore$ } from '@/stores/updatesLog';
 

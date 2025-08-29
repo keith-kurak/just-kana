@@ -1,15 +1,15 @@
 import React, { useState, useCallback } from 'react';
 import { Pressable } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import WordList from '../components/word-list';
-import { useAppState } from '../stores';
-import { trackAnalyticsEvent } from '../stores/analytics';
-import MinimalNavbarWrapper from '../components/MinimalNavbarWrapper';
-import WordDetailModal from '../components/WordDetailModal';
-import SegmentedControl from '../components/SegmentedControl';
-import { useStyles } from '../config/styles';
-import { commonWords } from '../kana-utils';
-import {  useRouter } from 'expo-router';
+import WordList from '@/components/word-list';
+import { useAppState } from '@/stores';
+import { trackAnalyticsEvent } from '@/stores/analytics';
+import MinimalNavbarWrapper from '@/components/MinimalNavbarWrapper';
+import WordDetailModal from '@/components/WordDetailModal';
+import SegmentedControl from '@/components/SegmentedControl';
+import { useStyles } from '@/config/styles';
+import { commonWords } from '@/kana-utils';
+import { useRouter } from 'expo-router';
 
 export default function () {
   const { savedWords, deleteWord } = useAppState();

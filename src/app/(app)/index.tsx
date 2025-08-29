@@ -1,12 +1,12 @@
 import React, { useState, useCallback } from 'react';
 import { View } from 'react-native';
-import KanaList from '../components/kana-list';
-import TopBar from '../components/top-bar';
-import KanaFormsOverlay from '../components/kana-list/KanaFormsOverlay';
-import KanaTypingOverlay from '../components/KanaTypingOverlay';
-import { hiraganaProvider, katakanaProvider } from '../kana-utils';
-import { useAppState } from '../stores';
-import { useStyles } from '../config/styles';
+import KanaList from '@/components/kana-list';
+import TopBar from '@/components/top-bar';
+import KanaFormsOverlay from '@/components/kana-list/KanaFormsOverlay';
+import KanaTypingOverlay from '@/components/KanaTypingOverlay';
+import { hiraganaProvider, katakanaProvider } from '@/kana-utils';
+import { useAppState } from '@/stores';
+import { useStyles } from '@/config/styles';
 import { useRouter } from 'expo-router';
 
 type TypingKana = { kana: string; romaji: string };
