@@ -10,11 +10,21 @@ type Character = {
   consonant: string;
 };
 
-type KanaRow = [Character?];
+type Blank = undefined; // blanks define where we shouldn't show a kana in the table
 
-type KanaTable = [KanaRow?];
+type KanaRow = (Character | Blank)[];
 
-function generateKanaProvider(data) {
+type KanaTable = KanaRow[];
+
+type KanaData = {
+  kanaToRomaji: any;
+  tableRows: string[];
+  alternateRows: any;
+  kanaTable: any;
+  yoonTable: any;
+};
+
+function generateKanaProvider(data: KanaData) {
   const kanaData = data;
 
   function getGojuonRow(rowLetter: string, isMainGojuon = true): KanaRow {
@@ -28,7 +38,7 @@ function generateKanaProvider(data) {
             gojuonRowIndex: isMainGojuon ? index : undefined,
             consonant: rowLetter,
           }
-        : null
+        : undefined
     );
   }
 
@@ -41,19 +51,19 @@ function generateKanaProvider(data) {
     return tableRows;
   }
 
-  function gojuonRowIndexToConsonant(index) {
+  function gojuonRowIndexToConsonant(index: number) {
     return kanaData.tableRows[index];
   }
 
-  function getDiacriticRowsForMonographRow(rowLetter): KanaTable {
+  function getDiacriticRowsForMonographRow(rowLetter: string): KanaTable {
     const alternateRows = kanaData.alternateRows[rowLetter];
     if (alternateRows) {
-      return alternateRows.map((row) => getGojuonRow(row, false));
+      return alternateRows.map((row: string) => getGojuonRow(row, false));
     }
     return [];
   }
 
-  function getDiacriticConsonantsForMonographRow(rowLetter): [string?] {
+  function getDiacriticConsonantsForMonographRow(rowLetter: string): [string?] {
     const alternateRows = kanaData.alternateRows[rowLetter];
     if (alternateRows) {
       return alternateRows;
@@ -66,14 +76,16 @@ function generateKanaProvider(data) {
 
     const alternateRows = getDiacriticRowsForMonographRow(character.consonant);
 
-    const column = mainRow.findIndex((c) => c && (c.kana === character.kana));
+    const column = mainRow.findIndex((c) => c && c.kana === character.kana);
 
-    const monographsPlusDiacritics = [character].concat(alternateRows.map((row) => row[column]));
+    const monographsPlusDiacritics = [character].concat(
+      alternateRows.map((row) => row[column]).filter((r) => !!r)
+    );
 
     const yoonToAdd: Character[] = [];
     monographsPlusDiacritics.forEach((c) => {
       const yoon = kanaData.yoonTable[c.kana] || [];
-      yoon.forEach((y) => {
+      yoon.forEach((y: string) => {
         yoonToAdd.push({ kana: y, romaji: kanaData.kanaToRomaji[y], consonant: c.consonant });
       });
     });
@@ -98,7 +110,7 @@ function generateKanaProvider(data) {
 const katakanaProvider = generateKanaProvider(katakanaData);
 const hiraganaProvider = generateKanaProvider(hiraganaData);
 
-const anyKanaToRomaji = (kana) => {
+const anyKanaToRomaji = (kana: string) => {
   if (kana === ' ') return ' ';
   if (kana === 'ー') return 'ー';
   if (kana === 'ッ') return 'ッ';
@@ -110,15 +122,15 @@ const anyKanaToRomaji = (kana) => {
   return romaji;
 };
 
-commonWords.forEach((group) => {
-  group.data.forEach((entry) => {
+commonWords.forEach((group: any) => {
+  group.data.forEach((entry: any) => {
     // hack to get around it not detecting the yoon characters
     if (entry.commaDelimited) {
       entry.word = entry.word.split(',');
-      entry.word = entry.word.map((l) => ({ kana: l, romaji: anyKanaToRomaji(l) }));
+      entry.word = entry.word.map((l: string) => ({ kana: l, romaji: anyKanaToRomaji(l) }));
     } else {
       entry.word = entry.word.split('');
-      entry.word = entry.word.map((l) => ({ kana: l, romaji: anyKanaToRomaji(l) }));
+      entry.word = entry.word.map((l: string) => ({ kana: l, romaji: anyKanaToRomaji(l) }));
     }
   });
 });

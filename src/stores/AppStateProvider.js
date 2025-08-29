@@ -6,7 +6,7 @@ import * as FileSystem from 'expo-file-system/legacy';
 import * as Sharing from 'expo-sharing';
 import { DateTime } from 'luxon';
 import { useTheme } from '../config/styles';
-import { customEvent } from 'vexo-analytics';
+import { isRunningInExpoGo } from 'expo';
 
 // clear storage for testing
 //AsyncStorage.setItem('@saved_words', JSON.stringify([]));
@@ -14,6 +14,16 @@ import { customEvent } from 'vexo-analytics';
 // set demo data
 //const demoData = `[{"word":[{"kana":"ア","romaji":"a"},{"kana":"メ","romaji":"me"},{"kana":"リ","romaji":"ri"},{"kana":"カ","romaji":"ka"}],"date":"2023-02-12T01:14:22.721-05:00"},{"word":[{"kana":"カ","romaji":"ka"},{"kana":"ナ","romaji":"na"},{"kana":"ダ","romaji":"da"}],"date":"2023-02-12T01:14:50.284-05:00"},{"word":[{"kana":"フ","romaji":"fu"},{"kana":"ラ","romaji":"ra"},{"kana":"ン","romaji":"n"},{"kana":"ス","romaji":"su"}],"date":"2023-02-12T01:21:39.087-05:00"},{"word":[{"kana":"イ","romaji":"i"},{"kana":"ギ","romaji":"gi"},{"kana":"リ","romaji":"ri"},{"kana":"ス","romaji":"su"}],"date":"2023-02-12T01:22:45.659-05:00"}]`;
 //AsyncStorage.setItem('@saved_words', demoData);
+
+let vexoCustomEvent = () => {};
+
+if (!isRunningInExpoGo()) {
+  import('vexo-analytics').then(({ customEvent }) => {
+    if (!__DEV__) {
+      vexoCustomEvent = customEvent;
+    }
+  });
+}
 
 const initialSettings = {
   showVowelsAndConsonants: true,
@@ -61,7 +71,7 @@ const AppStateProvider = (props) => {
         date: DateTime.local().toISO(),
         isHiragana: kanaType === 'hiragana',
       });
-      customEvent('add-word', {});
+      vexoCustomEvent('add-word', {});
       setSavedWords(newSavedWords);
       const jsonValue = JSON.stringify(newSavedWords);
       AsyncStorage.setItem('@saved_words', jsonValue);
