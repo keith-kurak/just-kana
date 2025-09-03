@@ -1,5 +1,9 @@
 name: Build or update preview
 
+on:
+  pull_request:
+    branches: ['*']
+
 jobs:
   fingerprint:
     environment: preview
