@@ -1,4 +1,4 @@
-name: Publish preview update
+name: Publish PR preview update
 
 on:
   pull_request:
