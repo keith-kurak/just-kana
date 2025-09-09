@@ -1,0 +1,32 @@
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        type: string
+        required: true
+        description: 'Name of app'
+      bundleId:
+        type: string
+        required: true
+        description: 'Bundle identifier suffix (e.g. .staging)'
+
+jobs:
+  build_custom:
+    name: Build preview app with custom bundle ID
+    type: build
+    env:
+      WORKFLOW_INPUT_APP_NAME: ${{ github.event.inputs.name }}
+      WORKFLOW_INPUT_BUNDLE_ID_SUFFIX: ${{ github.event.inputs.bundleId }}
+      TEST_ENV_VAR: 'Hello'
+    params:
+      platform: ios
+      profile: preview
+  whats_going_on:
+    name: What's going on?
+    type: doc
+    params:
+      md: 'We are making a custom build with the following inputs:
+
+          - App Name: **${{ github.event.inputs.name }}**
+          
+          - Bundle Identifier Suffix: **${{ github.event.inputs.bundleId }}**'
