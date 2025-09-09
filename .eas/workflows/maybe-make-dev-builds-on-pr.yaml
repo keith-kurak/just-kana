@@ -1,0 +1,46 @@
+name: Create development builds if needed
+
+on:
+  pull_request:
+    branches: ['*']
+
+jobs:
+  fingerprint:
+    environment: development
+    type: fingerprint
+
+  android_get_build:
+    needs: [fingerprint]
+    type: get-build
+    params:
+      fingerprint_hash: ${{ needs.fingerprint.outputs.android_fingerprint_hash }}
+      platform: android
+      profile: development
+  ios_get_build:
+    needs: [fingerprint]
+    type: get-build
+    params:
+      fingerprint_hash: ${{ needs.fingerprint.outputs.ios_fingerprint_hash }}
+      platform: ios
+      profile: development
+  ios_simulator_development_build:
+    needs: [ios_get_build]
+    name: Build iOS simulator
+    type: build
+    params:
+      platform: ios
+      profile: development-simulator
+  android_development_build:
+    name: Build Android
+    needs: [android_get_build] 
+    type: build
+    params:
+      platform: android
+      profile: development
+  ios_device_development_build:
+    name: Build iOS device
+    needs: [ios_get_build]
+    type: build
+    params:
+      platform: ios
+      profile: development
