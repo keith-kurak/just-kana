@@ -12,7 +12,7 @@ jobs:
       - run: npx bun test
 
   publish_preview_update:
-    name: Publish preview update
+    name: Publish PR preview update
     type: update
     params:
       branch: ${{ github.ref_name || 'test' }}
