@@ -11,16 +11,38 @@ on:
         description: 'Bundle identifier suffix (e.g. .staging)'
 
 jobs:
+  fingerprint:
+    environment: preview
+    type: fingerprint
+  ios_get_build:
+    needs: [fingerprint]
+    type: get-build
+    params:
+      fingerprint_hash: ${{ needs.fingerprint.outputs.ios_fingerprint_hash }}
+      platform: ios
+      profile: preview-simulator
+  ios_repack:
+    needs: [ios_get_build]
+    if: ${{ needs.ios_get_build.outputs.build_id }}
+    type: repack
+    env:
+      WORKFLOW_INPUT_APP_NAME: ${{ github.event.inputs.name }}
+      WORKFLOW_INPUT_BUNDLE_ID_SUFFIX: ${{ github.event.inputs.bundleId }}
+      TEST_ENV_VAR: 'Hello'
+    params:
+      build_id: ${{ needs.ios_get_build.outputs.build_id }}
   build_custom:
     name: Build preview app with custom bundle ID
     type: build
+    needs: [ios_get_build]
+    if: ${{ !needs.ios_get_build.outputs.build_id }}
     env:
       WORKFLOW_INPUT_APP_NAME: ${{ github.event.inputs.name }}
       WORKFLOW_INPUT_BUNDLE_ID_SUFFIX: ${{ github.event.inputs.bundleId }}
       TEST_ENV_VAR: 'Hello'
     params:
       platform: ios
-      profile: preview
+      profile: preview-simulator
   whats_going_on:
     name: What's going on?
     type: doc
@@ -28,5 +50,5 @@ jobs:
       md: 'We are making a custom build with the following inputs:
 
           - App Name: **${{ github.event.inputs.name }}**
-          
+
           - Bundle Identifier Suffix: **${{ github.event.inputs.bundleId }}**'

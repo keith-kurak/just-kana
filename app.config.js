@@ -15,13 +15,18 @@ module.exports = ({ config }) => {
     },
   ]);
 
+  let name = config.name;
+  if (process.env.APP_VARIANT) {
+    name = 'JSK-' + process.env.APP_VARIANT;
+  }
+
+  if (process.env.WORKFLOW_INPUT_APP_NAME) {
+    name = process.env.WORKFLOW_INPUT_APP_NAME;
+  }
+
   return {
     ...config,
-    name: process.env.APP_VARIANT
-      ? 'JSK-' + process.env.APP_VARIANT
-      : process.env.WORKFLOW_INPUT_APP_NAME
-        ? process.env.WORKFLOW_INPUT_APP_NAME
-        : config.name,
+    name,
     ios: {
       ...config.ios,
       bundleIdentifier: config.ios.bundleIdentifier + bundleIdSuffix,
