@@ -6,13 +6,14 @@ on:
 
 jobs:
   run_unit_tests:
+    name: Run unit tests
     steps:
       - uses: eas/checkout
       - uses: eas/install_node_modules
       - run: npx bun test
 
   publish_preview_update:
-    name: Publish preview update
+    name: Publish update to ${{ github.ref_name || 'test' }} branch
     type: update
     params:
       branch: ${{ github.ref_name || 'test' }}
