@@ -164,7 +164,7 @@ export default function Settings({ onDeleteAll }: { onDeleteAll: () => void }) {
         onPress={() => {
           setSecretVersionTapCount(secretVersionTapCount + 1);
           if (secretVersionTapCount === 3) {
-            navigate('/update-info');
+            navigate('/(app)/update-info');
             setSecretVersionTapCount(0);
           }
         }}

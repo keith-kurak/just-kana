@@ -11,7 +11,8 @@
     "deploy-web": "gh-pages --nojekyll -d dist",
     "predeploy-web": "expo export -p web",
     "lint": "expo lint",
-    "test": "bun test"
+    "test": "bun test",
+    "test-maestro": "maestro test .maestro/preview-smoke.yaml"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",
