@@ -4,7 +4,7 @@
     "slug": "just-kana",
     "owner": "expo-production",
     "scheme": "justsomekana",
-    "version": "1.6.2",
+    "version": "1.6.3",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
     "icon": "./assets/icon.png",
