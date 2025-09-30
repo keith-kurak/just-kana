@@ -34,7 +34,7 @@ export default function () {
   return (
     <MinimalNavbarWrapper
       rightButton={
-        <Pressable onPress={() => router.navigate('/(app)/settings')}>
+        <Pressable onPress={() => router.navigate('/settings')}>
           <Ionicons color={colors.buttonTextColor} size={30} name="settings-outline" />
         </Pressable>
       }
