@@ -11,7 +11,7 @@ import { useStyles } from '@/config/styles';
 import { commonWords } from '@/kana-utils';
 import { useRouter } from 'expo-router';
 
-export default function () {
+export default function WordsScreen() {
   const { savedWords, deleteWord } = useAppState();
   const [selectedWord, setSelectedWord] = useState(null);
   const [filterIndex, setFilterIndex] = useState(0);

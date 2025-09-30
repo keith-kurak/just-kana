@@ -122,7 +122,7 @@ export default function Index() {
         showVowels={settings['showVowelsAndConsonants']}
         primaryColorIndex={settings['primaryColorIndex']}
         savedWords={savedWords}
-        onPressShowWordList={() => router.navigate('/words')}
+        onPressShowWordList={() => {router.navigate('/words');}}
         onChangeSetting={setSetting}
         typingKana={typingKana}
         peekingKana={[]}
