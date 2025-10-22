@@ -63,7 +63,8 @@
         "ios": {
           "buildReactNativeFromSource": true
         }
-      }]
+      }],
+      "expo-web-browser"
     ]
   }
 }
