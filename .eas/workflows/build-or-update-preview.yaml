@@ -1,10 +1,5 @@
 name: Build or update preview
 
-on:
-  # Trigger on pushes to main branch
-  push:
-    branches: [main]
-
 jobs:
   fingerprint:
     environment: preview
