@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/config/styles';
 import '@/utils/background-updater';
 import { isRunningInExpoGo } from 'expo';
 import { Slot } from 'expo-router';
+import AppMetrics from 'expo-eas-observe';
 
 /*if (!isRunningInExpoGo()) {
   import('vexo-analytics').then(({ vexo }) => {
@@ -36,6 +37,10 @@ export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
 
   useEffect(() => {
+    AppMetrics.markFirstRender();
+  }, []);
+
+  useEffect(() => {
     async function prepare() {
       try {
         // really got nothing to do here, but didn't want to delete everything else, I'm in a hurry
@@ -58,6 +63,7 @@ export default function App() {
       // we hide the splash screen once we know the root view has already
       // performed layout.
       SplashScreen.hideAsync();
+      AppMetrics.markInteractive();
     }
   }, [appIsReady]);
 
