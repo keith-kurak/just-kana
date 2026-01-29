@@ -65,7 +65,6 @@
         }
       }],
       "expo-web-browser",
-      "expo-sharing",
        "expo-eas-observe"
     ]
   }
