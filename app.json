@@ -14,7 +14,6 @@
       "resizeMode": "cover",
       "backgroundColor": "#222222"
     },
-    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.keithkurak.justkana",
@@ -27,8 +26,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#222222"
       },
-      "package": "com.keithkurak.justkana",
-      "edgeToEdgeEnabled": true
+      "package": "com.keithkurak.justkana"
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -59,13 +57,7 @@
       ],
       "expo-background-task",
       "expo-font",
-      ["expo-build-properties", {
-        "ios": {
-          "buildReactNativeFromSource": true
-        }
-      }],
-      "expo-web-browser",
-       "expo-eas-observe"
+      "expo-web-browser"
     ]
   }
 }
