@@ -4,7 +4,7 @@
     "slug": "just-kana",
     "owner": "expo-production",
     "scheme": "justsomekana",
-    "version": "1.6.5",
+    "version": "1.6.6",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
     "icon": "./assets/icon.png",
@@ -14,7 +14,6 @@
       "resizeMode": "cover",
       "backgroundColor": "#222222"
     },
-    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.keithkurak.justkana",
@@ -27,8 +26,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#222222"
       },
-      "package": "com.keithkurak.justkana",
-      "edgeToEdgeEnabled": true
+      "package": "com.keithkurak.justkana"
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -59,12 +57,15 @@
       ],
       "expo-background-task",
       "expo-font",
-      ["expo-build-properties", {
-        "ios": {
-          "buildReactNativeFromSource": true
+      "expo-web-browser",
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "project": "just-some-kana",
+          "organization": "keithexpo"
         }
-      }],
-      "expo-web-browser"
+      ]
     ]
   }
 }

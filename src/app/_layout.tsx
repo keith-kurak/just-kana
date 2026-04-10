@@ -4,26 +4,28 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { View } from 'react-native';
 import { ThemeProvider } from '@/config/styles';
 import '@/utils/background-updater';
-import { isRunningInExpoGo } from 'expo';
 import { Slot } from 'expo-router';
+import AppMetrics from 'expo-eas-observe';
+import * as Sentry from '@sentry/react-native';
 
-/*if (!isRunningInExpoGo()) {
-  import('vexo-analytics').then(({ vexo }) => {
-    if (!__DEV__) {
-      vexo(process.env.EXPO_PUBLIC_VEXO_API_KEY);
-    }
-  });
-}*/
+Sentry.init({
+  dsn: 'https://1ecb149b0d21ed992c4b9851438fc797@o1310900.ingest.us.sentry.io/4505705506013184',
 
-/*Sentry.init({
-  dsn: 'https://1ecb149b0d21ed992c4b9851438fc797@o1310900.ingest.sentry.io/4505705506013184',
-  enableInExpoDevelopment: true,
-  debug: false, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
-});*/
+  // Adds more context data to events (IP address, cookies, user, etc.)
+  // For more information, visit: https://docs.sentry.io/platforms/react-native/data-management/data-collected/
+  sendDefaultPii: true,
 
-// super-cryptic sentry error
+  // Enable Logs
+  enableLogs: true,
 
-//Sentry.Native.captureMessage('test event')
+  // Configure Session Replay
+  replaysSessionSampleRate: 0.1,
+  replaysOnErrorSampleRate: 1,
+  integrations: [Sentry.mobileReplayIntegration(), Sentry.feedbackIntegration()],
+
+  // uncomment the line below to enable Spotlight (https://spotlightjs.com)
+  // spotlight: __DEV__,
+});
 
 SplashScreen.setOptions({
   duration: 500,
@@ -34,6 +36,10 @@ SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
+
+  useEffect(() => {
+    AppMetrics.markFirstRender();
+  }, []);
 
   useEffect(() => {
     async function prepare() {
@@ -58,6 +64,7 @@ export default function App() {
       // we hide the splash screen once we know the root view has already
       // performed layout.
       SplashScreen.hideAsync();
+      AppMetrics.markInteractive();
     }
   }, [appIsReady]);
 

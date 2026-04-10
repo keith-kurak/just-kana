@@ -1,4 +1,9 @@
-name: Build or update preview
+name: Build or update preview on main push
+
+on:
+  # Trigger on pushes to main branch
+  push:
+    branches: [main]
 
 jobs:
   fingerprint:
