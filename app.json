@@ -9,11 +9,6 @@
     "userInterfaceStyle": "dark",
     "icon": "./assets/icon.png",
     "backgroundColor": "#222222",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#222222"
-    },
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.keithkurak.justkana",
@@ -64,6 +59,14 @@
           "url": "https://sentry.io/",
           "project": "just-some-kana",
           "organization": "keithexpo"
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usePrecompiledHeaders": true
+          }
         }
       ]
     ]

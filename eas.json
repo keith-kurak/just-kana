@@ -9,7 +9,13 @@
       "environment": "development",
       "developmentClient": true,
       "distribution": "internal",
-      "channel": "development"
+      "channel": "development",
+      "android": {
+        "resourceClass": "large",
+        "env": {
+          "EAS_USE_CACHE": "1"
+        }
+      }
     },
     "development-simulator": {
       "extends": "development",
@@ -23,7 +29,11 @@
       "channel": "preview",
       "environment": "preview",
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "resourceClass": "large",
+        "env": {
+          "EAS_USE_CACHE": "1"
+        }
       }
     },
     "preview-simulator": {
@@ -38,6 +48,13 @@
       "autoIncrement": true,
       "env": {
         "EXPO_PUBLIC_CODE_NAME": "kitsune"
+      },
+      "android": {
+        "resourceClass": "large",
+        "env": {
+          "EAS_RESTORE_CACHE": "0",
+          "EAS_SAVE_CACHE": "1"
+        }
       }
     },
     "production-simulator": {

@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import { ThemeProvider } from '@/config/styles';
 import '@/utils/background-updater';
 import { Slot } from 'expo-router';
-import AppMetrics from 'expo-eas-observe';
+import { ObserveRoot, useObserve } from 'expo-observe';
 import * as Sentry from '@sentry/react-native';
 
 Sentry.init({
@@ -34,12 +34,9 @@ SplashScreen.setOptions({
 
 SplashScreen.preventAutoHideAsync();
 
-export default function App() {
+function App() {
   const [appIsReady, setAppIsReady] = useState(false);
-
-  useEffect(() => {
-    AppMetrics.markFirstRender();
-  }, []);
+  const { markInteractive } = useObserve();
 
   useEffect(() => {
     async function prepare() {
@@ -64,9 +61,9 @@ export default function App() {
       // we hide the splash screen once we know the root view has already
       // performed layout.
       SplashScreen.hideAsync();
-      AppMetrics.markInteractive();
+      markInteractive();
     }
-  }, [appIsReady]);
+  }, [appIsReady, markInteractive]);
 
   if (!appIsReady) {
     return null;
@@ -82,3 +79,5 @@ export default function App() {
     </View>
   );
 }
+
+export default ObserveRoot.wrap(App);

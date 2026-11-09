@@ -21,3 +21,6 @@ android/**
 temp.json
 
 .env.local
+
+# EAS Simulator session (contains token)
+.env.eas-simulator

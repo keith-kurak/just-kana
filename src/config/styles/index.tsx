@@ -8,7 +8,6 @@ const lightGray = '#A9A9A9';
 const darkerGray = '#666666';
 const notQuiteBlack = '#222222';
 const overlayColor = '#7F7F7FBB';
-let overlayColorSolid = '#9B9B9B';
 
 const darkColors = ['#076FF8', '#F89007', '#9007f8', '#f8076f', '#05ae65'];
 
@@ -75,6 +74,7 @@ const useStyles = function () {
   };
 
   let backgroundColor = notQuiteWhite;
+  const overlayColorSolid = colorScheme === 'dark' ? '#7F7F7FFF' : '#9B9B9B';
 
   if (colorScheme === 'dark') {
     backgroundColor = notQuiteBlack;
@@ -84,7 +84,6 @@ const useStyles = function () {
     mediumDark.color = white;
     mediumLight.color = lightGray;
     verySmallDark.color = white;
-    overlayColorSolid = '#7F7F7FFF';
   }
 
   useEffect(() => {
