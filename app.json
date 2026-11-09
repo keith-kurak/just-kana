@@ -68,7 +68,8 @@
             "usePrecompiledHeaders": true
           }
         }
-      ]
+      ],
+      "@rnrepo/expo-config-plugin"
     ]
   }
 }
