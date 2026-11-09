@@ -3,69 +3,16 @@
     "name": "Some Kana",
     "slug": "just-kana",
     "owner": "keithco",
-    "scheme": "justsomekana",
-    "version": "1.6.6",
-    "orientation": "portrait",
-    "userInterfaceStyle": "dark",
-    "icon": "./assets/icon.png",
-    "backgroundColor": "#222222",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#222222"
-    },
     "ios": {
-      "supportsTablet": false,
-      "bundleIdentifier": "com.keithkurak.justkana",
-      "config": {
-        "usesNonExemptEncryption": false
-      }
+      "bundleIdentifier": "com.keithkurak.justkana"
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#222222"
-      },
       "package": "com.keithkurak.justkana"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png",
-      "output": "static"
     },
     "extra": {
       "eas": {
         "projectId": "59c326b5-451a-4cbe-b421-64957e0882d8"
-      },
-      "criticalIndex": 0,
-      "updateVersion": 0
-    },
-    "updates": {
-      "url": "https://u.expo.dev/59c326b5-451a-4cbe-b421-64957e0882d8"
-    },
-    "runtimeVersion": {
-      "policy": "appVersion"
-    },
-    "plugins": [
-      "expo-router",
-      [
-        "expo-splash-screen",
-        {
-          "backgroundColor": "#222222",
-          "image": "./assets/adaptive-icon.png",
-          "imageWidth": 200
-        }
-      ],
-      "expo-background-task",
-      "expo-font",
-      "expo-web-browser",
-      [
-        "@sentry/react-native/expo",
-        {
-          "url": "https://sentry.io/",
-          "project": "just-some-kana",
-          "organization": "keithexpo"
-        }
-      ]
-    ]
+      }
+    }
   }
 }

@@ -1,23 +1,28 @@
 node_modules/
-.expo/
-dist/
-npm-debug.*
+.DS_Store
 *.jks
 *.p8
 *.p12
 *.key
 *.mobileprovision
-*.orig.*
-web-build/
-
-# macOS
-.DS_Store
-ios/**
-android/**
 .env.local
+
+# Android
+android/.gradle/
+android/.kotlin/
+android/build/
+android/app/build/
+android/local.properties
+android/.idea/
+*.iml
+
+# iOS
+ios/Pods/
+ios/build/
+ios/*.xcworkspace
+ios/**/xcuserdata/
+ios/DerivedData/
 
 # Maestro
 .maestro/screenshots/
-temp.json
-
-.env.local
+.env.eas-simulator

@@ -1,4 +1,4 @@
-appId: com.keithkurak.justkanapreview
+appId: com.keithkurak.justkana
 ---
 - launchApp
 - takeScreenshot: '.maestro/screenshots/preview-smoke-1'

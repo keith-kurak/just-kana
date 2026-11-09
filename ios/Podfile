@@ -1,0 +1,6 @@
+# The app has no CocoaPods dependencies. EAS Build runs `pod install` for
+# every iOS project, so this empty target is here only for that step.
+platform :ios, '17.0'
+
+target 'JustKana' do
+end

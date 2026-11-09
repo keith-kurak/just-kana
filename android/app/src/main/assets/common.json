@@ -1,0 +1,168 @@
+[
+  {
+    "title": "Words of the Day",
+    "data": [
+      {
+        "word": "ねこ",
+        "translation": "cat",
+        "highlight": false
+      } 
+    ]
+  },
+  {
+    "title": "Phrases",
+    "data": [
+      {
+        "word": "はい",
+        "translation": "yes"
+      },
+      {
+        "word": "いいえ",
+        "translation": "no"
+      },
+      {
+        "word": "ありがとうございます",
+        "translation": "Thank you"
+      },
+      {
+        "word": "すみません",
+        "translation": "Excuse me"
+      }
+    ]
+  },
+  {
+    "title": "Greetings",
+    "data": [
+      {
+        "word": "おはようございます",
+        "translation": "Good morning"
+      },
+      {
+        "word": "はじめまして",
+        "translation": "Nice to meet you"
+      },
+      {
+        "word": "こんにちは",
+        "translation": "Hello"
+      },
+      {
+        "word": "こんばんは",
+        "translation": "Good evening"
+      },
+      {
+        "word": "おやすみなさい",
+        "translation": "Good night"
+      }
+    ]
+  },
+  {
+    "title": "Ordering food",
+    "data": [
+      {
+        "word": "ひとつ",
+        "translation": "one ____"
+      },
+      {
+        "word": "ふたつ",
+        "translation": "two ____"
+      },
+      {
+        "word": "みっつ",
+        "translation": "three ____"
+      }
+    ]
+  },
+  {
+    "title": "Slang/ expressions",
+    "data": [
+      {
+        "word": "すごい",
+        "translation": "Great/ awesome/ wow!"
+      },
+      {
+        "word": "かわいい",
+        "translation": "Cute"
+      },
+      {
+        "word": "うまい",
+        "translation": "Tasty"
+      },
+      {
+        "word": "またねー",
+        "translation": "Later!"
+      },
+      {
+        "word": "だ,い,じょ,う,ぶ",
+        "commaDelimited": true,
+        "translation": "It's okay / I'm good"
+      }
+    ]
+  },
+  {
+    "title": "Getting around",
+    "data": [
+      {
+        "word": "えいご が はなせ ます か",
+        "translation": "Do you speak English?"
+      },
+      {
+        "word": "トイレ は どこ です か",
+        "translation": "Where is the toilet?"
+      },
+      {
+        "word": "いくら です か",
+        "translation": "How much is it?"
+      },
+      {
+        "word": "どこ です か",
+        "translation": "Where is it?"
+      }
+    ]
+  },
+  {
+    "title": "These sound familiar",
+    "data": [
+      {
+        "word": "テレビ",
+        "translation": "television"
+      },
+      {
+        "word": "スーパー",
+        "translation": "supermarket"
+      },
+      {
+        "word": "バー",
+        "translation": "bar"
+      },
+      {
+        "word": "コーヒー",
+        "translation": "coffee"
+      }
+    ]
+  },
+  {
+    "title": "Numbers",
+    "data": [
+      {
+        "word": "いち",
+        "translation": "one"
+      },
+      {
+        "word": "に",
+        "translation": "two"
+      },
+      {
+        "word": "さん",
+        "translation": "three"
+      },
+      {
+        "word": "よん",
+        "translation": "four"
+      },
+      {
+        "word": "ご",
+        "translation": "five"
+      }
+    ]
+  }
+]
