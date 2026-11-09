@@ -2,7 +2,7 @@
   "expo": {
     "name": "Some Kana",
     "slug": "just-kana",
-    "owner": "expo-production",
+    "owner": "keithco",
     "scheme": "justsomekana",
     "version": "1.6.6",
     "orientation": "portrait",
