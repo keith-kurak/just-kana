@@ -33,7 +33,11 @@
         "resourceClass": "large",
         "env": {
           "EAS_USE_CACHE": "1"
-        }
+        },
+        "gradleCommand": ":app:assembleRelease --profile",
+        "buildArtifactPaths": [
+          "android/build/reports/**"
+        ]
       }
     },
     "preview-simulator": {
